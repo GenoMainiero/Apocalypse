@@ -1,0 +1,10 @@
+The theme for our adventure game is post-apocolypse. 
+
+The game opens by telling the user that they are in a large city following a series of natural disasters.
+They are believed to be the last living person in the city.
+There is reason to believe that people in other cities may have survived.
+
+The user starts out in the middle of the destroyed city.
+A nearby radio tower *may* be used to communicate to survivors in other cities (if there are any).
+The objective of the game will be to find the radio tower, although the user will also need to find food and water.
+Some challenges include avoiding chemical spills from a power plant and electrified flood water. 

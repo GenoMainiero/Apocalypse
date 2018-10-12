@@ -1,3 +1,4 @@
 ﻿  Main.cpp
+f:\software design\game\game\main.cpp(36): warning C4129: ' ': unrecognized character escape sequence
   Game.vcxproj -> F:\Software Design\Game\Debug\Game.exe
   Game.vcxproj -> F:\Software Design\Game\Debug\Game.pdb (Partial PDB)

@@ -34,18 +34,24 @@ void MoveHelp()
 	cout << "\nFor more help at any time, type help.";
 }
 
-void Inventory()
+void Use()
 {
-	Output("Here is your inventory:\n");
-	//possible array of items? or maybe if else for has_item boolean
 	string item;
 	Output("Which item would you like to use?\n");
 	cin >> item;
 	//if in the right room, can use, otherwise, error message
 }
 
+void Inventory()
+{
+	Output("Here is your inventory:\n");
+	//possible array of items? or maybe if else for has_item boolean
+	//Will update when Eyad posts objects for inventory
+}
+
 void Next()
 {
+	//These strings can be outputted after descriptions of areas are read
 	string Next[4] = { "What would you like to do next?", "What's next?", "Where to now?", "Arrived. Now what would you like to do?" };
 	int randNum = rand() % (4);
 	int x = 0;
@@ -101,7 +107,7 @@ int main()
 	Help();
 	Sleep(2000);
 	Output("\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n");
-	//intro can be commented out to make debugging easier (line 84-103) with /* text */
+	//intro can be commented out to make debugging easier (line 90-109) with /* text */
 	do {
 		string input; //string for input
 		char inputchar; //character for switch statement
@@ -189,7 +195,7 @@ int main()
 			break;
 		case 'i': Inventory();
 			break;
-		case 'j': Output("Using...");
+		case 'j': Inventory(); Use();
 			break;
 		case 's': MoveHelp();
 			break;

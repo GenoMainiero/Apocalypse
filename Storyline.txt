@@ -20,3 +20,32 @@ Flashlight
 Electrical tape
 Well with water
 Food in old grocery store
+
+_______________________________________________________________________
+Update 10/12:
+
+(Based on Jose's map available in discord)
+
+The user is standing in the street facing the radio tower. 
+
+If the user tries to go to the opposite direction they are facing, they are blocked by flood water that may be electrified.
+
+If the user tries to go to the right, they would be moving too close to a chemical spill at a nearby power plant
+(This is different from what is on the map bc we are trying to have only 2 locations for now).
+
+If the user goes to the left, they will see several burning buildings, but one building that is in good condition.
+This is the safe house. Once inside:
+-Right: The user finds a flashlight that may be useful later
+-Left: The user finds bread. They may either eat or store this bread in their backpack.
+-Forward: The user finds a large bottle of water. They may either drink or store the bottle.
+
+If the user walks straight, they will arrive at the radio tower building. It is too dark to see anything.
+-If they did not pick up the flashlight before they should be prompted to go back and look for it.
+-If they already picked up the flashlight they should turn it on.
+-Once inside:
+   -Right: The user finds electrical gloves. They will need to put on the glove.
+   -Left: The user finds electrical tape.
+   -Forward: The user sees the radio. Clearly one of the wires is damaged which they will need to repair with tape.
+             The machine is clearly damaged so the user will use electrical insulating gloves.
+             If the user has gloves and tape then they are able to fix the radio and contact people from another city.
+

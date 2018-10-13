@@ -3,15 +3,18 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <Windows.h>
 using namespace std;
 
 void Help()
 {
-	cout << "For Cardinal Directions, use the following commands: North, East, South, West";
-	cout << "\nFor Actions, use the following commands: Search, Open, Close, Take, Drop, Eat, Drink, Use";
-	cout << "\nYou may only enter one command at a time.";
-	cout << "\nTo exit the game at any time, type exit.";
+	cout << "                                   Help Menu                      " << endl;
+	cout << "                                  -----------                     ";
+	cout << "\nTo move throughout the city, use the following commands: North, East, South, West";
+	cout << "\nTo interact with items, use the following commands: Search, Open, Close, Take, Drop, Eat, Drink, Use";
 	cout << "\nTo show your inventory, type inventory. ";
+	cout << "\nYou may only enter one command per line.";
+	cout << "\nTo exit the game at any time, type exit or quit.";
 }
 
 void Inventory()
@@ -24,23 +27,46 @@ void Inventory()
 	//if in the right room, can use, otherwise, error message
 }
 
+void Next()
+{
+	string Next[4] = { "What would you like to do next?", "What's next?", "Where to now?", "Arrived. Now what would you like to do?" };
+	int randNum = rand() % (4);
+	cout << Next[randNum];
+}
+
+void Error()
+{
+	string Error[4] = { "You cannot do that here.", "That is an unrecognized command.", "I did not understand what you said.", "Invalid command." };
+	int randNum2 = rand() % (4);
+	cout << Error[randNum2];
+}
+
 
 int main()
 {
 	bool GameOver = 0;
-	
 	//Game Introduction + Storyline
-		cout << " Welcome to Apocalypse! \n\n " << endl;
-		cout << " You are currently the only living person in a large city following a series of natural disasters. " << endl;
-		cout << " There is also reason to believe that others may have also survided in other cities. " << endl;
-		cout << " A nearby radio tower can be used to communicate with other survivors. " << endl;
-		cout << " Your mission is to find this radio tower and communicate with the other survivors." << endl;
-		cout << " However, you will also need to find food and water. " << endl;
-		cout << " \nThe following is a list of commands to help you navigate through the game:\n " << endl;
-		Help();
-
-		cout << "\n\n As you begin by standing in the middle of the road, what is your first move?\n " << endl;
-
+	//I made the intro look a little cooler. Hope you like it! - Geno
+	/*string welcome1 = "Welcome to Apocalypse!";
+	string welcome = "\n\nYou are the only living person in a large city following a series of natural disasters.\nThere is reason to believe that others may have survived in neighboring cities.\nA nearby radio tower can be used to communicate with these survivors.\nYour mission is to find this radio tower and get rescued.\n\nThe following is a list of commands to help you navigate through the game:\n";
+	int x = 0;
+	while (welcome1[x] != '\0')
+	{
+		cout << welcome1[x];
+		Sleep(50 + rand() % 50);
+		x++;
+	}
+	x = 0; Sleep(1000);
+	while (welcome[x] != '\0')
+	{
+		cout << welcome[x];
+		Sleep(25 + rand() % 50);
+		x++;
+	}
+	Sleep(750);
+	Help();
+	Sleep(2000);*/ //intro commented out to make debugging easier
+	cout << "\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n " << endl;
 	do {
 		string input; //string for input
 		char inputchar; //character for switch statement
@@ -70,7 +96,26 @@ int main()
 		else if (input == "use")
 			inputchar = 'j';
 		else if (input == "exit" || input == "quit")
-			inputchar = 'u';
+		{
+			exitloop:
+			cout << "Are you sure you want to exit? (Y/N)";
+			string exit;
+			getline(cin, exit);
+			if (exit == "y" || exit == "Y")
+			{inputchar = 't';}
+			else if (exit == "n" || exit == "N")
+			{
+				cout << "Resuming game...\n";
+				inputchar = 'u';
+				Sleep(1000);
+			}
+			else
+			{
+				Error();
+				cout << endl;
+				goto exitloop;
+			}
+		}
 		else if (input == "north")
 			inputchar = 'w';
 		else if (input == "east")
@@ -100,38 +145,30 @@ int main()
 		case 'f': cout << "Dropping...";
 			break;
 		case 'g': cout << "Eating...";
+			//food int = food int - 1; cout << "you have "<< food int<< "meals left";
 			break;
 		case 'h': cout << "Drinking...";
+			//water int = water int - 1; cout << "you have "<< water int<< "bottles of water left";
 			break;
 		case 'i': Inventory();
 			break;
 		case 'j': cout << "Using...";
 			break;
-		case 'u': cout << "Are you sure you want to exit? (Y/N)";
-			char quit;
-			cin >> quit;
-				if (quit == 'y' || quit == 'Y')
-				{
-					GameOver = 1; 
-					break;
-				}
-				else
-				{
-					cout << "Resuming game..."; //needs to be fixed...
-					break;
-				}
-				break;	
-		case 'v': cout << "Invalid Command! ";
+		case 't': cout << "Thanks for playing!";
+			GameOver = 1; break;
+		case 'u': cout << "Game resumed."; 
 			break;
-		case 'w': cout << "Moving North... What would you like to do next?"; //this is a filler statement until the map and parser are combined
+		case 'v': Error();
 			break;
-		case 'x': cout << "Moving East... What now? ";
+		case 'w': cout << "Moving North... "; Next();
 			break;
-		case 'y': cout << "Moving South... Where to now?";
+		case 'x': cout << "Moving East... "; Next();
 			break;
-		case 'z': cout << "Moving West... arrived, now what would you like to do?";
+		case 'y': cout << "Moving South... "; Next();
+			break;
+		case 'z': cout << "Moving West... "; Next();
 			break;	
-		default: cout << "Not a valid command.."; 
+		default: Error();
 			break;
 		}
 		cout << endl;

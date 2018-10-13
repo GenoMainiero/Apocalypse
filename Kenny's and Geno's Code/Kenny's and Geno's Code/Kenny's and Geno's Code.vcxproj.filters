@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Kenny%27s and Geno%27s Code\Kenny%27s and Geno%27s Code\Kenny%27s and Geno%27s Code\Main.cpp">
+    <ClCompile Include="..\..\Kenny%27s and Geno%27s Code\Kenny%27s and Geno%27s Code\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

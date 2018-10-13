@@ -1,0 +1,8 @@
+﻿  Main.cpp
+<<<<<<< HEAD
+  Game.vcxproj -> C:\Users\Geno Mainiero\Desktop\Scrumbuts\ScrumButs\Game\Debug\Game.exe
+=======
+f:\software design\game\game\main.cpp(36): warning C4129: ' ': unrecognized character escape sequence
+  Game.vcxproj -> F:\Software Design\Game\Debug\Game.exe
+  Game.vcxproj -> F:\Software Design\Game\Debug\Game.pdb (Partial PDB)
+>>>>>>> e6c054eec27601207de96233222ef826a9d4174f

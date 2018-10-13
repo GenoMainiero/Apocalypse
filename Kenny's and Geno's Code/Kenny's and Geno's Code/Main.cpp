@@ -6,6 +6,17 @@
 #include <Windows.h>
 using namespace std;
 
+void Output(string s)
+{
+	int x = 0; int randNum = rand() % (4);
+	while (s[x] != '\0')
+	{
+		cout << s[x];
+		Sleep(50 + rand() % 50);
+		x++;
+	}
+}
+
 void Help()
 {
 	cout << "                                   Help Menu                      " << endl;
@@ -17,12 +28,18 @@ void Help()
 	cout << "\nTo exit the game at any time, type exit or quit.";
 }
 
+void MoveHelp()
+{
+	cout << "To move throughout the city, use the following commands: North, East, South, West";
+	cout << "\nFor more help at any time, type help.";
+}
+
 void Inventory()
 {
-	cout << "Here is your inventory:\n";
+	Output("Here is your inventory:\n");
 	//possible array of items? or maybe if else for has_item boolean
 	string item;
-	cout << "Which item would you like to use?\n";
+	Output("Which item would you like to use?\n");
 	cin >> item;
 	//if in the right room, can use, otherwise, error message
 }
@@ -31,14 +48,31 @@ void Next()
 {
 	string Next[4] = { "What would you like to do next?", "What's next?", "Where to now?", "Arrived. Now what would you like to do?" };
 	int randNum = rand() % (4);
-	cout << Next[randNum];
+	int x = 0;
+	string NextA = Next[randNum];
+	Output(NextA);
+}
+
+void Description(int b)
+{
+	string Description[1] = { "This is a sample description." };
+	Output(Description[b]);
+}
+
+void Movement(int a)
+{
+	string Movement[4] = { "A chemical spill blocks your path. There is no way around it.", "Ahead is a flood that may be electrified. You'd better not risk it.",
+		"It's too dark to see anything...", "There are several burning buildings in this direction, but one looks mostly undamaged." };
+	Output(Movement[a]);
 }
 
 void Error()
 {
 	string Error[4] = { "You cannot do that here.", "That is an unrecognized command.", "I did not understand what you said.", "Invalid command." };
 	int randNum2 = rand() % (4);
-	cout << Error[randNum2];
+	int x = 0;
+	string ErrorA = Error[randNum2];
+	Output(ErrorA);
 }
 
 
@@ -47,8 +81,8 @@ int main()
 	bool GameOver = 0;
 	//Game Introduction + Storyline
 	//I made the intro look a little cooler. Hope you like it! - Geno
-	/*string welcome1 = "Welcome to Apocalypse!";
-	string welcome = "\n\nYou are the only living person in a large city following a series of natural disasters.\nThere is reason to believe that others may have survived in neighboring cities.\nA nearby radio tower can be used to communicate with these survivors.\nYour mission is to find this radio tower and get rescued.\n\nThe following is a list of commands to help you navigate through the game:\n";
+	string welcome1 = "Welcome to Apocalypse!";
+	string welcome = "\n\nYou are the only living person in a large city following a series of natural disasters.\nThere is reason to believe that others have survived in neighboring cities.\nA nearby radio tower can be used to communicate with these survivors.\nYour mission is to find this radio tower and get rescued.\n\nThe following is a list of commands to help you navigate through the game:\n";
 	int x = 0;
 	while (welcome1[x] != '\0')
 	{
@@ -65,8 +99,9 @@ int main()
 	}
 	Sleep(750);
 	Help();
-	Sleep(2000);*/ //intro commented out to make debugging easier
-	cout << "\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n " << endl;
+	Sleep(2000);
+	Output("\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n");
+	//intro can be commented out to make debugging easier (line 84-103) with /* text */
 	do {
 		string input; //string for input
 		char inputchar; //character for switch statement
@@ -95,6 +130,8 @@ int main()
 			inputchar = 'i';
 		else if (input == "use")
 			inputchar = 'j';
+		else if (input == "move")
+			inputchar = 's';
 		else if (input == "exit" || input == "quit")
 		{
 			exitloop:
@@ -105,7 +142,7 @@ int main()
 			{inputchar = 't';}
 			else if (exit == "n" || exit == "N")
 			{
-				cout << "Resuming game...\n";
+				Output("Resuming game...\n");
 				inputchar = 'u';
 				Sleep(1000);
 			}
@@ -134,39 +171,44 @@ int main()
 		{
 		case 'a': Help();
 			break;
-		case 'b': cout << "Searching..."; //filler statement until inventory is added
+		case 'b': Output("Searching..."); //filler statement until inventory is added
 			break;
-		case 'c': cout << "Opening...";
+		case 'c': Output("Opening...");
 			break;
-		case 'd': cout << "Closing...";
+		case 'd': Output("Closing...");
 			break;
-		case 'e': cout << "Taking...";
+		case 'e': Output("Taking...");
 			break;
-		case 'f': cout << "Dropping...";
+		case 'f': Output("Dropping...");
 			break;
-		case 'g': cout << "Eating...";
+		case 'g': Output("Eating...");
 			//food int = food int - 1; cout << "you have "<< food int<< "meals left";
 			break;
-		case 'h': cout << "Drinking...";
+		case 'h': Output("Drinking...");
 			//water int = water int - 1; cout << "you have "<< water int<< "bottles of water left";
 			break;
 		case 'i': Inventory();
 			break;
-		case 'j': cout << "Using...";
+		case 'j': Output("Using...");
 			break;
-		case 't': cout << "Thanks for playing!";
+		case 's': MoveHelp();
+			break;
+		case 't': Output("Thanks for playing!");
 			GameOver = 1; break;
-		case 'u': cout << "Game resumed."; 
+		case 'u': Output("Game resumed."); 
 			break;
 		case 'v': Error();
 			break;
-		case 'w': cout << "Moving North... "; Next();
+		//For cases w-z, function Movement() can be used to output prewritten errors/information
+		//A similar function Description() will output the description of the room the first time it is visited. 
+		case 'w': Output("Moving North... "); /*if canmove, output description then output next-> */ Next();
+			//else, run function Movement(); takes integer depending on error ie. 1 = chemical spill, 2 = electrified water, etc...
 			break;
-		case 'x': cout << "Moving East... "; Next();
+		case 'x': Output("Moving East... "); Next();
 			break;
-		case 'y': cout << "Moving South... "; Next();
+		case 'y': Output("Moving South... "); Next();
 			break;
-		case 'z': cout << "Moving West... "; Next();
+		case 'z': Output("Moving West... "); Next();
 			break;	
 		default: Error();
 			break;

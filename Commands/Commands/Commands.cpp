@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <stdlib.h>
 using namespace std;
 
 void Help()

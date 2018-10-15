@@ -1,7 +1,7 @@
+#pragma once
 #include <iostream>
 #include <string>
 using namespace std;
-
 
 
 class Room
@@ -34,46 +34,8 @@ public:
 	{
 		cout << description << endl;
 	}
-		
+
 };
-
-void Connect(Room*, string, Room*);
-Room* Movement(Room*, string);
-
-// Sample main to show the usage of the class.
-int main()
-{
-	string input;
-	Room* testRoom = new Room();
-	Room* theRoom = new Room("This is the first area. Wassup?");
-	Room* leftRoom = new Room("Room to the west of start; a dead end");
-	Room* rightRoom = new Room("Room to the east of start; a dead end");
-	Room* upRoom = new Room("Room to the north of start; a dead end");
-	Room* downRoom = new Room("Room to the south of start; a dead end");
-
-	Connect(theRoom, "east", rightRoom);
-	Connect(theRoom, "west", leftRoom);
-	Connect(theRoom, "north", upRoom);
-	Connect(theRoom, "south", downRoom);
-
-	while (1 > 0)
-	{
-		theRoom->Describe();
-		cout << "What direction do you wish to travel?" << endl;
-		cin >> input;
-		testRoom = Movement(theRoom, input);
-		if (theRoom==testRoom || testRoom == nullptr)
-		{
-			cout << "Cannot go that way" << endl;
-		}
-		else
-			theRoom = testRoom;
-		if (input == "exit")
-			break;
-	}
-	
-	system("pause");
-}
 
 // Used to move between rooms
 Room* Movement(Room* locale, string direction)

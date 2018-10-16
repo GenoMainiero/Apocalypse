@@ -40,32 +40,94 @@ public:
 
 };
 
+void Blocked(int stoppage)
+{
+	cout << "Blocked by ";
+	switch (stoppage)
+	{
+	case 1:
+		cout << "flood.\n";
+		break;
+	case 2:
+		cout << "Chemical Spill.\n";
+		break;
+	case 3:
+		cout << "a large fire!\n";
+		break;
+	case 4:
+		cout << "rubble.\n";
+		break;
+	case 5:
+		cout << "a dead end.";
+		break;
+	default:
+		cout << "something.\n";
+		break;
+	}
+}
+
 // Used to move between rooms
 Room* Movement(Room* locale, string direction)
 {
-	if (direction[0] == 'n')
+	if (direction == "north")
 	{
-		locale = locale->North;
+		if (locale->North == nullptr)
+		{
+			Blocked(4);
+			return locale;
+		}
+		else
+		{
+			locale = locale->North;
+			return locale;
+		}
 	}
-	else if (direction[0] == 'e')
+	else if (direction == "east")
 	{
-		locale = locale->East;
+		if (locale->East == nullptr)
+		{
+			Blocked(2);
+			return locale;
+		}
+		else
+		{
+			locale = locale->East;
+			return locale;
+		}
 	}
-	else if (direction[0] == 's')
+	else if (direction == "south")
 	{
-		locale = locale->South;
+		if (locale->South == nullptr)
+		{
+			Blocked(1);
+			return locale;
+		}
+		else
+		{
+			locale = locale->South;
+			return locale;
+		}
 	}
-	else if (direction[0] == 'w')
+	else if (direction == "west")
 	{
-		locale = locale->West;
+		if (locale->West == nullptr)
+		{
+			Blocked(3);
+			return locale;
+		}
+		else
+		{
+			locale = locale->West;
+			return locale;
+		}
 	}
 	else
 	{
-		locale = locale;
+		cout << "Command not recognized...\n";
+		return locale;
 	}
-	return locale;
-
 }
+
 
 // Used to connect the rooms together
 void Connect(Room* room1, string direction, Room* room2)

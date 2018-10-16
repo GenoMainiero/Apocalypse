@@ -150,10 +150,19 @@ int main()
 {
 	bool GameOver = 0;
 
+	Room* street = new Room("You find yourself standing in the middle of a desolate road. In front of you is a radio tower.");
+	Room* safeHouse = new Room("A safe house full of useful things.");
+	Room* radioTower = new Room("A radio tower room full of equipment.");
+
+	Connect(street, "west", safeHouse);
+	Connect(street, "north", radioTower);
+
+	Room* current = street;
+
 	inv.setFood(3); inv.setWater(1);
 	//Game Introduction + Storyline
 	//I made the intro look a little cooler. Hope you like it! - Geno
-	
+	/*
 	string welcome1 = "Welcome to Apocalypse!";
 	string welcome = "\n\nYou are the only living person in a large city following a series of natural disasters.\nThere is reason to believe that others have survived in neighboring cities.\nA nearby radio tower can be used to communicate with these survivors.\nYour mission is to find this radio tower and get rescued.\n\nThe following is a list of commands to help you navigate through the game:\n";
 	int x = 0;
@@ -173,8 +182,8 @@ int main()
 	Sleep(750);
 	Help();
 	Sleep(2000);
-
-	Output("\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n"); 
+	*/
+	Output("\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n");
 	//intro can be commented out to make debugging easier (line 90-109) with /* text */
 	do {
 		string input; //string for input
@@ -279,14 +288,26 @@ int main()
 			break;
 			//For cases w-z, function Movement() can be used to output prewritten errors/information
 			//A similar function Description() will output the description of the room the first time it is visited. 
-		case 'w': Output("Moving North... "); /*if canmove, output description then output next-> */ Next();
+		case 'w': Output("Moving North... "); /*if canmove, output description then output next-> Next();*/ 
 			//else, run function Movement(); takes integer depending on error ie. 1 = chemical spill, 2 = electrified water, etc...
+			current = Movement(current, "north");
+			current->Describe();
+			Next();
 			break;
-		case 'x': Output("Moving East... "); Next();
+		case 'x': Output("Moving East... "); 
+			current = Movement(current, "east");
+			current->Describe();
+			Next();
 			break;
-		case 'y': Output("Moving South... "); Next();
+		case 'y': Output("Moving South... ");
+			current = Movement(current, "south");
+			current->Describe();
+			Next();
 			break;
-		case 'z': Output("Moving West... "); Next();
+		case 'z': Output("Moving West... ");
+			current = Movement(current, "west");
+			current->Describe();
+			Next();
 			break;
 		default: Error();
 			break;

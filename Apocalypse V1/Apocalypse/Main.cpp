@@ -1,4 +1,5 @@
 #include "Locations.h"
+#include "Inventory.h"
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -6,35 +7,7 @@
 
 using namespace std;
 
-class Inventory {
 
-private:
-	int food;
-	int water;
-	bool crowBar;
-	bool electricalInsulatingGloves;
-	bool flashLight;
-	bool electricalTape;
-
-public:
-	int getFood() { return food; }
-	void setFood(int foodVal) { food = foodVal; }
-
-	int getWater() { return water; }
-	void setWater(int waterVal) { water = waterVal; }
-
-	bool getCrowBar() { return crowBar; }
-	void setCrowBar(int crowBarVal) { crowBar = crowBarVal; }
-
-	bool getElectricalInsulatingGloves() { return electricalInsulatingGloves; }
-	void setElectricalInsulatingGloves(int electricalInsulatingGlovesVal) { electricalInsulatingGloves = electricalInsulatingGlovesVal; }
-
-	bool getFlashLight() { return flashLight; }
-	void setFlashLight(int flashLightVal) { flashLight = flashLightVal; }
-
-	bool getElectricalTape() { return electricalTape; }
-	void setElectricalTape(int electricalTapeVal) { electricalTape = electricalTapeVal; }
-};
 Inventory inv;
 void Output(string s)
 {
@@ -200,6 +173,7 @@ int main()
 	Sleep(750);
 	Help();
 	Sleep(2000);
+
 	Output("\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n"); 
 	//intro can be commented out to make debugging easier (line 90-109) with /* text */
 	do {

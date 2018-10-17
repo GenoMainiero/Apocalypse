@@ -11,6 +11,7 @@ private:
 	bool electricalInsulatingGloves;
 	bool flashLight;
 	bool electricalTape;
+	bool radio;
 
 public:
 	int getFood() { return food; }
@@ -30,6 +31,9 @@ public:
 
 	bool getElectricalTape() { return electricalTape; }
 	void setElectricalTape(int electricalTapeVal) { electricalTape = electricalTapeVal; }
+
+	bool getRadio() {return radio;}
+	void setRadio(int radioVal) {radio = radioVal;}
 };
 
 #endif

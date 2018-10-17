@@ -1,11 +1,21 @@
 #pragma once
 #ifndef LOCATIONS_H
 #define LOCATIONS_H
-
+#include <Windows.h>
 #include <iostream>
 #include <string>
 using namespace std;
 
+void Outputt(string s)
+{
+	int x = 0; int randNum = rand() % (4);
+	while (s[x] != '\0')
+	{
+		cout << s[x];
+		Sleep(50 + rand() % 50);
+		x++;
+	}
+}
 
 class Room
 {
@@ -42,26 +52,26 @@ public:
 
 void Blocked(int stoppage)
 {
-	cout << "\nBlocked by ";
+	Outputt("\nBlocked by ");
 	switch (stoppage)
 	{
 	case 1:
-		cout << "flood.\n";
+		Outputt("flood.\n");
 		break;
 	case 2:
-		cout << "Chemical Spill.\n";
+		Outputt("Chemical Spill.\n");
 		break;
 	case 3:
-		cout << "a large fire!\n";
+		Outputt("a large fire!\n");
 		break;
 	case 4:
-		cout << "rubble.\n";
+		Outputt("rubble.\n");
 		break;
 	case 5:
-		cout << "a dead end.";
+		Outputt("a dead end.");
 		break;
 	default:
-		cout << "something.\n";
+		Outputt("something.\n");
 		break;
 	}
 }

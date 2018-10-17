@@ -25,7 +25,7 @@ void Output(string s)
 
 void Take(string t)
 {
-	if (t == "food")
+	if (t == "food" || t == "bread")
 	{
 		inv.setFood(inv.getFood() + 1);
 		breadt = 1;
@@ -69,7 +69,8 @@ void Help()
 	cout << "                                  -----------                     ";
 	cout << "\nTo move throughout the city, use the following commands: North, East, South, West";
 	cout << "\nTo interact with items, use the following commands: Search, Take, Eat, Drink, Use";
-	cout << "\nTo show your inventory, type inventory. ";
+	cout << "\nTo show your inventory, type inventory or inv.";
+	cout << "\nTo show your current location, type location.";
 	cout << "\nYou may only enter one command per line.";
 	cout << "\nTo exit the game at any time, type exit or quit.";
 }
@@ -183,7 +184,7 @@ int main()
 	Sleep(2000);
 
 	Output("\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n");
-	
+
 	//intro can be commented out to make debugging easier (line 90-109) with /* text */
 	do {
 		string input; //string for input
@@ -209,10 +210,12 @@ int main()
 			inputchar = 'g';
 		else if (input == "drink")
 			inputchar = 'h';
-		else if (input == "inventory")
+		else if (input == "inventory" || input == "inv")
 			inputchar = 'i';
 		else if (input == "use")
 			inputchar = 'j';
+		else if (input == "location")
+			inputchar = 'k';
 		else if (input == "move")
 			inputchar = 's';
 		else if (input == "exit" || input == "quit")
@@ -435,6 +438,8 @@ int main()
 					Error();
 			}
 			getline(cin, input);
+			break;
+		case 'k': current->Describe();
 			break;
 		case 's': MoveHelp();
 			break;

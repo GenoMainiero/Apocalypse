@@ -528,8 +528,7 @@ int main()
 			break;
 			//For cases w-z, function Movement() can be used to output prewritten errors/information
 			//A similar function Description() will output the description of the room the first time it is visited. 
-		case 'w': Output("Moving North... "); /*if canmove, output description then output next-> Next();*/
-			//else, run function Movement(); takes integer depending on error ie. 1 = chemical spill, 2 = electrified water, etc...
+		case 'w': Output("Moving North... ");
 			current = Movement(current, "north");
 			current->Describe();
 			Next();
@@ -556,5 +555,4 @@ int main()
 	} while (!GameOver);
 	system("pause");
 	return 0;
-	// Still waiting for more action commands so we can add more code...
 }

@@ -114,7 +114,7 @@ void InventoryCheck()
 void Next()
 {
 	//These strings can be outputted after descriptions of areas are read
-	string Next[4] = { "What would you like to do next?", "What's next?", "Where to now?", "Arrived. Now what would you like to do?" };
+	string Next[4] = { "What would you like to do next?", "What's next?", "Where to now?", "Now what would you like to do?" };
 	int randNum = rand() % (4);
 	int x = 0;
 	string NextA = Next[randNum];
@@ -150,9 +150,9 @@ int main()
 {
 	bool GameOver = 0;
 
-	Room* street = new Room("You find yourself standing in the middle of a desolate road. In front of you is a radio tower.");
-	Room* safeHouse = new Room("A safe house full of useful things.");
-	Room* radioTower = new Room("A radio tower room full of equipment.");
+	Room* street = new Room("\nYou find yourself standing in the middle of a desolate road. In front of you is a radio tower.");
+	Room* safeHouse = new Room("\nA safe house full of useful things.");
+	Room* radioTower = new Room("\nA radio tower room full of equipment.");
 
 	Connect(street, "west", safeHouse);
 	Connect(street, "north", radioTower);
@@ -182,8 +182,9 @@ int main()
 	Sleep(750);
 	Help();
 	Sleep(2000);
-	*/
+	
 	Output("\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n");
+	*/
 	//intro can be commented out to make debugging easier (line 90-109) with /* text */
 	do {
 		string input; //string for input

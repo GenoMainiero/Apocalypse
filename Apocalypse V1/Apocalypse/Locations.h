@@ -42,7 +42,7 @@ public:
 
 void Blocked(int stoppage)
 {
-	cout << "Blocked by ";
+	cout << "\nBlocked by ";
 	switch (stoppage)
 	{
 	case 1:

@@ -1,27 +1,19 @@
-The theme for our adventure game is post-apocolypse. 
+Update 10/22
+Changes to the blocks:
 
-The game opens by telling the user that they are in a large city following a series of natural disasters.
-They are believed to be the last living person in the city.
-There is reason to believe that people in other cities may have survived.
+Chemical Spill: You see that chemicals are spilling from a nearby power plant. You suspect that attempting to walk
+through the chemicals may be unsafe, maybe even fatal. Do you wish to continue
+-if Yes: You continue on safely for several minutes without a problem. You are beginning to think that the chemicals
+are not harmful when suddenly you feel a burning sensation in your legs. The burning quickly spreads thoughout
+your body and you become immobilized. You will not be making it out of the apocolypse. 
 
-The user starts out in the middle of the destroyed city.
-A nearby radio tower *may* be used to communicate to survivors in other cities (if there are any).
-The objective of the game will be to find the radio tower, although the user will also need to find food and water.
-Some challenges include avoiding chemical spills from a power plant and electrified flood water. 
+Burning Buildings: You see several burning buildings. You suspect that maybe one of the buildings has supplies. However, 
+climing into a burning building will likely prove fatal. Would you like to continue?
+-if Yes: You run into the burning building, attempting to stay close to the ground to avoid inhaling smoke. Shortly
+after you enter the building the celing collapses onto you. You did not survive the apocolypse. 
 
-Objects that the user has to begin:
-backpack
-liter of water
 
-Objects that the user may find:
-Crowbar
-Electrical insulating gloves
-Flashlight
-Electrical tape
-Well with water
-Food in old grocery store
-
-_______________________________________________________________________
+___________________________________________________________________________________________________________
 Update 10/12:
 
 (Based on Jose's map available in discord)
@@ -48,4 +40,28 @@ If the user walks straight, they will arrive at the radio tower building. It is 
    -Forward: The user sees the radio. Clearly one of the wires is damaged which they will need to repair with tape.
              The machine is clearly damaged so the user will use electrical insulating gloves.
              If the user has gloves and tape then they are able to fix the radio and contact people from another city.
+_______________________________________________________________________________________________________________________
+The theme for our adventure game is post-apocolypse. 
 
+The game opens by telling the user that they are in a large city following a series of natural disasters.
+They are believed to be the last living person in the city.
+There is reason to believe that people in other cities may have survived.
+
+The user starts out in the middle of the destroyed city.
+A nearby radio tower *may* be used to communicate to survivors in other cities (if there are any).
+The objective of the game will be to find the radio tower, although the user will also need to find food and water.
+Some challenges include avoiding chemical spills from a power plant and electrified flood water. 
+
+Objects that the user has to begin:
+backpack
+liter of water
+
+Objects that the user may find:
+Crowbar
+Electrical insulating gloves
+Flashlight
+Electrical tape
+Well with water
+Food in old grocery store
+
+_______________________________________________________________________

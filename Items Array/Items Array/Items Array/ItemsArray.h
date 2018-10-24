@@ -14,7 +14,7 @@ private:
 	int count;
 
 public:
-	void setName( string na)
+	void setName(string na)
 	{
 		na = name;
 	}
@@ -28,7 +28,7 @@ public:
 		po = possess;
 	}
 
-	bool getPosses()
+	bool getPossess()
 	{
 		return possess;
 	}

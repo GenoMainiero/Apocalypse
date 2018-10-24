@@ -14,13 +14,10 @@ private:
 	int count;
 
 public:
-	void setName( string na)
+	Item(){}
+	Item(string na, int co)
 	{
-		na = name;
-	}
-	string getName()
-	{
-		return name;
+		name = na; count = co;
 	}
 
 	void setPossess(bool po)
@@ -28,20 +25,12 @@ public:
 		po = possess;
 	}
 
-	bool getPosses()
+	bool getPossess()
 	{
 		return possess;
 	}
 
-	void setCount(int co)
-	{
-		co = count;
-	}
-
-	int getCount()
-	{
-		return count;
-	}
+	
 
 };
 

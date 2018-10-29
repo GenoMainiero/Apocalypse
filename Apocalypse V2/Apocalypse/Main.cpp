@@ -25,7 +25,7 @@ void Output(string s)
 		while (s[x] != '\0')
 		{
 			cout << s[x];
-			Sleep(50 + rand() % 50);
+			Sleep(25 + rand() % 25);
 			x++;
 		}
 	}
@@ -196,14 +196,14 @@ int main()
 		while (welcome1[x] != '\0')
 		{
 			cout << welcome1[x];
-			Sleep(50 + rand() % 50);
+			Sleep(25 + rand() % 25);
 			x++;
 		}
 		x = 0; Sleep(1000);
 		while (welcome[x] != '\0')
 		{
 			cout << welcome[x];
-			Sleep(25 + rand() % 50);
+			Sleep(25 + rand() % 25);
 			x++;
 		}
 		Sleep(750);

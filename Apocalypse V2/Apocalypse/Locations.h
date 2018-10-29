@@ -12,7 +12,7 @@ void Outputt(string s)
 	while (s[x] != '\0')
 	{
 		cout << s[x];
-		Sleep(50 + rand() % 50);
+		Sleep(25 + rand() % 25);
 		x++;
 	}
 }

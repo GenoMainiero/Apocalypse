@@ -1,3 +1,25 @@
+Update 10/26
+Additional blocks:
+-Rubble
+-Sinkhole
+
+Additional Rooms:
+-Street: allows access to other useful rooms
+-Clothing Store- If the user gets here before the radioactive wave, they find a jacket that they are able to take (which will lessen
+the effects of the wave). If after the wave, they can still take the jacket but get a sarcastic message about how the jacket would've been nice before.
+-Hospital- If the user is not at the safehouse by the time of the radioactive wave, but was wearing the jacket, they will survive the wave
+ but need to get to the hospital to find an antibiotic for their burns. 
+-Supermarket- The user can find water and bread.
+-Radio Place- The user finds a battery to fix the radio in the radio tower (note: update radio to need battery).
+-Hardware Store- The electrical gloves and tape should now be located here instead of in the radio tower. The user will
+need to find the gloves and tape beofre activating the radio.  
+-Airport- The user needs to get here to be picked up by the airplane and rescued 
+ 
+*General storyline update: After fixing the radio, the user will now communicate with survivors who tell the user
+to get to an airplane pick up. The user will need to find the airport and will eventually be picked up. 
+
+
+______________________________________________________________________________________________________________
 Update 10/22
 Changes to the blocks:
 
@@ -5,12 +27,12 @@ Chemical Spill: You see that chemicals are spilling from a nearby power plant. Y
 through the chemicals may be unsafe, maybe even fatal. Do you wish to continue
 -if Yes: You continue on safely for several minutes without a problem. You are beginning to think that the chemicals
 are not harmful when suddenly you feel a burning sensation in your legs. The burning quickly spreads thoughout
-your body and you become immobilized. You will not be making it out of the apocolypse. 
+your body and you become immobilized. You will not be making it out of the apocalypse. 
 
 Burning Buildings: You see several burning buildings. You suspect that maybe one of the buildings has supplies. However, 
 climing into a burning building will likely prove fatal. Would you like to continue?
 -if Yes: You run into the burning building, attempting to stay close to the ground to avoid inhaling smoke. Shortly
-after you enter the building the celing collapses onto you. You did not survive the apocolypse. 
+after you enter the building the celing collapses onto you. You did not survive the apocalypse. 
 
 
 ___________________________________________________________________________________________________________

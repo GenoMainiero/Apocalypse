@@ -1,0 +1,69 @@
+High Level Description:
+
+Sprint 1:
+
+Starting location:
+You start in the middle of a wide street that is filled with debris of once tall building now brought down to to its mere foundation. 
+The street is filled with cracks and rocks all over the place. 
+Pieces of the road is missing and you can see cars on fire or already burned. 
+Telephone wires and electrical wires are all over the place and have lost current due to the power plant exploding. 
+The sky is an orange red color due to the radiation around the world and the clouds where dark grey even black from the ashes of the building that have been burned by fire.
+
+Radio Station:
+You arrive to a radio station that still looks intact after the destruction of the town.
+It tall red signal tower seems to be in full operation and has wires connecting to the single floor building of the radio station. 
+The windows of the station are broken and the door appears to be off its hinge but still standing. 
+The adjacent roads are blocked and cannot be passed due to buildings that have fallen and parts of the road missing.
+
+Safe House:
+You arrive to the only building that withstood the apocalypse. 
+This building has been marked as the safe house for the town and people who survived take refuge in its high structure. 
+The building consists of 28 floors and its design reminds you of those 1980’s hotels. 
+You can see ruble of the other buildings creating a perfect path to the doors that are lined with a gold trim. 
+The building truly resembles a beacon of hope.
+
+Bank:
+You see a colossal building that has greek lettering on it. 
+This is the central bank of the city. 
+It has the designs of Ancient Greek buildings with its huge pillars supporting its triangular roof the seems to have caved in a bit. 
+One of the pillars is actually broken in half and part of the ruling is missing. 
+Yet it still has a way to appear magnificent in a time of despair. 
+The entrance is a humungous bi-folding door that has gold trim around to show that it is full of wealth. 
+The steps has rouble around it and there is a lonely tree stump that is seen next to it. 
+Maybe there is something useful in the security boxes.
+
+
+Sprint 2:
+New Locations Descriptions:
+
+Hospital:
+The city hospital once a place for health and hope is now a wasteland. 
+This hospital had about 7 buildings all interconnected by bridges but now there is but just one building up and seems to be stable. 
+The place is deserted and gives a haunting vibe. 
+Inside there is medicine that was left from before the apocalypse which can help in restoring my health in bad times.
+
+Supermarket:
+Walmart was only one of the few stores our city had. 
+It was basically the go to place to find all your necessities for life. 
+Now the place looks like its being demolished to put a Super Walmart but it will never come. 
+You see a parking lot filled with cars without owners just sitting waiting to be turned on.
+As you walk in you see thousands of items all over the floor some useful and some destroyed.  
+
+Hardware Store:
+The other store that was located in our city was the hardware store Home Depot. As you walk into the store you would see a many different materials that can be helpful in trying to get help. You see wood and cleaning products all over the store and shopping carts all over.
+
+Radio Store:
+Out of all the towns in our state we happen to be the town with a RadioShack. This ancient relic of a store still seems to be standing even though it went through an apocalypse. Inside the store we see old pieces of technology that can be useful for our survival.  As you look around you find batteries that still have charge in them.
+
+/*Clothing Store:
+Walking into the H & M you see some clothing that can help protect you from harsh weather.
+*/
+
+Airport:
+You finally arrive to the airport where the airplanes have all departed before the apocalypse hit. The sight of the airport being deserted gives you a sense of depression and makes you feel alone. However there is hope that with all the materials you have you are able to create a means of contacted for a ride to salvation.
+
+/*Military Base:
+
+*/
+
+

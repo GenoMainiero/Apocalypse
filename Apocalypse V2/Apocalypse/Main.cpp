@@ -6,7 +6,7 @@
 #include <Windows.h>
 
 using namespace std;
-bool DebugMode = 0;
+bool DebugMode = 1;
 bool tapet = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
 bool glovesu = 0, radfix = 0, lightu = 0;
@@ -160,8 +160,23 @@ void ErrorInv()
 
 int main()
 {
+<<<<<<< HEAD
 	bool gameover = 0;
 	bool restart = 0; //to "die" or restart, use "restart = 1". all variables will reset and intro will play.
+=======
+	bool GameOver = 0;
+	if (firsttime == 0)
+	{
+		inv.setFood(3); inv.setWater(1);
+		firsttime = 1;
+	}
+	string item;
+	Room* testRoom = new Room();
+	Room* street = new Room("\nYou find yourself standing in the middle of a desolate road. In front of you is a radio tower.");
+	Room* safeHouse = new Room("\nA safe house full of useful things.");
+	Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
+	Room* chemSpillOne = new Room("\nA very dangerous chemical spill that will most likely kill you.\n", 1);
+>>>>>>> 823a0c663adeffc987f8d11dcd80dd3f6735e657
 
 	while (!gameover)
 	{
@@ -179,7 +194,23 @@ int main()
 		Room* safeHouse = new Room("\nA safe house full of useful things.");
 		Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
 
+<<<<<<< HEAD
 		if (lightu == 1)
+=======
+	Connect(street, "west", safeHouse);
+	Connect(street, "north", radioTower);
+	Connect(radioTower, "north", chemSpillOne);
+
+	Room* current = street;
+	//Game Introduction + Storyline
+	//I made the intro look a little cooler. Hope you like it! - Geno
+	string welcome1 = "Welcome to Apocalypse!";
+	string welcome = "\n\nYou are the only living person in a large city following a series of natural disasters.\nThere is reason to believe that others have survived in neighboring cities.\nA nearby radio tower can be used to communicate with these survivors.\nYour mission is to find this radio tower and get rescued.\n\nThe following is a list of commands to help you navigate through the game:\n";
+	if (DebugMode == 0)
+	{
+		int x = 0;
+		while (welcome1[x] != '\0')
+>>>>>>> 823a0c663adeffc987f8d11dcd80dd3f6735e657
 		{
 			Room* radioTower = new Room("\nA radio tower illuminated by your flashlight.");
 		}
@@ -485,7 +516,11 @@ int main()
 				{
 					if (radiot == 1)
 					{
+<<<<<<< HEAD
 						if (radfix == 1)
+=======
+						if (current = radioTower)
+>>>>>>> 823a0c663adeffc987f8d11dcd80dd3f6735e657
 						{
 							if (current = radioTower)
 							{
@@ -567,7 +602,58 @@ int main()
 			default: Error();
 				break;
 			}
+<<<<<<< HEAD
 			cout << endl;
+=======
+			else
+			{
+				ErrorInv();
+			}
+			getline(cin, input);
+			break;
+		case 'k': current->Describe();
+			break;
+		case 's': MoveHelp();
+			break;
+		case 't': Output("Thanks for playing!");
+			GameOver = 1; break;
+		case 'u': Output("Game resumed.");
+			break;
+		case 'v': Error();
+			break;
+			//For cases w-z, function Movement() can be used to output prewritten errors/information
+			//A similar function Description() will output the description of the room the first time it is visited. 
+		case 'w': Output("Moving North... ");
+			testRoom = Movement(current, "north");
+			if (testRoom->getStatus() == 1)
+			{
+				GameOver = 1;
+			}
+			else
+			{
+				current = testRoom;
+				current->Describe();
+				Next();
+			}
+			break;
+		case 'x': Output("Moving East... ");
+			current = Movement(current, "east");
+			current->Describe();
+			Next();
+			break;
+		case 'y': Output("Moving South... ");
+			current = Movement(current, "south");
+			current->Describe();
+			Next();
+			break;
+		case 'z': Output("Moving West... ");
+			current = Movement(current, "west");
+			current->Describe();
+			Next();
+			break;
+		default: Error();
+			break;
+>>>>>>> 823a0c663adeffc987f8d11dcd80dd3f6735e657
 		}
 	}
 	system("pause");

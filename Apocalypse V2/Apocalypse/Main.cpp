@@ -10,6 +10,8 @@ bool DebugMode = 1;
 bool tapet = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
 bool glovesu = 0, radfix = 0, lightu = 0;
+int hunger = 15;
+int thirst = 10;
 Inventory inv;
 
 string LowerCase(string l)
@@ -173,6 +175,8 @@ int main()
 		{
 			inv.setFood(3); inv.setWater(1);
 			firsttime = 1;
+			hunger = 15;
+			thirst = 10;
 		}
 		string item;
 
@@ -225,6 +229,45 @@ int main()
 			string input; //string for input
 			string yn;
 			char inputchar; //character for switch statement
+
+			switch (hunger)
+			{
+			case 3:
+				Output("You are fairly hungry.\n");
+				break;
+			case 2:
+				Output("You are  dangerously hungry. Eat soon.\n");
+				break;
+			case 1:
+				Output("You are very weak. If you do not eat, you will perish.\n");
+				break;
+			case 0:
+				Output("You have died from hunger...\n");
+				goto RestartLabel;
+				break;
+			default:
+				break;
+			}
+
+			switch (thirst)
+			{
+			case 3:
+				Output("You are very thirsty.\n");
+				break;
+			case 2:
+				Output("You are dangerously thirsty. Drink some water.\n");
+				break;
+			case 1:
+				Output("The world is spinning. If you do not drink some water, you will soon perish.\n");
+				break;
+			case 0:
+				Output("You have died from thirst...\n");
+				goto RestartLabel;
+				break;
+			default:
+				break;
+			}
+
 			getline(cin, input);
 
 			if (lightu == 1)
@@ -233,7 +276,7 @@ int main()
 			}
 			else
 			{
-				Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
+				radioTower->setDescription("\nYou enter a radio tower, but it is too dark to see anything.");
 			}
 			//converts input to lowercase this if statement assigns a char for use in the switch statement
 			input = LowerCase(input);
@@ -431,6 +474,7 @@ int main()
 				if (inv.getFood() > 0)
 				{
 					inv.setFood(inv.getFood() - 1);
+					hunger += 2;
 					Output("Eating..."); Sleep(500); Output("\nYummy!");
 				}
 				else
@@ -440,6 +484,7 @@ int main()
 				if (inv.getWater() > 0)
 				{
 					inv.setWater(inv.getWater() - 1);
+					thirst += 2;
 					Output("Drinking..."); Sleep(500); Output("\nThat was refeshing!");
 				}
 				else
@@ -558,7 +603,14 @@ int main()
 					break;
 				}
 				else
+				{
+					if (current != testRoom)
+					{
+						hunger--;
+						thirst--;
+					}
 					current = testRoom;
+				}
 				current->Describe();
 				Next();
 				break;
@@ -571,7 +623,15 @@ int main()
 					break;
 				}
 				else
+				{
+					if (current != testRoom)
+					{
+						hunger--;
+						thirst--;
+					}
 					current = testRoom;
+				}
+					
 				current->Describe();
 				Next();
 				break;
@@ -584,7 +644,14 @@ int main()
 					break;
 				}
 				else
+				{
+					if (current != testRoom)
+					{
+						hunger--;
+						thirst--;
+					}
 					current = testRoom;
+				}
 				current->Describe();
 				Next();
 				break;
@@ -597,7 +664,14 @@ int main()
 					break;
 				}
 				else
+				{
+					if (current != testRoom)
+					{
+						hunger--;
+						thirst--;
+					}
 					current = testRoom;
+				}
 				current->Describe();
 				Next();
 				break;

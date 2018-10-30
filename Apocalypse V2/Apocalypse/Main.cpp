@@ -12,6 +12,7 @@ bool firsttime = 0;
 bool glovesu = 0, radfix = 0, lightu = 0;
 int hunger = 15;
 int thirst = 10;
+int outputDelay = 25;
 Inventory inv;
 
 string LowerCase(string l)
@@ -28,7 +29,7 @@ void Output(string s)
 		while (s[x] != '\0')
 		{
 			cout << s[x];
-			Sleep(25 + rand() % 25);
+			Sleep(outputDelay + rand() % 25);
 			x++;
 		}
 	}
@@ -234,12 +235,15 @@ int main()
 			{
 			case 3:
 				Output("You are fairly hungry.\n");
+				outputDelay += 10;
 				break;
 			case 2:
 				Output("You are  dangerously hungry. Eat soon.\n");
+				outputDelay += 10;
 				break;
 			case 1:
 				Output("You are very weak. If you do not eat, you will perish.\n");
+				outputDelay += 10;
 				break;
 			case 0:
 				Output("You have died from hunger...\n");
@@ -253,12 +257,15 @@ int main()
 			{
 			case 3:
 				Output("You are very thirsty.\n");
+				outputDelay += 10;
 				break;
 			case 2:
 				Output("You are dangerously thirsty. Drink some water.\n");
+				outputDelay += 10;
 				break;
 			case 1:
 				Output("The world is spinning. If you do not drink some water, you will soon perish.\n");
+				outputDelay += 10;
 				break;
 			case 0:
 				Output("You have died from thirst...\n");

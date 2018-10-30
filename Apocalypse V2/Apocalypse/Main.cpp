@@ -175,12 +175,16 @@ int main()
 			firsttime = 1;
 		}
 		string item;
+
+		Room* testRoom = new Room();
+		Room* chemFire = new Room("Chemical Fire! Ouch!!!", 1);
 		Room* street = new Room("\nYou find yourself standing in the middle of a desolate road. In front of you is a radio tower.");
 		Room* safeHouse = new Room("\nA safe house full of useful things.");
 		Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
 
 		Connect(street, "west", safeHouse);
 		Connect(street, "north", radioTower);
+		Connect(street, "east", chemFire);
 
 		Room* current = street;
 		//Game Introduction + Storyline
@@ -527,7 +531,9 @@ int main()
 				break;
 			case 's': MoveHelp();
 				break;
-			case 't': Output("Thanks for playing!\nWould you like to play again?(Y/N)\n");
+			case 't': 
+				RestartLabel:
+				Output("Thanks for playing!\nWould you like to play again?(Y/N)\n");
 				getline(cin, yn);
 				if (yn == LowerCase("Y") || yn == LowerCase("Yes"))
 				{
@@ -544,22 +550,54 @@ int main()
 				//For cases w-z, function Movement() can be used to output prewritten errors/information
 				//A similar function Description() will output the description of the room the first time it is visited. 
 			case 'w': Output("Moving North... ");
-				current = Movement(current, "north");
+				testRoom = Movement(current, "north");
+				if (testRoom->getStatus() == 1)
+				{
+					Output("Sorry, you have died in the wasteland.\n");
+					goto RestartLabel;
+					break;
+				}
+				else
+					current = testRoom;
 				current->Describe();
 				Next();
 				break;
 			case 'x': Output("Moving East... ");
-				current = Movement(current, "east");
+				testRoom = Movement(current, "east");
+				if (testRoom->getStatus() == 1)
+				{
+					Output("You should not have done that. You perished alone in the city\n");
+					goto RestartLabel;
+					break;
+				}
+				else
+					current = testRoom;
 				current->Describe();
 				Next();
 				break;
 			case 'y': Output("Moving South... ");
-				current = Movement(current, "south");
+				testRoom = Movement(current, "south");
+				if (testRoom->getStatus() == 1)
+				{
+					Output("That move was your last... You have died!\n");
+					goto RestartLabel;
+					break;
+				}
+				else
+					current = testRoom;
 				current->Describe();
 				Next();
 				break;
 			case 'z': Output("Moving West... ");
-				current = Movement(current, "west");
+				testRoom = Movement(current, "west");
+				if (testRoom->getStatus() == 1)
+				{
+					Output("The light at the end of the tunnel beckons... You have died.\n");
+					goto RestartLabel;
+					break;
+				}
+				else
+					current = testRoom;
 				current->Describe();
 				Next();
 				break;

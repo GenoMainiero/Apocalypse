@@ -20,6 +20,8 @@ void Outputt(string s)
 class Room
 {
 	string description;
+	//used to tell if a room is actually a blockage
+	bool isBlockage;
 public:
 	Room* North;
 	Room* South;
@@ -37,6 +39,12 @@ public:
 		North = South = East = West = nullptr;
 		description = d;
 	}
+	Room(string d, bool b)
+	{
+		North = South = East = West = nullptr;
+		isBlockage = b;
+		description = d;
+	}
 	// Can be used to change the description of a room
 	void setDescription(string d)
 	{
@@ -48,10 +56,17 @@ public:
 		Outputt(description);
 		Outputt("\n");
 	}
-
+	void setStatus(bool b)
+	{
+		isBlockage = b;
+	}
+	bool getStatus()
+	{
+		return isBlockage;
+	}
 };
 
-void Blocked(int stoppage)
+void EdgeOfMap(int stoppage)
 {
 	Outputt("\nBlocked by ");
 	switch (stoppage)
@@ -68,9 +83,6 @@ void Blocked(int stoppage)
 	case 4:
 		Outputt("rubble.\n");
 		break;
-	case 5:
-		Outputt("a dead end.");
-		break;
 	default:
 		Outputt("something.\n");
 		break;
@@ -78,27 +90,55 @@ void Blocked(int stoppage)
 	Outputt("Returning to previous location..."); Sleep(500);
 }
 
+/*
+bool Blocked(Room* hinder)
+{
+	string answer = "";
+	hinder->Describe();
+	cout << "Are you sure you would like to go this way? This could prove to be fatal.\n(Y/N):\t";
+	while (1 > 0)
+	{
+		cin >> answer;
+		if (answer == "y" || "Y")
+		{
+			// Insert Death Function
+			return 1;
+		}
+		else if (answer == "n" || "N")
+		{
+			cout << "You turn back to your previous location.\n";
+			return 0;
+		}
+
+	}
+}
+*/
 // Used to move between rooms
 Room* Movement(Room* locale, string direction)
 {
+	bool status = 0;
 	if (direction == "north")
 	{
 		if (locale->North == nullptr)
 		{
-			Blocked(4);
-			return locale;
+			EdgeOfMap(4);
+		}
+		else if (locale->North->getStatus() == 1)
+		{
+			// Filler statement until death function is clarified
+			cout << "Cannot go that way.\n";
 		}
 		else
 		{
 			locale = locale->North;
-			return locale;
 		}
+		return locale;
 	}
 	else if (direction == "east")
 	{
 		if (locale->East == nullptr)
 		{
-			Blocked(2);
+			EdgeOfMap(2);
 			return locale;
 		}
 		else
@@ -111,7 +151,7 @@ Room* Movement(Room* locale, string direction)
 	{
 		if (locale->South == nullptr)
 		{
-			Blocked(1);
+			EdgeOfMap(1);
 			return locale;
 		}
 		else
@@ -124,7 +164,7 @@ Room* Movement(Room* locale, string direction)
 	{
 		if (locale->West == nullptr)
 		{
-			Blocked(3);
+			EdgeOfMap(3);
 			return locale;
 		}
 		else

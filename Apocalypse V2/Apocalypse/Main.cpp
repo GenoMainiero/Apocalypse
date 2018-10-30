@@ -6,7 +6,7 @@
 #include <Windows.h>
 
 using namespace std;
-bool DebugMode = 0;
+bool DebugMode = 1;
 bool tapet = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
 bool glovesu = 0, radfix = 0, lightu = 0;
@@ -169,9 +169,11 @@ int main()
 		firsttime = 1;
 	}
 	string item;
+	Room* testRoom = new Room();
 	Room* street = new Room("\nYou find yourself standing in the middle of a desolate road. In front of you is a radio tower.");
 	Room* safeHouse = new Room("\nA safe house full of useful things.");
 	Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
+	Room* chemSpillOne = new Room("\nA very dangerous chemical spill that will most likely kill you.\n", 1);
 
 	if (lightu == 1)
 	{
@@ -184,6 +186,7 @@ int main()
 
 	Connect(street, "west", safeHouse);
 	Connect(street, "north", radioTower);
+	Connect(radioTower, "north", chemSpillOne);
 
 	Room* current = street;
 	//Game Introduction + Storyline
@@ -479,7 +482,7 @@ int main()
 				{
 					if (radfix == 1)
 					{
-						if (current = radioTower) 
+						if (current = radioTower)
 						{
 							Output("The radio crackles, then becomes silent. You speak into the radio, and hear a response.\nYou have successfully made contact with other survivors, and they are coming to rescue you. Congratulations!\nYou have survived...\n\nApocalypse.");
 							radiot = 0; GameOver = 1;
@@ -529,9 +532,17 @@ int main()
 			//For cases w-z, function Movement() can be used to output prewritten errors/information
 			//A similar function Description() will output the description of the room the first time it is visited. 
 		case 'w': Output("Moving North... ");
-			current = Movement(current, "north");
-			current->Describe();
-			Next();
+			testRoom = Movement(current, "north");
+			if (testRoom->getStatus() == 1)
+			{
+				GameOver = 1;
+			}
+			else
+			{
+				current = testRoom;
+				current->Describe();
+				Next();
+			}
 			break;
 		case 'x': Output("Moving East... ");
 			current = Movement(current, "east");

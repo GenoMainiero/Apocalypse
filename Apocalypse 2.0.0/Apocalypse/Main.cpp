@@ -196,8 +196,8 @@ int main()
 
 		Room* testRoom = new Room();
 		Room* chemFire = new Room("Chemical Fire! Ouch!!!", 1);
-		Room* street = new Room("\nYou find yourself standing in the middle of a desolate road. In front of you is a radio tower.");
-		Room* eastStreet = new Room("\nYou are in the middle of a street. You see a safe house in the distance to the left");
+		Room* street = new Room("\nYou find yourself standing in the middle of a desolate road");
+		Room* eastStreet = new Room("\nYou are in the middle of a street. You see a safe house in the distance to the west");
 		Room* safeHouse = new Room("\nA safe house full of useful things.");
 		Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
 		Room* radioShack = new Room("\nYou are now in the Radio Shack store, essential communication supplies can be found here");
@@ -206,7 +206,7 @@ int main()
 		Room* clothingStore = new Room("\nYou are now inside the clothing store H&M, oh you fancy huh?");
 		Room* bank = new Room("\n You are inside Chase bank, feel free to check around to see what you can find");
 		Room* hospital = new Room("\n A hospital in which medical supplies can be retrieved");
-		Room* hazard = new Room("\n Be careful! This is a hazardous area that cannot be accessed!!");
+		Room* hazard = new Room("\n Be careful! This is a hazardous area that cannot be accessed!!",1);
 		Room* hazard1 = new Room("\n This is a hazardous area that can be accessed; However, you're at risk!", 1);
 		Room* boundary = new Room("\nThis is a danger area! You cannot go here!", 1);
 

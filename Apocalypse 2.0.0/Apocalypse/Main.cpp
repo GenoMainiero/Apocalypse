@@ -510,7 +510,7 @@ int main()
 				{
 					playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() - 1);
 					thirst += 2;
-					Output("Drinking..."); Sleep(500); Output("\nThat was refeshing!");
+					Output("Drinking..."); Sleep(500); Output("\nThat was refreshing!");
 				}
 				else
 					Output("You are all out of water!");

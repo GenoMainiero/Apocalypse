@@ -7,6 +7,7 @@
 #include <Windows.h>
 
 using namespace std;
+bool firsttf = 0, firsttw = 0;
 bool DebugMode = 1;
 bool tapet = 0, crowbart = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
@@ -15,16 +16,15 @@ int hunger = 15;
 int thirst = 10;
 
 Inventory * playerInv = new Inventory();
-Item * flashlight = new Item("flashlight", 0, 1);
+Item * flashlight = new Item("flashlight",0, 1);
 Item * radio = new Item("radio", 0, 1);
 Item * gloves = new Item("gloves", 0, 1);
-Item * tape = new Item("Tape", 0, 1);
-Item * water = new Item("Water", 1, 1);
-Item * food = new Item("Food", 1, 3);
-Item * crowbar = new Item("Crowbar", 1, 1);
+Item * tape = new Item("tape", 0, 1);
+Item * water = new Item("water", 1, 1);
+Item * food = new Item("food", 1, 3);
+Item * crowbar = new Item("crowbar", 0, 1);
 
 int outputDelay = 25;
-Inventory inv;
 
 string LowerCase(string l)
 {
@@ -49,47 +49,7 @@ void Output(string s)
 		cout << s;
 	}
 }
-
-void Take(string t)
-{
-	if (t == "food" || t == "bread")
-	{
-		playerInv->getItem(1)->setCount(playerInv->getItem(1)->getCount() + 1);
-		breadt = 1;
-	}
-	else if (t == "water")
-	{
-		playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() + 1);
-		watert = 1;
-	}
-	else if (t == "crowbar")
-	{
-		playerInv->addItem(crowbar);
-		crowbart = 1;
-	}
-	else if (t == "gloves")
-	{
-		playerInv->addItem(gloves);
-		glovest = 1;
-	}
-	else if (t == "tape")
-	{
-		playerInv->addItem(tape);
-		tapet = 1;
-	}
-	else if (t == "flashlight")
-	{
-		playerInv->addItem(flashlight);
-		lightt = 1;
-	}
-	else if (t == "radio")
-	{
-		playerInv->addItem(radio);
-		radiot = 1;
-	}
-	Output("Adding to inventory..."); Sleep(500);
-	Output("\nSuccessfully added to inventory.");
-}
+void Take(string, Room*);
 
 void Help()
 {
@@ -97,6 +57,7 @@ void Help()
 	cout << "                                  -----------                     ";
 	cout << "\nTo move throughout the city, use the following commands: North, East, South, West";
 	cout << "\nTo interact with items, use the following commands: Search, Take, Eat, Drink, Use";
+	cout << "\nItems may have *asterisks* to denote the keyword you should use to interact with it.";
 	cout << "\nTo show your inventory, type inventory or inv.";
 	cout << "\nTo show your current location, type location.";
 	cout << "\nYou may only enter one command per line.";
@@ -122,18 +83,28 @@ string Use()
 void InventoryCheck()
 {
 	Output("Here is your inventory:\n");
-	cout << "Food: " << playerInv->getItem(1)->getCount() << "     ";
-	cout << "Water: " << playerInv->getItem(0)->getCount() << endl;
-	if (crowbart == 1)
-		cout << "Crowbar\n";
-	if (glovest == 1)
-		cout << "Electrical Insulating *Gloves*\n";
-	if (tapet == 1)
-		cout << "Electrical *Tape*\n";
-	if (lightt == 1)
-		cout << "Flashlight\n";
-	if (radiot == 1)
-		cout << "Radio\n";
+	for (int i = 0; i < (playerInv->getSize()); i++)
+	{
+		if (playerInv->getItem(i)->getName() == "food")
+		{
+			cout << "Food: " << playerInv->getItem(1)->getCount() << "     ";
+		}
+		else if (playerInv->getItem(i)->getName() == "water")
+		{
+			cout << "Water: " << playerInv->getItem(0)->getCount() << endl;
+		}
+		else
+		{
+			switch (playerInv->getItem(i)->getPossess())
+			{
+			case 1:
+				cout << playerInv->getItem(i)->getName();
+			default:
+				break;
+			}
+			
+		}
+	}
 }
 
 void Next()
@@ -196,18 +167,18 @@ int main()
 
 		Room* testRoom = new Room();
 		Room* chemFire = new Room("Chemical Fire! Ouch!!!", 1);
-		Room* street = new Room("\nYou find yourself standing in the middle of a desolate road");
-		Room* eastStreet = new Room("\nYou are in the middle of a street. You see a safe house in the distance to the west");
+		Room* street = new Room("\nYou find yourself standing in the middle of a desolate road.");
+		Room* eastStreet = new Room("\nYou are in the middle of a street. You see a safe house in the distance to the west.");
 		Room* safeHouse = new Room("\nA safe house full of useful things.");
 		Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
-		Room* radioShack = new Room("\nYou are now in the Radio Shack store, essential communication supplies can be found here");
-		Room* militaryBase = new Room("\nYou find yourself in a Military Base");
-		Room* airPort = new Room("\nThis is the airport where you will be rescued after successfully communicating with others");
+		Room* radioShack = new Room("\nYou are now in the Radio Shack store, essential communication supplies can be found here.");
+		Room* militaryBase = new Room("\nYou find yourself in a Military Base.");
+		Room* airport = new Room("\nThis is the airport where you will be rescued after successfully communicating with others.");
 		Room* clothingStore = new Room("\nYou are now inside the clothing store H&M, oh you fancy huh?");
-		Room* bank = new Room("\n You are inside Chase bank, feel free to check around to see what you can find");
-		Room* hospital = new Room("\n A hospital in which medical supplies can be retrieved");
-		Room* hazard = new Room("\n Be careful! This is a hazardous area that cannot be accessed!!",1);
-		Room* hazard1 = new Room("\n This is a hazardous area that can be accessed; However, you're at risk!", 1);
+		Room* bank = new Room("\nYou are inside Chase bank, feel free to check around to see what you can find.");
+		Room* hospital = new Room("\nA hospital in which medical supplies can be retrieved.");
+		Room* hazard = new Room("\nBe careful! This is a hazardous area that cannot be accessed!!",1);
+		Room* hazard1 = new Room("\nThis is a hazardous area that can be accessed; However, you're at risk!", 1);
 		Room* boundary = new Room("\nThis is a danger area! You cannot go here!", 1);
 
 		Connect(street, "west", safeHouse);
@@ -217,17 +188,19 @@ int main()
 		Connect(clothingStore, "east", hospital);
 		Connect(clothingStore, "north", radioTower);
 		Connect(hospital, "south", hazard);
-		Connect(hospital, "north", airPort);
-		Connect(airPort, "west", radioShack);
+		Connect(hospital, "north", airport);
+		Connect(airport, "west", radioShack);
 		Connect(radioShack, "west", radioTower);
 		Connect(radioTower, "west", militaryBase);
 		Connect(militaryBase, "south", bank);
 		Connect(bank, "south", safeHouse);
 		Connect(radioTower, "south", hazard1);
 		
-		
 		// this is how to add items to a room
 		safeHouse->Stock.addItem(flashlight);
+		safeHouse->Stock.addItem(tape);
+		safeHouse->Stock.addItem(food);
+
 
 		Room* current = street;
 		//Game Introduction + Storyline
@@ -276,7 +249,7 @@ int main()
 				outputDelay += 10;
 				break;
 			case 2:
-				Output("You are  dangerously hungry. Eat soon.\n");
+				Output("You are dangerously hungry. Eat soon.\n");
 				outputDelay += 10;
 				break;
 			case 1:
@@ -391,51 +364,13 @@ int main()
 			case 'a': Help();
 				break;
 			case 'b': Output("Searching...\n"); //filler statement until inventory is added
-				if (current == street)
-					Output("There is nothing of interest in this area.");
-				else if (current == safeHouse)
+				Output("You found the following items...\n");
+				for (int i = 0; i < (current->Stock.getSize()); i++)
 				{
-					if (lightt == 0 && breadt == 0 && watert == 0)
-						Output("A *flashlight* is on the table in front of you. Beside you is a loaf of *bread* and a bottle of *water*.");
-					else if (lightt == 1 && breadt == 0 && watert == 0)
-						Output("Beside you is a loaf of *bread* and a bottle of *water*.");
-					else if (lightt == 0 && breadt == 1 && watert == 0)
-						Output("A *flashlight* is on the table in front of you. Beside you is a bottle of *water*.");
-					else if (lightt == 0 && breadt == 0 && watert == 1)
-						Output("A *flashlight* is on the table in front of you. Beside you is a loaf of *bread*.");
-					else if (lightt == 1 && breadt == 1 && watert == 0)
-						Output("Beside you is a bottle of *water*.");
-					else if (lightt == 0 && breadt == 1 && watert == 1)
-						Output("A *flashlight* is on the table in front of you.");
-					else if (lightt == 1 && breadt == 0 && watert == 1)
-						Output("Beside you is a loaf of *bread*.");
-					else if (lightt == 1 && breadt == 1 && watert == 1)
-						Output("There is nothing of interest in this area.");
-				}
-				// Asterisks indicate keywords to be typed under Take()
-				else if (current == radioTower)
-				{
-					if (lightu == 1)
+					if (current->Stock.getItem(i)->getPossess() == 1)
 					{
-						if (tapet == 0 && glovest == 0 && radiot == 0)
-							Output("Electrical *tape* is laying on a nearby shelf. There are electrical *gloves* on the floor, and a *radio* is on the desk.");
-						else if (tapet == 1 && glovest == 0 && radiot == 0)
-							Output("There are electrical *gloves* on the floor, and a *radio* is on the desk.");
-						else if (tapet == 0 && glovest == 1 && radiot == 0)
-							Output("Electrical *tape* is laying on a nearby shelf. There is a *radio* is on the desk.");
-						else if (tapet == 0 && glovest == 0 && radiot == 1)
-							Output("Electrical *tape* is laying on a nearby shelf. There are electrical *gloves* on the floor.");
-						else if (tapet == 1 && glovest == 1 && radiot == 0)
-							Output("A *radio* is on the desk.");
-						else if (tapet == 0 && glovest == 1 && radiot == 1)
-							Output("Electrical *tape* is laying on a nearby shelf.");
-						else if (tapet == 1 && glovest == 0 && radiot == 1)
-							Output("There are electrical *gloves* on the floor.");
-						else if (tapet == 1 && glovest == 1 && radiot == 1)
-							Output("There is nothing of interest in this area.");
+						cout << current->Stock.getItem(i)->getName() << endl;
 					}
-					else
-						Output("It is too dark to see anything in this room.");
 				}
 				break;
 			case 'c': Output("Opening...");
@@ -443,75 +378,14 @@ int main()
 			case 'd': Output("Closing...");
 				break;
 			case 'e':
-				if (current == street)
+				if (current->Stock.getSize() > 0)
 				{
-					Output("There is nothing to take in this area.");
-					break;
+					Output("What would you like to take?");
+					getline(cin, item);
+					Take(item, current);
 				}
-				else if (current == safeHouse)
-				{
-					string itemTaken;
-					Output("What would you like to take?\n");
-					cin >> itemTaken;
-					itemTaken = LowerCase(itemTaken);
-					if (itemTaken == "flashlight" && lightt == 0)
-					{
-						Take(itemTaken);
-						getline(cin, input);
-					}
-					else if (itemTaken == "bread" && breadt == 0)
-					{
-						Take(itemTaken);
-						getline(cin, input);
-					}
-					else if (itemTaken == "water" && watert == 0)
-					{
-						Take(itemTaken);
-						getline(cin, input);
-					}
-					else
-					{
-						Error();
-						getline(cin, input);
-					}
-
-				}
-				else if (current == radioTower)
-				{
-					string itemTaken;
-					Output("What would you like to take?\n");
-					cin >> itemTaken;
-					itemTaken = LowerCase(itemTaken);
-					if (lightu == 1)
-					{
-						if (itemTaken == "tape" && tapet == 0)
-						{
-							Take(itemTaken);
-							getline(cin, input);
-						}
-						else if (itemTaken == "gloves" && glovest == 0)
-						{
-							Take(itemTaken);
-							getline(cin, input);
-						}
-						else if (itemTaken == "radio" && radiot == 0)
-						{
-							Take(itemTaken);
-							getline(cin, input);
-						}
-						else
-						{
-							Error();
-							getline(cin, input);
-						}
-					}
-					else
-					{
-						Error();
-						getline(cin, input);
-					}
-
-				}
+				else
+					Output("There is nothing of interest in this area.");
 				break;
 			case 'f': Output("Dropping...");
 				break;
@@ -730,4 +604,45 @@ int main()
 	}
 	system("pause");
 	return 0;
+}
+
+void Take(string t, Room*r)
+{
+	for (int i = 0; i < (r->Stock.getSize()); i++)
+	{
+		if (t == r->Stock.getItem(i)->getName())
+		{
+			if (t == "food")
+			{
+				if (firsttf == 0)
+				{
+					playerInv->getItem(1)->setCount(playerInv->getItem(1)->getCount() + 1);
+					r->Stock.getItem(i)->setPossess(0);
+					firsttf = 1;
+				}
+			}
+			else if (t == "water")
+			{
+				if (firsttw == 0)
+				{
+					playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() + 1);
+					r->Stock.getItem(i)->setPossess(0);
+					firsttw = 1;
+				}
+			}
+			else
+			{
+				if (r->Stock.getItem(i)->getCount() != 0)
+				{
+					Item * vessel = new Item(r->Stock.getItem(i)->getName(), 1, 1);
+					playerInv->addItem(vessel);
+					r->Stock.getItem(i)->setPossess(0);
+					r->Stock.getItem(i)->setCount(0);
+				}
+			}
+		}
+	}
+
+	Output("Adding to inventory..."); Sleep(500);
+	Output("\nSuccessfully added to inventory.");
 }

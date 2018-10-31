@@ -20,6 +20,14 @@ public:
 	{
 		return itemVector[index];
 	}
+	int getSize()
+	{
+		return itemVector.size();
+	}
+	Item * getBack()
+	{
+		return itemVector.back();
+	}
 	void addItem(Item *item)
 	{
 		itemVector.push_back(item);

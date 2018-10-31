@@ -9,6 +9,7 @@ class Item
 private:
 	string name;
 	bool possess;
+	bool possessRoom;
 	int count;
 public:
 	Item()
@@ -23,7 +24,7 @@ public:
 	}
 	void setName(string na)
 	{
-		na = name;
+		name = na;
 	}
 	string getName()
 	{
@@ -32,7 +33,7 @@ public:
 
 	void setPossess(bool po)
 	{
-		po = possess;
+		possess = po;
 	}
 
 	bool getPossess()
@@ -42,7 +43,7 @@ public:
 
 	void setCount(int co)
 	{
-		co = count;
+		count = co;
 	}
 
 	int getCount()

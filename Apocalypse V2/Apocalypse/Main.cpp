@@ -178,9 +178,54 @@ int main()
 		Room* street = new Room("\nYou find yourself standing in the middle of a desolate road. In front of you is a radio tower.");
 		Room* safeHouse = new Room("\nA safe house full of useful things.");
 		Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
+		Room* radioShack = new Room("\nYou are now in the Radio Shack store, essential communication supplies can be found here");
+		Room* militaryBase = new Room("\nYou find yourself in a Military Base");
+		Room* airPort = new Room("\nThis is the airport where you will be rescued after successfully communicating with others");
+		Room* clothingStore = new Room("\nYou are now inside the clothing store H&M, oh you fancy huh?");
+		Room* bank = new Room("\n You are inside Chase bank, feel free to check around to see what you can find");
+		Room* hospital = new Room("\n A hospital in which medical supplies can be retrieved");
+		Room* hazard = new Room("\n Be careful! This is a hazardous area that cannot be accessed!!");
+		Room* hazard1 = new Room("\n This is a hazardous area that can be accessed; However, you're at risk!");
+		Room* boundary = new Room("\nThis is a danger area! You cannot go here!");
+
 
 		Connect(street, "west", safeHouse);
 		Connect(street, "north", radioTower);
+		Connect(street, "south", boundary);
+		Connect(street, "east", clothingStore);
+		Connect(radioTower, "west", radioShack);
+		Connect(radioTower, "north", militaryBase);
+		Connect(radioTower, "east", airPort);
+		Connect(radioTower, "south", clothingStore);
+		Connect(radioShack, "south", bank);
+		Connect(radioShack, "east", radioTower);
+		Connect(radioShack, "north", hazard1);
+		Connect(radioShack, "west", boundary);
+		Connect(bank, "south", safeHouse);
+		Connect(bank, "north", radioShack);
+		Connect(bank, "east", clothingStore);
+		Connect(bank, "west", boundary);
+		Connect(safeHouse, "west", boundary);
+		Connect(safeHouse, "south", boundary);
+		Connect(safeHouse, "east", street);
+		Connect(airPort, "south", hospital);
+		Connect(airPort, "west", hazard);
+		Connect(airPort, "east", boundary);
+		Connect(airPort, "north", boundary);
+		Connect(hospital, "west", hazard);
+		Connect(hospital, "east", boundary);
+		Connect(hospital, "south", boundary);
+		Connect(hospital, "north", airPort);
+		Connect(militaryBase, "west", hazard1);
+		Connect(militaryBase, "north", boundary);
+		Connect(militaryBase, "east", hazard);
+		Connect(militaryBase, "south", radioTower);
+		Connect(clothingStore, "south", street);
+		Connect(clothingStore, "west", bank);
+		Connect(clothingStore, "north", radioTower);
+		Connect(clothingStore, "east", airPort);
+
+
 
 		Room* current = street;
 		//Game Introduction + Storyline

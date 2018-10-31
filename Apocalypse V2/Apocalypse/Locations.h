@@ -20,6 +20,8 @@ void Outputt(string s)
 class Room
 {
 	string description;
+	//used to tell if a room is actually a blockage
+	bool isBlockage;
 public:
 	Room* North;
 	Room* South;
@@ -37,6 +39,12 @@ public:
 		North = South = East = West = nullptr;
 		description = d;
 	}
+	Room(string d, bool b)
+	{
+		North = South = East = West = nullptr;
+		isBlockage = b;
+		description = d;
+	}
 	// Can be used to change the description of a room
 	void setDescription(string d)
 	{
@@ -48,10 +56,17 @@ public:
 		Outputt(description);
 		Outputt("\n");
 	}
-
+	void setStatus(bool b)
+	{
+		isBlockage = b;
+	}
+	bool getStatus()
+	{
+		return isBlockage;
+	}
 };
 
-void Blocked(int stoppage)
+void EdgeOfMap(int stoppage)
 {
 	Outputt("\nBlocked by ");
 	switch (stoppage)
@@ -68,9 +83,6 @@ void Blocked(int stoppage)
 	case 4:
 		Outputt("rubble.\n");
 		break;
-	case 5:
-		Outputt("a dead end.");
-		break;
 	default:
 		Outputt("something.\n");
 		break;
@@ -78,60 +90,149 @@ void Blocked(int stoppage)
 	Outputt("Returning to previous location..."); Sleep(500);
 }
 
+
+bool Blocked()
+{
+	string deathAnswer = "";
+	cout << "Are you sure you would like to go this way? This could prove to be fatal.\n(Y/N):\t";
+	while (deathAnswer != "y" || "Y" || "n" || "N")
+	{
+		getline(cin, deathAnswer);
+		switch (deathAnswer[0])
+		{
+		case 'y':
+			return 1;
+			break;
+		case 'Y':
+			return 1;
+			break;
+		case 'n':
+			return 0;
+			break;
+		case 'N':
+			return 0;
+		default:
+			Outputt("Please answer the question...\n");
+			break;
+		}
+	}
+}
+
+
 // Used to move between rooms
 Room* Movement(Room* locale, string direction)
 {
+	bool status = 0;
 	if (direction == "north")
 	{
 		if (locale->North == nullptr)
 		{
-			Blocked(4);
-			return locale;
+			EdgeOfMap(4);
+		}
+		else if (locale->North->getStatus() == 1)
+		{
+			locale->North->Describe();
+			status = Blocked();
+			if (status == 0)
+			{
+				Outputt("Returning...");
+				return locale;
+			}
+			else
+			{
+				return locale->North;
+			}
+			
 		}
 		else
 		{
 			locale = locale->North;
-			return locale;
 		}
+		return locale;
 	}
 	else if (direction == "east")
 	{
 		if (locale->East == nullptr)
 		{
-			Blocked(2);
+			EdgeOfMap(2);
 			return locale;
+		}
+		else if (locale->East->getStatus() == 1)
+		{
+			locale->East->Describe();
+			status = Blocked();
+			if (status == 0)
+			{
+				Outputt("Returning...");
+				return locale;
+			}
+			else
+			{
+				return locale->East;
+			}
 		}
 		else
 		{
 			locale = locale->East;
 			return locale;
 		}
+		return locale;
 	}
 	else if (direction == "south")
 	{
 		if (locale->South == nullptr)
 		{
-			Blocked(1);
+			EdgeOfMap(1);
 			return locale;
+		}
+		else if (locale->South->getStatus() == 1)
+		{
+			locale->South->Describe();
+			status = Blocked();
+			if (status == 0)
+			{
+				Outputt("Returning...");
+				return locale;
+			}
+			else
+			{
+				return locale->South;
+			}
 		}
 		else
 		{
 			locale = locale->South;
 			return locale;
 		}
+		return locale;
 	}
 	else if (direction == "west")
 	{
 		if (locale->West == nullptr)
 		{
-			Blocked(3);
+			EdgeOfMap(3);
 			return locale;
+		}
+		else if (locale->West->getStatus() == 1)
+		{
+			locale->West->Describe();
+			status = Blocked();
+			if (status == 0)
+			{
+				Outputt("Returning...");
+				return locale;
+			}
+			else
+			{
+				return locale->West;
+			}
 		}
 		else
 		{
 			locale = locale->West;
 			return locale;
 		}
+		return locale;
 	}
 	else
 	{

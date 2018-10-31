@@ -6,10 +6,13 @@
 #include <Windows.h>
 
 using namespace std;
-bool DebugMode = 0;
+bool DebugMode = 1;
 bool tapet = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
 bool glovesu = 0, radfix = 0, lightu = 0;
+int hunger = 15;
+int thirst = 10;
+int outputDelay = 25;
 Inventory inv;
 
 string LowerCase(string l)
@@ -17,6 +20,7 @@ string LowerCase(string l)
 	transform(l.begin(), l.end(), l.begin(), (int(*)(int))tolower);
 	return l;
 }
+
 void Output(string s)
 {
 	if (DebugMode == 0)
@@ -25,7 +29,7 @@ void Output(string s)
 		while (s[x] != '\0')
 		{
 			cout << s[x];
-			Sleep(25 + rand() % 25);
+			Sleep(outputDelay + rand() % 25);
 			x++;
 		}
 	}
@@ -53,7 +57,7 @@ void Take(string t)
 	}
 	else if (t == "gloves")
 	{
-		inv.setElectricalInsulatingGloves(1); 
+		inv.setElectricalInsulatingGloves(1);
 		glovest = 1;
 	}
 	else if (t == "tape")
@@ -136,8 +140,6 @@ void Description(int b)
 	Output(Description[b]);
 }
 
-
-
 void Movement(int a)
 {
 	string Movement[4] = { "A chemical spill blocks your path. There is no way around it.", "Ahead is a flood that may be electrified. You'd better not risk it.",
@@ -159,243 +161,320 @@ void ErrorInv()
 	Output("You do not have this item.");
 }
 
-
 int main()
 {
-	bool GameOver = 0;
-	if (firsttime == 0)
-	{
-		inv.setFood(3); inv.setWater(1);
-		firsttime = 1;
-	}
-	string item;
-	Room* street = new Room("\nYou find yourself standing in the middle of a desolate road. In front of you is a radio tower.");
-	Room* safeHouse = new Room("\nA safe house full of useful things.");
-	Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
+	bool gameover = 0;
+	bool restart = 0; //to "die" or restart, use "restart = 1". all variables will reset and intro will play.
 
-	if (lightu == 1)
+	while (!gameover)
 	{
-		Room* radioTower = new Room("\nA radio tower illuminated by your flashlight.");
-	}
-	else
-	{
+		tapet = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
+		firsttime = 0;
+		glovesu = 0, radfix = 0, lightu = 0;
+		restart = 0;
+		if (firsttime == 0)
+		{
+			inv.setFood(3); inv.setWater(1);
+			firsttime = 1;
+			hunger = 15;
+			thirst = 10;
+		}
+		string item;
+
+		Room* testRoom = new Room();
+		Room* chemFire = new Room("Chemical Fire! Ouch!!!", 1);
+		Room* street = new Room("\nYou find yourself standing in the middle of a desolate road. In front of you is a radio tower.");
+		Room* safeHouse = new Room("\nA safe house full of useful things.");
 		Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
-	}
+		Room* radioShack = new Room("\nYou are now in the Radio Shack store, essential communication supplies can be found here");
+		Room* militaryBase = new Room("\nYou find yourself in a Military Base");
+		Room* airPort = new Room("\nThis is the airport where you will be rescued after successfully communicating with others");
+		Room* clothingStore = new Room("\nYou are now inside the clothing store H&M, oh you fancy huh?");
+		Room* bank = new Room("\n You are inside Chase bank, feel free to check around to see what you can find");
+		Room* hospital = new Room("\n A hospital in which medical supplies can be retrieved");
+		Room* hazard = new Room("\n Be careful! This is a hazardous area that cannot be accessed!!");
+		Room* hazard1 = new Room("\n This is a hazardous area that can be accessed; However, you're at risk!");
+		Room* boundary = new Room("\nThis is a danger area! You cannot go here!");
 
-	Connect(street, "west", safeHouse);
-	Connect(street, "north", radioTower);
 
-	Room* current = street;
-	//Game Introduction + Storyline
-	//I made the intro look a little cooler. Hope you like it! - Geno
-	string welcome1 = "Welcome to Apocalypse!";
-	string welcome = "\n\nYou are the only living person in a large city following a series of natural disasters.\nThere is reason to believe that others have survived in neighboring cities.\nA nearby radio tower can be used to communicate with these survivors.\nYour mission is to find this radio tower and get rescued.\n\nThe following is a list of commands to help you navigate through the game:\n";
-	if (DebugMode == 0)
-	{
-		int x = 0;
-		while (welcome1[x] != '\0')
+		Connect(street, "west", safeHouse);
+		Connect(street, "north", radioTower);
+<<<<<<< HEAD
+		Connect(street, "south", boundary);
+		Connect(street, "east", clothingStore);
+		Connect(radioTower, "west", radioShack);
+		Connect(radioTower, "north", militaryBase);
+		Connect(radioTower, "east", airPort);
+		Connect(radioTower, "south", clothingStore);
+		Connect(radioShack, "south", bank);
+		Connect(radioShack, "east", radioTower);
+		Connect(radioShack, "north", hazard1);
+		Connect(radioShack, "west", boundary);
+		Connect(bank, "south", safeHouse);
+		Connect(bank, "north", radioShack);
+		Connect(bank, "east", clothingStore);
+		Connect(bank, "west", boundary);
+		Connect(safeHouse, "west", boundary);
+		Connect(safeHouse, "south", boundary);
+		Connect(safeHouse, "east", street);
+		Connect(airPort, "south", hospital);
+		Connect(airPort, "west", hazard);
+		Connect(airPort, "east", boundary);
+		Connect(airPort, "north", boundary);
+		Connect(hospital, "west", hazard);
+		Connect(hospital, "east", boundary);
+		Connect(hospital, "south", boundary);
+		Connect(hospital, "north", airPort);
+		Connect(militaryBase, "west", hazard1);
+		Connect(militaryBase, "north", boundary);
+		Connect(militaryBase, "east", hazard);
+		Connect(militaryBase, "south", radioTower);
+		Connect(clothingStore, "south", street);
+		Connect(clothingStore, "west", bank);
+		Connect(clothingStore, "north", radioTower);
+		Connect(clothingStore, "east", airPort);
+
+
+=======
+		Connect(street, "east", chemFire);
+>>>>>>> 221435217af0eaad82e4d31f02faab42966ba821
+
+		Room* current = street;
+		//Game Introduction + Storyline
+		//I made the intro look a little cooler. Hope you like it! - Geno
+		string welcome1 = "Welcome to Apocalypse!";
+		string welcome = "\n\nYou are the only living person in a large city following a series of natural disasters.\nThere is reason to believe that others have survived in neighboring cities.\nA nearby radio tower can be used to communicate with these survivors.\nYour mission is to find this radio tower and get rescued.\n\nThe following is a list of commands to help you navigate through the game:\n";
+		if (DebugMode == 0)
 		{
-			cout << welcome1[x];
-			Sleep(25 + rand() % 25);
-			x++;
-		}
-		x = 0; Sleep(1000);
-		while (welcome[x] != '\0')
-		{
-			cout << welcome[x];
-			Sleep(25 + rand() % 25);
-			x++;
-		}
-		Sleep(750);
-		Help();
-		Sleep(2000);
-
-		Output("\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n");
-	}
-	else if (DebugMode == 1)
-	{
-		cout << welcome1 << welcome;
-		Help();
-		cout << "\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n";
-	}
-	//intro can be commented out to make debugging easier (line 90-109) with /* text */
-	do {
-		string input; //string for input
-		char inputchar; //character for switch statement
-		getline(cin, input);
-
-		//converts input to lowercase this if statement assigns a char for use in the switch statement
-		input = LowerCase(input);
-		if (input == "help")
-			inputchar = 'a';
-		else if (input == "search")
-			inputchar = 'b';
-		else if (input == "open")
-			inputchar = 'c';
-		else if (input == "close")
-			inputchar = 'd';
-		else if (input == "take")
-			inputchar = 'e';
-		else if (input == "drop")
-			inputchar = 'f';
-		else if (input == "eat")
-			inputchar = 'g';
-		else if (input == "drink")
-			inputchar = 'h';
-		else if (input == "inventory" || input == "inv")
-			inputchar = 'i';
-		else if (input == "use")
-			inputchar = 'j';
-		else if (input == "location")
-			inputchar = 'k';
-		else if (input == "move")
-			inputchar = 's';
-		else if (input == "exit" || input == "quit")
-		{
-		exitloop:
-			cout << "Are you sure you want to exit? (Y/N)\n";
-			string exit;
-			getline(cin, exit);
-			if (exit == "y" || exit == "Y" || exit == "yes")
+			int x = 0;
+			while (welcome1[x] != '\0')
 			{
-				inputchar = 't';
+				cout << welcome1[x];
+				Sleep(25 + rand() % 25);
+				x++;
 			}
-			else if (exit == "n" || exit == "N" || exit == "no")
+			x = 0; Sleep(1000);
+			while (welcome[x] != '\0')
 			{
-				Output("Resuming game...\n");
-				inputchar = 'u';
-				Sleep(1000);
+				cout << welcome[x];
+				Sleep(25 + rand() % 25);
+				x++;
+			}
+			Sleep(750);
+			Help();
+			Sleep(2000);
+
+			Output("\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n");
+		}
+		else if (DebugMode == 1)
+		{
+			cout << welcome1 << welcome;
+			Help();
+			cout << "\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n";
+		}
+		//intro can be commented out to make debugging easier (line 90-109) with /* text */
+		while (!gameover && !restart)
+		{
+			string input; //string for input
+			string yn;
+			char inputchar; //character for switch statement
+
+			switch (hunger)
+			{
+			case 3:
+				Output("You are fairly hungry.\n");
+				outputDelay += 10;
+				break;
+			case 2:
+				Output("You are  dangerously hungry. Eat soon.\n");
+				outputDelay += 10;
+				break;
+			case 1:
+				Output("You are very weak. If you do not eat, you will perish.\n");
+				outputDelay += 10;
+				break;
+			case 0:
+				Output("You have died from hunger...\n");
+				goto RestartLabel;
+				break;
+			default:
+				break;
+			}
+
+			switch (thirst)
+			{
+			case 3:
+				Output("You are very thirsty.\n");
+				outputDelay += 10;
+				break;
+			case 2:
+				Output("You are dangerously thirsty. Drink some water.\n");
+				outputDelay += 10;
+				break;
+			case 1:
+				Output("The world is spinning. If you do not drink some water, you will soon perish.\n");
+				outputDelay += 10;
+				break;
+			case 0:
+				Output("You have died from thirst...\n");
+				goto RestartLabel;
+				break;
+			default:
+				break;
+			}
+
+			getline(cin, input);
+
+			if (lightu == 1)
+			{
+				radioTower->setDescription("\nA radio tower illuminated by your flashlight.");
 			}
 			else
 			{
-				Error();
-				cout << endl;
-				goto exitloop;
+				radioTower->setDescription("\nYou enter a radio tower, but it is too dark to see anything.");
 			}
-		}
-		else if (input == "north")
-			inputchar = 'w';
-		else if (input == "east")
-			inputchar = 'x';
-		else if (input == "south")
-			inputchar = 'y';
-		else if (input == "west")
-			inputchar = 'z';
-		else
-		{
-			inputchar = 'v';
-		}
-
-		//this is the heart of the text parser, which accepts the char and controls what happens next
-		switch (inputchar)
-		{
-		case 'a': Help();
-			break;
-		case 'b': Output("Searching...\n"); //filler statement until inventory is added
-			if (current == street)
-				Output("There is nothing of interest in this area.");
-			else if (current == safeHouse)
+			//converts input to lowercase this if statement assigns a char for use in the switch statement
+			input = LowerCase(input);
+			if (input == "help")
+				inputchar = 'a';
+			else if (input == "search")
+				inputchar = 'b';
+			else if (input == "open")
+				inputchar = 'c';
+			else if (input == "close")
+				inputchar = 'd';
+			else if (input == "take")
+				inputchar = 'e';
+			else if (input == "drop")
+				inputchar = 'f';
+			else if (input == "eat")
+				inputchar = 'g';
+			else if (input == "drink")
+				inputchar = 'h';
+			else if (input == "inventory" || input == "inv")
+				inputchar = 'i';
+			else if (input == "use")
+				inputchar = 'j';
+			else if (input == "location")
+				inputchar = 'k';
+			else if (input == "move")
+				inputchar = 's';
+			else if (input == "exit" || input == "quit")
 			{
-				if (lightt == 0 && breadt == 0 && watert == 0)
-					Output("A *flashlight* is on the table in front of you. Beside you is a loaf of *bread* and a bottle of *water*.");
-				else if (lightt == 1 && breadt == 0 && watert == 0)
-					Output("Beside you is a loaf of *bread* and a bottle of *water*.");
-				else if (lightt == 0 && breadt == 1 && watert == 0)
-					Output("A *flashlight* is on the table in front of you. Beside you is a bottle of *water*.");
-				else if (lightt == 0 && breadt == 0 && watert == 1)
-					Output("A *flashlight* is on the table in front of you. Beside you is a loaf of *bread*.");
-				else if (lightt == 1 && breadt == 1 && watert == 0)
-					Output("Beside you is a bottle of *water*.");
-				else if (lightt == 0 && breadt == 1 && watert == 1)
-					Output("A *flashlight* is on the table in front of you.");
-				else if (lightt == 1 && breadt == 0 && watert == 1)
-					Output("Beside you is a loaf of *bread*.");
-				else if (lightt == 1 && breadt == 1 && watert == 1)
-					Output("There is nothing of interest in this area.");
-			}
-			// Asterisks indicate keywords to be typed under Take()
-			else if (current == radioTower)
-			{
-				if (lightu == 1)
+			exitloop:
+				cout << "Are you sure you want to exit? (Y/N)\n";
+				string exit;
+				getline(cin, exit);
+				if (exit == "y" || exit == "Y" || exit == "yes")
 				{
-					if (tapet == 0 && glovest == 0 && radiot == 0)
-						Output("Electrical *tape* is laying on a nearby shelf. There are electrical *gloves* on the floor, and a *radio* is on the desk.");
-					else if (tapet == 1 && glovest == 0 && radiot == 0)
-						Output("There are electrical *gloves* on the floor, and a *radio* is on the desk.");
-					else if (tapet == 0 && glovest == 1 && radiot == 0)
-						Output("Electrical *tape* is laying on a nearby shelf. There is a *radio* is on the desk.");
-					else if (tapet == 0 && glovest == 0 && radiot == 1)
-						Output("Electrical *tape* is laying on a nearby shelf. There are electrical *gloves* on the floor.");
-					else if (tapet == 1 && glovest == 1 && radiot == 0)
-						Output("A *radio* is on the desk.");
-					else if (tapet == 0 && glovest == 1 && radiot == 1)
-						Output("Electrical *tape* is laying on a nearby shelf.");
-					else if (tapet == 1 && glovest == 0 && radiot == 1)
-						Output("There are electrical *gloves* on the floor.");
-					else if (tapet == 1 && glovest == 1 && radiot == 1)
-						Output("There is nothing of interest in this area.");
+					inputchar = 't';
 				}
-				else
-					Output("It is too dark to see anything in this room.");
-			}
-			break;
-		case 'c': Output("Opening...");
-			break;
-		case 'd': Output("Closing...");
-			break;
-		case 'e':
-			if (current == street)
-			{
-				Output("There is nothing to take in this area.");
-				break;
-			}
-			else if (current == safeHouse)
-			{
-				string itemTaken;
-				Output("What would you like to take?\n");
-				cin >> itemTaken;
-				itemTaken = LowerCase(itemTaken);
-				if (itemTaken == "flashlight" && lightt == 0)
+				else if (exit == "n" || exit == "N" || exit == "no")
 				{
-					Take(itemTaken);
-					getline(cin, input);
-				}
-				else if (itemTaken == "bread" && breadt == 0)
-				{
-					Take(itemTaken);
-					getline(cin, input);
-				}
-				else if (itemTaken == "water" && watert == 0)
-				{
-					Take(itemTaken);
-					getline(cin, input);
+					Output("Resuming game...\n");
+					inputchar = 'u';
+					Sleep(1000);
 				}
 				else
 				{
 					Error();
-					getline(cin, input);
+					cout << endl;
+					goto exitloop;
 				}
-
 			}
-			else if (current == radioTower)
+			else if (input == "north")
+				inputchar = 'w';
+			else if (input == "east")
+				inputchar = 'x';
+			else if (input == "south")
+				inputchar = 'y';
+			else if (input == "west")
+				inputchar = 'z';
+			else
 			{
-				string itemTaken;
-				Output("What would you like to take?\n");
-				cin >> itemTaken;
-				itemTaken = LowerCase(itemTaken);
-				if (lightu == 1)
+				inputchar = 'v';
+			}
+
+			//this is the heart of the text parser, which accepts the char and controls what happens next
+			switch (inputchar)
+			{
+			case 'a': Help();
+				break;
+			case 'b': Output("Searching...\n"); //filler statement until inventory is added
+				if (current == street)
+					Output("There is nothing of interest in this area.");
+				else if (current == safeHouse)
 				{
-					if (itemTaken == "tape" && tapet == 0)
+					if (lightt == 0 && breadt == 0 && watert == 0)
+						Output("A *flashlight* is on the table in front of you. Beside you is a loaf of *bread* and a bottle of *water*.");
+					else if (lightt == 1 && breadt == 0 && watert == 0)
+						Output("Beside you is a loaf of *bread* and a bottle of *water*.");
+					else if (lightt == 0 && breadt == 1 && watert == 0)
+						Output("A *flashlight* is on the table in front of you. Beside you is a bottle of *water*.");
+					else if (lightt == 0 && breadt == 0 && watert == 1)
+						Output("A *flashlight* is on the table in front of you. Beside you is a loaf of *bread*.");
+					else if (lightt == 1 && breadt == 1 && watert == 0)
+						Output("Beside you is a bottle of *water*.");
+					else if (lightt == 0 && breadt == 1 && watert == 1)
+						Output("A *flashlight* is on the table in front of you.");
+					else if (lightt == 1 && breadt == 0 && watert == 1)
+						Output("Beside you is a loaf of *bread*.");
+					else if (lightt == 1 && breadt == 1 && watert == 1)
+						Output("There is nothing of interest in this area.");
+				}
+				// Asterisks indicate keywords to be typed under Take()
+				else if (current == radioTower)
+				{
+					if (lightu == 1)
+					{
+						if (tapet == 0 && glovest == 0 && radiot == 0)
+							Output("Electrical *tape* is laying on a nearby shelf. There are electrical *gloves* on the floor, and a *radio* is on the desk.");
+						else if (tapet == 1 && glovest == 0 && radiot == 0)
+							Output("There are electrical *gloves* on the floor, and a *radio* is on the desk.");
+						else if (tapet == 0 && glovest == 1 && radiot == 0)
+							Output("Electrical *tape* is laying on a nearby shelf. There is a *radio* is on the desk.");
+						else if (tapet == 0 && glovest == 0 && radiot == 1)
+							Output("Electrical *tape* is laying on a nearby shelf. There are electrical *gloves* on the floor.");
+						else if (tapet == 1 && glovest == 1 && radiot == 0)
+							Output("A *radio* is on the desk.");
+						else if (tapet == 0 && glovest == 1 && radiot == 1)
+							Output("Electrical *tape* is laying on a nearby shelf.");
+						else if (tapet == 1 && glovest == 0 && radiot == 1)
+							Output("There are electrical *gloves* on the floor.");
+						else if (tapet == 1 && glovest == 1 && radiot == 1)
+							Output("There is nothing of interest in this area.");
+					}
+					else
+						Output("It is too dark to see anything in this room.");
+				}
+				break;
+			case 'c': Output("Opening...");
+				break;
+			case 'd': Output("Closing...");
+				break;
+			case 'e':
+				if (current == street)
+				{
+					Output("There is nothing to take in this area.");
+					break;
+				}
+				else if (current == safeHouse)
+				{
+					string itemTaken;
+					Output("What would you like to take?\n");
+					cin >> itemTaken;
+					itemTaken = LowerCase(itemTaken);
+					if (itemTaken == "flashlight" && lightt == 0)
 					{
 						Take(itemTaken);
 						getline(cin, input);
 					}
-					else if (itemTaken == "gloves" && glovest == 0)
+					else if (itemTaken == "bread" && breadt == 0)
 					{
 						Take(itemTaken);
 						getline(cin, input);
 					}
-					else if (itemTaken == "radio" && radiot == 0)
+					else if (itemTaken == "water" && watert == 0)
 					{
 						Take(itemTaken);
 						getline(cin, input);
@@ -405,154 +484,258 @@ int main()
 						Error();
 						getline(cin, input);
 					}
-				}
-				else
-				{
-					Error();
-					getline(cin, input);
-				}
 
-			}
-			break;
-		case 'f': Output("Dropping...");
-			break;
-		case 'g':
-			if (inv.getFood() > 0)
-			{
-				inv.setFood(inv.getFood() - 1);
-				Output("Eating..."); Sleep(500); Output("\nYummy!");
-			}
-			else
-				Output("You don't have any food left!");
-			break;
-		case 'h':
-			if (inv.getWater() > 0)
-			{
-				inv.setWater(inv.getWater() - 1);
-				Output("Drinking..."); Sleep(500); Output("\nThat was refeshing!");
-			}
-			else
-				Output("You are all out of water!");
-			break;
-		case 'i': InventoryCheck();
-			break;
-		case 'j':
-			InventoryCheck();
-			Output("What would you like to use?\n");
-			cin >> item;
-			item = LowerCase(item);
-			if (item == "food" || item == "water")
-				Output("Try the command *eat* for food, or *drink* for water!");
-			else if (item == "gloves")
-			{
-				if (glovest == 1)
+				}
+				else if (current == radioTower)
 				{
-					Output("You put on the gloves. You are now safe from electical shock.");
-					glovesu = 1; glovest = 0;
+					string itemTaken;
+					Output("What would you like to take?\n");
+					cin >> itemTaken;
+					itemTaken = LowerCase(itemTaken);
+					if (lightu == 1)
+					{
+						if (itemTaken == "tape" && tapet == 0)
+						{
+							Take(itemTaken);
+							getline(cin, input);
+						}
+						else if (itemTaken == "gloves" && glovest == 0)
+						{
+							Take(itemTaken);
+							getline(cin, input);
+						}
+						else if (itemTaken == "radio" && radiot == 0)
+						{
+							Take(itemTaken);
+							getline(cin, input);
+						}
+						else
+						{
+							Error();
+							getline(cin, input);
+						}
+					}
+					else
+					{
+						Error();
+						getline(cin, input);
+					}
+
+				}
+				break;
+			case 'f': Output("Dropping...");
+				break;
+			case 'g':
+				if (inv.getFood() > 0)
+				{
+					inv.setFood(inv.getFood() - 1);
+					hunger += 2;
+					Output("Eating..."); Sleep(500); Output("\nYummy!");
 				}
 				else
-					ErrorInv();
-			}
-			else if (item == "tape")
-			{
-				if (tapet == 1)
+					Output("You don't have any food left!");
+				break;
+			case 'h':
+				if (inv.getWater() > 0)
+				{
+					inv.setWater(inv.getWater() - 1);
+					thirst += 2;
+					Output("Drinking..."); Sleep(500); Output("\nThat was refeshing!");
+				}
+				else
+					Output("You are all out of water!");
+				break;
+			case 'i': InventoryCheck();
+				break;
+			case 'j':
+				InventoryCheck();
+				Output("What would you like to use?\n");
+				cin >> item;
+				item = LowerCase(item);
+				if (item == "food" || item == "water")
+					Output("Try the command *eat* for food, or *drink* for water!");
+				else if (item == "gloves")
+				{
+					if (glovest == 1)
+					{
+						Output("You put on the gloves. You are now safe from electical shock.");
+						glovesu = 1; glovest = 0;
+					}
+					else
+						ErrorInv();
+				}
+				else if (item == "tape")
+				{
+					if (tapet == 1)
+					{
+						if (radiot == 1)
+						{
+							if (glovesu == 1)
+							{
+								Output("The radio has been fixed!");
+								radfix = 1; tapet = 0;
+							}
+							else
+								Output("You shouldn't do this yet! You might get shocked!");
+						}
+						else
+							Output("You don't have any items that need fixing!");
+					}
+					else
+						ErrorInv();
+				}
+				else if (item == "radio")
 				{
 					if (radiot == 1)
 					{
-						if (glovesu == 1)
+						if (radfix == 1)
 						{
-							Output("The radio has been fixed!");
-							radfix = 1; tapet = 0;
+							if (current = radioTower)
+							{
+								Output("The radio crackles, then becomes silent. You speak into the radio, and hear a response.\nYou have successfully made contact with other survivors, and they are coming to rescue you. Congratulations!\nYou have survived...\n\nApocalypse.");
+								radiot = 0; gameover = 1;
+							}
+							else
+							{
+								Output("The radio doesn't have a strong enough signal here.");
+							}
 						}
 						else
-							Output("You shouldn't do this yet! You might get shocked!");
+							Output("This radio is clearly broken.");
 					}
 					else
-						Output("You don't have any items that need fixing!");
+						ErrorInv();
 				}
-				else
-					ErrorInv();
-			}
-			else if (item == "radio")
-			{
-				if (radiot == 1)
+				else if (item == "flashlight")
 				{
-					if (radfix == 1)
+					if (lightt == 1)
 					{
-						if (current = radioTower) 
+						if (current == radioTower)
 						{
-							Output("The radio crackles, then becomes silent. You speak into the radio, and hear a response.\nYou have successfully made contact with other survivors, and they are coming to rescue you. Congratulations!\nYou have survived...\n\nApocalypse.");
-							radiot = 0; GameOver = 1;
+							Output("The flashlight flickers on and illuminates the room.");
+							lightu = 1;
 						}
 						else
-						{
-							Output("The radio doesn't have a strong enough signal here.");
-						}
+							Output("This item has no effect here.");
 					}
 					else
-						Output("This radio is clearly broken.");
+						ErrorInv();
 				}
 				else
-					ErrorInv();
-			}
-			else if (item == "flashlight")
-			{
-				if (lightt == 1)
 				{
-					if (current == radioTower)
-					{
-						Output("The flashlight flickers on and illuminates the room.");
-						lightu = 1;
-					}
-					else
-						Output("This item has no effect here.");
+					ErrorInv();
+				}
+				getline(cin, input);
+				break;
+			case 'k': current->Describe();
+				break;
+			case 's': MoveHelp();
+				break;
+			case 't': 
+				RestartLabel:
+				Output("Thanks for playing!\nWould you like to play again?(Y/N)\n");
+				getline(cin, yn);
+				if (yn == LowerCase("Y") || yn == LowerCase("Yes"))
+				{
+					restart = 1; break;
 				}
 				else
-					ErrorInv();
+				{
+					gameover = 1; break;
+				}
+			case 'u': Output("Game resumed.");
+				break;
+			case 'v': Error();
+				break;
+				//For cases w-z, function Movement() can be used to output prewritten errors/information
+				//A similar function Description() will output the description of the room the first time it is visited. 
+			case 'w': Output("Moving North... ");
+				testRoom = Movement(current, "north");
+				if (testRoom->getStatus() == 1)
+				{
+					Output("Sorry, you have died in the wasteland.\n");
+					goto RestartLabel;
+					break;
+				}
+				else
+				{
+					if (current != testRoom)
+					{
+						hunger--;
+						thirst--;
+					}
+					current = testRoom;
+				}
+				current->Describe();
+				Next();
+				break;
+			case 'x': Output("Moving East... ");
+				testRoom = Movement(current, "east");
+				if (testRoom->getStatus() == 1)
+				{
+					Output("You should not have done that. You perished alone in the city\n");
+					goto RestartLabel;
+					break;
+				}
+				else
+				{
+					if (current != testRoom)
+					{
+						hunger--;
+						thirst--;
+					}
+					current = testRoom;
+				}
+					
+				current->Describe();
+				Next();
+				break;
+			case 'y': Output("Moving South... ");
+				testRoom = Movement(current, "south");
+				if (testRoom->getStatus() == 1)
+				{
+					Output("That move was your last... You have died!\n");
+					goto RestartLabel;
+					break;
+				}
+				else
+				{
+					if (current != testRoom)
+					{
+						hunger--;
+						thirst--;
+					}
+					current = testRoom;
+				}
+				current->Describe();
+				Next();
+				break;
+			case 'z': Output("Moving West... ");
+				testRoom = Movement(current, "west");
+				if (testRoom->getStatus() == 1)
+				{
+					Output("The light at the end of the tunnel beckons... You have died.\n");
+					goto RestartLabel;
+					break;
+				}
+				else
+				{
+					if (current != testRoom)
+					{
+						hunger--;
+						thirst--;
+					}
+					current = testRoom;
+				}
+				current->Describe();
+				Next();
+				break;
+			default: Error();
+				break;
 			}
-			else
-			{
-				ErrorInv();
-			}
-			getline(cin, input);
-			break;
-		case 'k': current->Describe();
-			break;
-		case 's': MoveHelp();
-			break;
-		case 't': Output("Thanks for playing!");
-			GameOver = 1; break;
-		case 'u': Output("Game resumed.");
-			break;
-		case 'v': Error();
-			break;
-			//For cases w-z, function Movement() can be used to output prewritten errors/information
-			//A similar function Description() will output the description of the room the first time it is visited. 
-		case 'w': Output("Moving North... ");
-			current = Movement(current, "north");
-			current->Describe();
-			Next();
-			break;
-		case 'x': Output("Moving East... ");
-			current = Movement(current, "east");
-			current->Describe();
-			Next();
-			break;
-		case 'y': Output("Moving South... ");
-			current = Movement(current, "south");
-			current->Describe();
-			Next();
-			break;
-		case 'z': Output("Moving West... ");
-			current = Movement(current, "west");
-			current->Describe();
-			Next();
-			break;
-		default: Error();
-			break;
+			cout << endl;
 		}
-		cout << endl;
-	} while (!GameOver);
+	}
 	system("pause");
 	return 0;
 }

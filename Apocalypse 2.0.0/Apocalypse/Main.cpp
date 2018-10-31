@@ -164,7 +164,7 @@ int main()
 			thirst = 10;
 		}
 		string item;
-
+		/*
 		Room* testRoom = new Room();
 		Room* chemFire = new Room("Chemical Fire! Ouch!!!", 1);
 		Room* street = new Room("\nYou find yourself standing in the middle of a desolate road.");
@@ -178,6 +178,22 @@ int main()
 		Room* bank = new Room("\nYou are inside Chase bank, feel free to check around to see what you can find.");
 		Room* hospital = new Room("\nA hospital in which medical supplies can be retrieved.");
 		Room* hazard = new Room("\nBe careful! This is a hazardous area that cannot be accessed!!",1);
+		Room* hazard1 = new Room("\nThis is a hazardous area that can be accessed; However, you're at risk!", 1);
+		Room* boundary = new Room("\nThis is a danger area! You cannot go here!", 1);*/
+
+		Room* testRoom = new Room();
+		Room* chemFire = new Room("Chemical Fire! Ouch!!!", 1);
+		Room* street = new Room("\nYou start in the middle of a wide street that is filled with debris of once tall building now brought down to to its mere foundation. \nThe street is filled with cracks and rocks all over the place. \nPieces of the road is missing and you can see cars on fire or already burned. \nTelephone wires and electrical wires are all over the place and have lost current due to the power plant exploding.\n The sky is an orange red color due to the radiation around the world and the clouds where dark grey even black from the ashes of the building that have been burned by fire.");
+		Room* eastStreet = new Room("\nYou are in the middle of a street. You see a safe house in the distance to the west.");
+		Room* safeHouse = new Room("\nYou arrive to the only building that withstood the apocalypse.\n This building has been marked as the safe house for the town and people who survived take refuge in its high structure.\n The building consists of 28 floors and its design reminds you of those 1980’s hotels.\n You can see ruble of the other buildings creating a perfect path to the doors that are lined with a gold trim.\n The building truly resembles a beacon of hope.");
+		Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
+		Room* radioShack = new Room("\nYou are now in the Radio Shack store, essential communication supplies can be found here.");
+		Room* militaryBase = new Room("\nYou find yourself in a Military Base.");
+		Room* airport = new Room("\nYou finally arrive to the airport where the airplanes have all departed before the apocalypse hit.\n The sight of the airport being deserted gives you a sense of depression and makes you feel alone. However there is hope that with all the materials you have you are able to create a means of contacted for a ride to salvation.");
+		Room* clothingStore = new Room("\nYou are now inside the clothing store H&M, oh you fancy huh?");
+		Room* bank = new Room("\nYou see a colossal building that has greek lettering on it.\n This is the central bank of the city.\n It has the designs of Ancient Greek buildings with its huge pillars supporting its triangular roof the seems to have caved in a bit.\n One of the pillars is actually broken in half and part of the ruling is missing.\n Yet it still has a way to appear magnificent in a time of despair.\n The entrance is a humungous bi - folding door that has gold trim around to show that it is full of wealth.\n The steps has rouble around it and there is a lonely tree stump that is seen next to it.\n Maybe there is something useful in the security boxes.");
+		Room* hospital = new Room("\nThe city hospital once a place for health and hope is now a wasteland.\n This hospital had about 7 buildings all interconnected by bridges but now there is but just one building up and seems to be stable.\n The place is deserted and gives a haunting vibe.\n Inside there is medicine that was left from before the apocalypse which can help in restoring my health in bad times.");
+		Room* hazard = new Room("\nBe careful! This is a hazardous area that cannot be accessed!!", 1);
 		Room* hazard1 = new Room("\nThis is a hazardous area that can be accessed; However, you're at risk!", 1);
 		Room* boundary = new Room("\nThis is a danger area! You cannot go here!", 1);
 

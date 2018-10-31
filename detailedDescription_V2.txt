@@ -1,4 +1,4 @@
-High Level Description:
+﻿High Level Description:
 
 Sprint 1:
 
@@ -9,7 +9,7 @@ Pieces of the road is missing and you can see cars on fire or already burned.
 Telephone wires and electrical wires are all over the place and have lost current due to the power plant exploding. 
 The sky is an orange red color due to the radiation around the world and the clouds where dark grey even black from the ashes of the building that have been burned by fire.
 
-Short: Back to where we began.  This desolent road that makes you realize what has happened.
+Short: Back to where we began.  This desolate road that makes you realize what has happened.
 
 Radio Station:
 You arrive to a radio station that still looks intact after the destruction of the town.

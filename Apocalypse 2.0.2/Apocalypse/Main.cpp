@@ -8,7 +8,7 @@
 
 using namespace std;
 bool firsttf = 0, firsttw = 0;
-bool DebugMode = 1;
+bool DebugMode = 0;
 bool tapet = 0, crowbart = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
 bool glovesu = 0, radfix = 0, lightu = 0, radu = 0;
@@ -24,7 +24,7 @@ Item * water = new Item("water", 1, 1);
 Item * food = new Item("food", 1, 3);
 Item * crowbar = new Item("crowbar", 0, 1);
 
-int outputDelay = 25;
+int outputDelay = 5;
 
 string LowerCase(string l)
 {
@@ -183,7 +183,7 @@ int main()
 
 		Room* testRoom = new Room();
 		Room* chemFire = new Room("Chemical Fire! Ouch!!!", 1);
-		Room* street = new Room("\nYou start in the middle of a wide street that is filled with debris of once tall building now brought down to to its mere foundation. \nThe street is filled with cracks and rocks all over the place. \nPieces of the road is missing and you can see cars on fire or already burned. \nTelephone wires and electrical wires are all over the place and have lost current due to the power plant exploding.\n The sky is an orange red color due to the radiation around the world and the clouds where dark grey even black from the ashes of the building that have been burned by fire.");
+		Room* street = new Room("\nThis desolate road that makes you realize what has happened."); //("\nYou start in the middle of a wide street that is filled with debris of once tall building now brought down to to its mere foundation. \nThe street is filled with cracks and rocks all over the place. \nPieces of the road is missing and you can see cars on fire or already burned. \nTelephone wires and electrical wires are all over the place and have lost current due to the power plant exploding.\n The sky is an orange red color due to the radiation around the world and the clouds where dark grey even black from the ashes of the building that have been burned by fire.");
 		Room* eastStreet = new Room("\nYou are in the middle of a street. You see a safe house in the distance to the west.");
 		Room* safeHouse = new Room("\nYou arrive to the only building that withstood the apocalypse.\n This building has been marked as the safe house for the town and people who survived take refuge in its high structure.\n The building consists of 28 floors and its design reminds you of those 1980’s hotels.\n You can see ruble of the other buildings creating a perfect path to the doors that are lined with a gold trim.\n The building truly resembles a beacon of hope.");
 		Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
@@ -250,14 +250,14 @@ int main()
 			Sleep(750);
 			Help();
 			Sleep(2000);
-
-			Output("\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n");
+			street->Describe();
+			Output("\n\nWhat is your first move?\n");
 		}
 		else if (DebugMode == 1)
 		{
 			cout << welcome1 << welcome;
 			Help();
-			cout << "\n\nYou find yourself standing in the middle of a desolate road. What is your first move?\n";
+			cout << "\n\nWhat is your first move?\n";
 		}
 		//intro can be commented out to make debugging easier (line 90-109) with /* text */
 		while (!gameover && !restart)

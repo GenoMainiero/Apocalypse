@@ -95,7 +95,7 @@ void EdgeOfMap(int stoppage)
 
 bool Blocked()
 {
-	string deathAnswer = "";
+	string deathAnswer;
 	cout << "Are you sure you would like to go this way? This could prove to be fatal.\n(Y/N):\t";
 	while (deathAnswer != "y" || "Y" || "n" || "N")
 	{

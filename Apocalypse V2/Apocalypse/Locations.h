@@ -90,29 +90,35 @@ void EdgeOfMap(int stoppage)
 	Outputt("Returning to previous location..."); Sleep(500);
 }
 
-/*
-bool Blocked(Room* hinder)
-{
-	string answer = "";
-	hinder->Describe();
-	cout << "Are you sure you would like to go this way? This could prove to be fatal.\n(Y/N):\t";
-	while (1 > 0)
-	{
-		cin >> answer;
-		if (answer == "y" || "Y")
-		{
-			// Insert Death Function
-			return 1;
-		}
-		else if (answer == "n" || "N")
-		{
-			cout << "You turn back to your previous location.\n";
-			return 0;
-		}
 
+bool Blocked()
+{
+	string deathAnswer = "";
+	cout << "Are you sure you would like to go this way? This could prove to be fatal.\n(Y/N):\t";
+	while (deathAnswer != "y" || "Y" || "n" || "N")
+	{
+		getline(cin, deathAnswer);
+		switch (deathAnswer[0])
+		{
+		case 'y':
+			return 1;
+			break;
+		case 'Y':
+			return 1;
+			break;
+		case 'n':
+			return 0;
+			break;
+		case 'N':
+			return 0;
+		default:
+			Outputt("Please answer the question...\n");
+			break;
+		}
 	}
 }
-*/
+
+
 // Used to move between rooms
 Room* Movement(Room* locale, string direction)
 {
@@ -125,8 +131,18 @@ Room* Movement(Room* locale, string direction)
 		}
 		else if (locale->North->getStatus() == 1)
 		{
-			// Filler statement until death function is clarified
-			cout << "Cannot go that way.\n";
+			locale->North->Describe();
+			status = Blocked();
+			if (status == 0)
+			{
+				Outputt("Returning...");
+				return locale;
+			}
+			else
+			{
+				return locale->North;
+			}
+			
 		}
 		else
 		{
@@ -141,11 +157,26 @@ Room* Movement(Room* locale, string direction)
 			EdgeOfMap(2);
 			return locale;
 		}
+		else if (locale->East->getStatus() == 1)
+		{
+			locale->East->Describe();
+			status = Blocked();
+			if (status == 0)
+			{
+				Outputt("Returning...");
+				return locale;
+			}
+			else
+			{
+				return locale->East;
+			}
+		}
 		else
 		{
 			locale = locale->East;
 			return locale;
 		}
+		return locale;
 	}
 	else if (direction == "south")
 	{
@@ -154,11 +185,26 @@ Room* Movement(Room* locale, string direction)
 			EdgeOfMap(1);
 			return locale;
 		}
+		else if (locale->South->getStatus() == 1)
+		{
+			locale->South->Describe();
+			status = Blocked();
+			if (status == 0)
+			{
+				Outputt("Returning...");
+				return locale;
+			}
+			else
+			{
+				return locale->South;
+			}
+		}
 		else
 		{
 			locale = locale->South;
 			return locale;
 		}
+		return locale;
 	}
 	else if (direction == "west")
 	{
@@ -167,11 +213,26 @@ Room* Movement(Room* locale, string direction)
 			EdgeOfMap(3);
 			return locale;
 		}
+		else if (locale->West->getStatus() == 1)
+		{
+			locale->West->Describe();
+			status = Blocked();
+			if (status == 0)
+			{
+				Outputt("Returning...");
+				return locale;
+			}
+			else
+			{
+				return locale->West;
+			}
+		}
 		else
 		{
 			locale = locale->West;
 			return locale;
 		}
+		return locale;
 	}
 	else
 	{

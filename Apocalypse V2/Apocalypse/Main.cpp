@@ -10,6 +10,9 @@ bool DebugMode = 1;
 bool tapet = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
 bool glovesu = 0, radfix = 0, lightu = 0;
+int hunger = 15;
+int thirst = 10;
+int outputDelay = 25;
 Inventory inv;
 
 string LowerCase(string l)
@@ -26,7 +29,7 @@ void Output(string s)
 		while (s[x] != '\0')
 		{
 			cout << s[x];
-			Sleep(25 + rand() % 25);
+			Sleep(outputDelay + rand() % 25);
 			x++;
 		}
 	}
@@ -173,8 +176,13 @@ int main()
 		{
 			inv.setFood(3); inv.setWater(1);
 			firsttime = 1;
+			hunger = 15;
+			thirst = 10;
 		}
 		string item;
+
+		Room* testRoom = new Room();
+		Room* chemFire = new Room("Chemical Fire! Ouch!!!", 1);
 		Room* street = new Room("\nYou find yourself standing in the middle of a desolate road. In front of you is a radio tower.");
 		Room* safeHouse = new Room("\nA safe house full of useful things.");
 		Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
@@ -191,6 +199,7 @@ int main()
 
 		Connect(street, "west", safeHouse);
 		Connect(street, "north", radioTower);
+<<<<<<< HEAD
 		Connect(street, "south", boundary);
 		Connect(street, "east", clothingStore);
 		Connect(radioTower, "west", radioShack);
@@ -226,6 +235,9 @@ int main()
 		Connect(clothingStore, "east", airPort);
 
 
+=======
+		Connect(street, "east", chemFire);
+>>>>>>> 221435217af0eaad82e4d31f02faab42966ba821
 
 		Room* current = street;
 		//Game Introduction + Storyline
@@ -266,6 +278,51 @@ int main()
 			string input; //string for input
 			string yn;
 			char inputchar; //character for switch statement
+
+			switch (hunger)
+			{
+			case 3:
+				Output("You are fairly hungry.\n");
+				outputDelay += 10;
+				break;
+			case 2:
+				Output("You are  dangerously hungry. Eat soon.\n");
+				outputDelay += 10;
+				break;
+			case 1:
+				Output("You are very weak. If you do not eat, you will perish.\n");
+				outputDelay += 10;
+				break;
+			case 0:
+				Output("You have died from hunger...\n");
+				goto RestartLabel;
+				break;
+			default:
+				break;
+			}
+
+			switch (thirst)
+			{
+			case 3:
+				Output("You are very thirsty.\n");
+				outputDelay += 10;
+				break;
+			case 2:
+				Output("You are dangerously thirsty. Drink some water.\n");
+				outputDelay += 10;
+				break;
+			case 1:
+				Output("The world is spinning. If you do not drink some water, you will soon perish.\n");
+				outputDelay += 10;
+				break;
+			case 0:
+				Output("You have died from thirst...\n");
+				goto RestartLabel;
+				break;
+			default:
+				break;
+			}
+
 			getline(cin, input);
 
 			if (lightu == 1)
@@ -274,7 +331,7 @@ int main()
 			}
 			else
 			{
-				Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
+				radioTower->setDescription("\nYou enter a radio tower, but it is too dark to see anything.");
 			}
 			//converts input to lowercase this if statement assigns a char for use in the switch statement
 			input = LowerCase(input);
@@ -472,6 +529,7 @@ int main()
 				if (inv.getFood() > 0)
 				{
 					inv.setFood(inv.getFood() - 1);
+					hunger += 2;
 					Output("Eating..."); Sleep(500); Output("\nYummy!");
 				}
 				else
@@ -481,6 +539,7 @@ int main()
 				if (inv.getWater() > 0)
 				{
 					inv.setWater(inv.getWater() - 1);
+					thirst += 2;
 					Output("Drinking..."); Sleep(500); Output("\nThat was refeshing!");
 				}
 				else
@@ -572,7 +631,9 @@ int main()
 				break;
 			case 's': MoveHelp();
 				break;
-			case 't': Output("Thanks for playing!\nWould you like to play again?(Y/N)\n");
+			case 't': 
+				RestartLabel:
+				Output("Thanks for playing!\nWould you like to play again?(Y/N)\n");
 				getline(cin, yn);
 				if (yn == LowerCase("Y") || yn == LowerCase("Yes"))
 				{
@@ -589,22 +650,83 @@ int main()
 				//For cases w-z, function Movement() can be used to output prewritten errors/information
 				//A similar function Description() will output the description of the room the first time it is visited. 
 			case 'w': Output("Moving North... ");
-				current = Movement(current, "north");
+				testRoom = Movement(current, "north");
+				if (testRoom->getStatus() == 1)
+				{
+					Output("Sorry, you have died in the wasteland.\n");
+					goto RestartLabel;
+					break;
+				}
+				else
+				{
+					if (current != testRoom)
+					{
+						hunger--;
+						thirst--;
+					}
+					current = testRoom;
+				}
 				current->Describe();
 				Next();
 				break;
 			case 'x': Output("Moving East... ");
-				current = Movement(current, "east");
+				testRoom = Movement(current, "east");
+				if (testRoom->getStatus() == 1)
+				{
+					Output("You should not have done that. You perished alone in the city\n");
+					goto RestartLabel;
+					break;
+				}
+				else
+				{
+					if (current != testRoom)
+					{
+						hunger--;
+						thirst--;
+					}
+					current = testRoom;
+				}
+					
 				current->Describe();
 				Next();
 				break;
 			case 'y': Output("Moving South... ");
-				current = Movement(current, "south");
+				testRoom = Movement(current, "south");
+				if (testRoom->getStatus() == 1)
+				{
+					Output("That move was your last... You have died!\n");
+					goto RestartLabel;
+					break;
+				}
+				else
+				{
+					if (current != testRoom)
+					{
+						hunger--;
+						thirst--;
+					}
+					current = testRoom;
+				}
 				current->Describe();
 				Next();
 				break;
 			case 'z': Output("Moving West... ");
-				current = Movement(current, "west");
+				testRoom = Movement(current, "west");
+				if (testRoom->getStatus() == 1)
+				{
+					Output("The light at the end of the tunnel beckons... You have died.\n");
+					goto RestartLabel;
+					break;
+				}
+				else
+				{
+					if (current != testRoom)
+					{
+						hunger--;
+						thirst--;
+					}
+					current = testRoom;
+				}
 				current->Describe();
 				Next();
 				break;

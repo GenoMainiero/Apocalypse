@@ -1,2 +1,3 @@
 ﻿  Main.cpp
-  Apocalypse.vcxproj -> C:\Users\Geno Mainiero\Desktop\ScrumButs\Apocalypse V2\Debug\Apocalypse.exe
+d:\compsci\juni\scrumbuts\apocalypse v2\apocalypse\locations.h(119): warning C4715: 'Blocked': not all control paths return a value
+  Apocalypse.vcxproj -> D:\CompSci\Juni\Scrumbuts\Apocalypse V2\Debug\Apocalypse.exe

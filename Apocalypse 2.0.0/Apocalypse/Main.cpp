@@ -194,20 +194,40 @@ int main()
 		}
 		string item;
 
-
 		Room* testRoom = new Room();
 		Room* chemFire = new Room("Chemical Fire! Ouch!!!", 1);
 		Room* street = new Room("\nYou find yourself standing in the middle of a desolate road. In front of you is a radio tower.");
+		Room* eastStreet = new Room("\nYou are in the middle of a street. You see a safe house in the distance to the left");
 		Room* safeHouse = new Room("\nA safe house full of useful things.");
 		Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
+		Room* radioShack = new Room("\nYou are now in the Radio Shack store, essential communication supplies can be found here");
+		Room* militaryBase = new Room("\nYou find yourself in a Military Base");
+		Room* airPort = new Room("\nThis is the airport where you will be rescued after successfully communicating with others");
+		Room* clothingStore = new Room("\nYou are now inside the clothing store H&M, oh you fancy huh?");
+		Room* bank = new Room("\n You are inside Chase bank, feel free to check around to see what you can find");
+		Room* hospital = new Room("\n A hospital in which medical supplies can be retrieved");
+		Room* hazard = new Room("\n Be careful! This is a hazardous area that cannot be accessed!!");
+		Room* hazard1 = new Room("\n This is a hazardous area that can be accessed; However, you're at risk!", 1);
+		Room* boundary = new Room("\nThis is a danger area! You cannot go here!", 1);
 
+		Connect(street, "west", safeHouse);
+		Connect(street, "east", eastStreet);
+		Connect(eastStreet, "east", hazard);
+		Connect(eastStreet, "north", clothingStore);
+		Connect(clothingStore, "east", hospital);
+		Connect(clothingStore, "north", radioTower);
+		Connect(hospital, "south", hazard);
+		Connect(hospital, "north", airPort);
+		Connect(airPort, "west", radioShack);
+		Connect(radioShack, "west", radioTower);
+		Connect(radioTower, "west", militaryBase);
+		Connect(militaryBase, "south", bank);
+		Connect(bank, "south", safeHouse);
+		Connect(radioTower, "south", hazard1);
+		
+		
 		// this is how to add items to a room
 		safeHouse->Stock.addItem(flashlight);
-
-		// this is how to connect rooms
-		Connect(street, "west", safeHouse);
-		Connect(street, "north", radioTower);
-		Connect(street, "east", chemFire);
 
 		Room* current = street;
 		//Game Introduction + Storyline
@@ -500,6 +520,7 @@ int main()
 				{
 					playerInv->getItem(1)->setCount(playerInv->getItem(1)->getCount() - 1);
 					hunger += 2;
+					outputDelay = 25;
 					Output("Eating..."); Sleep(500); Output("\nYummy!");
 				}
 				else
@@ -510,6 +531,7 @@ int main()
 				{
 					playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() - 1);
 					thirst += 2;
+					outputDelay = 25;
 					Output("Drinking..."); Sleep(500); Output("\nThat was refeshing!");
 				}
 				else

@@ -1,7 +1,34 @@
+11/5
+When the user contacts survivors through the radio, the survivors have a conversation with the user. The more efficiently the user asks questions, 
+the more time they will have to avoid the radioactive wave. 
+
+-Possible question options
+1) "Who are you?" or  2) "How can I get out of here?"
+
+-If 1, answer(below), then next questions:                                        -If 2, answer(below), then next questions:
+A)"How many survivors are there?" B) "How can I get out of here?"               C)"When should I meet the plane?"  D) Get to that airport!!!!! 
+
+If A, B, or C, answer (below), then the following:
+"You need to exit to a safehouse immediately. There is a radioactive wave about to hit your location."
+
+If D, user leaves flees to airport to airport before they learn about the radioactive wave. They'll probably die.
+
+
+
+-Survivor Answers
+"Who are you?" ---> "We are a survivor camp based in Brazil."
+
+"How many survivors are there?" ---> "We have several thousand survivors at our camp, but we believe there are many more."
+
+"How can I get out of here?" ----> "We will send a plane to pick you up"
+
+"Where should I meet the plane?" --- "We will land at the airport."
+
+
+______________________________________________________________________________________
 10/30
 Military base- The user can explore this area. A description should appear stating that this is clearly the site of a large explosion.
 The uese wonders of the cause of the apocalypse could be a result of a military project gone wrong. 
-
 _____________________________________________________________________________________
 Update 10/26
 Additional blocks:

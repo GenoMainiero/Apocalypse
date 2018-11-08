@@ -55,7 +55,8 @@ public:
 	// reads description of a room.
 	void Describe()
 	{
-		Outputt(description);
+		cout << description;
+		//Outputt(description);
 		Outputt("\n");
 	}
 	void setStatus(bool b)

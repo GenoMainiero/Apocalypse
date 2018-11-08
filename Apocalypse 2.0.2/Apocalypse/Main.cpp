@@ -8,12 +8,15 @@
 
 using namespace std;
 bool firsttf = 0, firsttw = 0;
-bool DebugMode = 0;
+bool DebugMode = 1;
 bool tapet = 0, crowbart = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
-bool glovesu = 0, radfix = 0, lightu = 0, radu = 0;
+bool glovesu = 0, radfix = 0, lightu = 0, radu = 0, conversation = 0, convover = 0;
 int hunger = 15;
 int thirst = 10;
+int convo = 0;
+string name;
+string selection;
 
 Inventory * playerInv = new Inventory();
 Item * flashlight = new Item("flashlight",0, 1);
@@ -506,7 +509,76 @@ int main()
 						{
 							if (current == radioTower)
 							{
-								Output("The radio crackles, then becomes silent. You speak into the radio, and hear a response.\nYou have successfully made contact with other survivors, and they are coming to rescue you.\nYou must hurry to the airport to be rescued!");
+								string WhatSay = "\nPlease select what you would like to say:\n";
+								if (convover == 0) 
+								{
+									Output("The radio crackles, then becomes silent. You say \"Hello\" into the radio, and await a response...\n");
+									Sleep(1500);
+									Output("Finally, the radio stirs, and you hear a woman's voice, calm and collected.\n");
+									Output("\"Hello. What is your name?\"\nName: ");
+									getline(cin, name); getline(cin, name);
+									Output("\"Greetings, "); Output(name); Output(". My name is Caroline. How can we help you?\"");
+									ConvoError:
+									Output(WhatSay);
+									Output("A: Where are you?\nB: How can I get out of here?\n");
+									getline(cin, selection);
+									if (LowerCase(selection) == "a")
+									{
+										Output("\n\"I am in a survivor community based in Brazil.\"");
+										ConvoError1:
+										Output(WhatSay);
+										Output("A: How many survivors are there?\nB: How can I get out of here?");
+										getline(cin, selection);
+										if (LowerCase(selection) == "a")
+										{
+											Output("\n\"We have several thousand survivors here, but we believe there are many more out there.\"");
+											Output("\n\"There is something that you need to know.\"");
+											Output("\n\"Our radar has detected a radioactive wave closing in on your current location. There is a safehouse in your city that will be able to protect you. You must get there as quickly as possible, do not stop, do not delay. As soon as the wave passes, we will be at the airport waiting for you.\"\n");
+											Output("\nYou thank Caroline for her warning, and prepare to leave for the safehouse.\n");
+											convover = 1;
+											//This is where the storm will begin!!!
+										}
+										else if (LowerCase(selection) == "b")
+										{
+											Output("\"We will send an airplane to pick you up at the airport.\"");
+											Output("\n\"There is something that you need to know.\"");
+											Output("\n\"Our radar has detected a radioactive wave closing in on your current location. There is a safehouse in your city that will be able to protect you. You must get there as quickly as possible, do not stop, do not delay. As soon as the wave passes, we will be at the airport waiting for you.\"\n");
+											Output("\nYou thank Caroline for her warning, and prepare to leave for the safehouse.\n");
+											convover = 1;
+											//This is where the storm will begin!!!
+										}
+										else { Output("That is not a valid selection.\n"); goto ConvoError1; }
+									}
+									else if (LowerCase(selection) == "b")
+									{
+										Output("\n\"We will send an airplane to pick you up.\"");
+										ConvoError2:
+										Output(WhatSay);
+										Output("A: When should I meet the plane?\nB: *Say nothing and leave for the airport.*");
+										getline(cin, selection);
+										if (LowerCase(selection) == "a")
+										{
+											Output("\n\"We will try to pick you up as soon as possible, but there is something you should know...\"\n");
+											Sleep(1000);
+											Output("\"Our radar has detected a radioactive wave closing in on your current location. There is a safehouse in your city that will be able to protect you. You must get there as quickly as possible, do not stop, do not delay. As soon as the wave passes, we will be at the airport waiting for you.\"\n");
+											Output("You thank Caroline for her warning, and prepare to leave for the safehouse.\n");
+											convover = 1;
+											//This is where the storm will begin!!!
+										}
+										else if (LowerCase(selection) == "b")
+										{
+											Output("\nYou switch off the radio and prepare to leave for the airport.");
+											convover = 1;
+											//The user should die from the storm (set to only two moves or something) because they didn't know about storm
+										}
+										else { Output("That is not a valid selection.\n"); goto ConvoError2; }
+									}
+									else { Output("That is not a valid selection.\n"); goto ConvoError; }
+								}
+								else if (convover == 1)
+								{
+									Output("You try the radio, but there is no response...");
+								}
 								radiot = 0; radu = 1;
 							}
 							else

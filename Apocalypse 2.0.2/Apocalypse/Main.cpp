@@ -15,6 +15,8 @@ bool glovesu = 0, radfix = 0, lightu = 0, radu = 0, conversation = 0, convover =
 int hunger = 15;
 int thirst = 10;
 int convo = 0;
+bool StormHappening = 0;
+int StormMovements = 5;
 string name;
 string selection;
 
@@ -157,7 +159,7 @@ int main()
 		tapet = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 		firsttime = 0;
 		glovesu = 0, radfix = 0, lightu = 0;
-		restart = 0;
+		restart = 0; convo = 0; StormHappening = 0; StormMovements = 5;
 		if (firsttime == 0)
 		{
 			playerInv->addItem(water);
@@ -188,14 +190,14 @@ int main()
 		Room* chemFire = new Room("Chemical Fire! Ouch!!!", 1);
 		Room* street = new Room("\nThis desolate road that makes you realize what has happened."); //("\nYou start in the middle of a wide street that is filled with debris of once tall building now brought down to to its mere foundation. \nThe street is filled with cracks and rocks all over the place. \nPieces of the road is missing and you can see cars on fire or already burned. \nTelephone wires and electrical wires are all over the place and have lost current due to the power plant exploding.\n The sky is an orange red color due to the radiation around the world and the clouds where dark grey even black from the ashes of the building that have been burned by fire.");
 		Room* eastStreet = new Room("\nYou are in the middle of a street. You see a safe house in the distance to the west.");
-		Room* safeHouse = new Room("\nYou arrive to the only building that withstood the apocalypse.\n This building has been marked as the safe house for the town and people who survived take refuge in its high structure.\n The building consists of 28 floors and its design reminds you of those 1980’s hotels.\n You can see ruble of the other buildings creating a perfect path to the doors that are lined with a gold trim.\n The building truly resembles a beacon of hope.");
+		Room* safeHouse = new Room("\nYou arrive to the only building that withstood the apocalypse.\nThis building has been marked as the safe house for the town and people who survived take refuge in its high structure.\nThe building consists of 28 floors and its design reminds you of those 1980’s hotels.\nYou can see ruble of the other buildings creating a perfect path to the doors that are lined with a gold trim.\nThe building truly resembles a beacon of hope.");
 		Room* radioTower = new Room("\nYou enter a radio tower, but it is too dark to see anything.");
 		Room* radioShack = new Room("\nYou are now in the Radio Shack store, essential communication supplies can be found here.");
-		Room* militaryBase = new Room("\nThis is where it all started. Such a big explosion and everything has changed. Many soldiers use to run around here and now this military base is nothing.");
-		Room* airport = new Room("\nYou finally arrive to the airport where the airplanes have all departed before the apocalypse hit.\n The sight of the airport being deserted gives you a sense of depression and makes you feel alone. However there is hope that with all the materials you have you are able to create a means of contacted for a ride to salvation.");
+		Room* militaryBase = new Room("\nThis is where it all started. Such a big explosion and everything has changed.\nMany soldiers used to run around here and now this military base is nothing.");
+		Room* airport = new Room("\nYou finally arrive to the airport where the airplanes have all departed before the apocalypse hit.\nThe sight of the airport being deserted gives you a sense of depression and makes you feel alone.\nHowever there is hope that with all the materials you have you are able to create a means of contacted for a ride to salvation.");
 		Room* clothingStore = new Room("\nYou are now inside the clothing store H&M, oh you fancy huh?");
-		Room* bank = new Room("\nYou see a colossal building that has greek lettering on it.\n This is the central bank of the city.\n It has the designs of Ancient Greek buildings with its huge pillars supporting its triangular roof the seems to have caved in a bit.\n One of the pillars is actually broken in half and part of the ruling is missing.\n Yet it still has a way to appear magnificent in a time of despair.\n The entrance is a humungous bi - folding door that has gold trim around to show that it is full of wealth.\n The steps has rouble around it and there is a lonely tree stump that is seen next to it.\n Maybe there is something useful in the security boxes.");
-		Room* hospital = new Room("\nThe city hospital once a place for health and hope is now a wasteland.\n This hospital had about 7 buildings all interconnected by bridges but now there is but just one building up and seems to be stable.\n The place is deserted and gives a haunting vibe.\n Inside there is medicine that was left from before the apocalypse which can help in restoring my health in bad times.");
+		Room* bank = new Room("\nYou see a colossal building that has greek lettering on it.\nThis is the central bank of the city.\nIt has the designs of Ancient Greek buildings with its huge pillars supporting its triangular roof the seems to have caved in a bit.\nOne of the pillars is actually broken in half and part of the ruling is missing.\nYet it still has a way to appear magnificent in a time of despair.\nThe entrance is a humungous bi-folding door that has gold trim around to show that it is full of wealth.\nThe steps has rouble around it and there is a lonely tree stump that is seen next to it.\nMaybe there is something useful in the security boxes.");
+		Room* hospital = new Room("\nThe city hospital once a place for health and hope is now a wasteland.\nThis hospital had about 7 buildings all interconnected by bridges but now there is but just one building up and seems to be stable.\nThe place is deserted and gives a haunting vibe.\nInside there is medicine that was left from before the apocalypse which can help in restoring my health in bad times.");
 		Room* hazard = new Room("\nBe careful! This is a hazardous area that cannot be accessed!!", 1);
 		Room* hazard1 = new Room("\nThis is a hazardous area that can be accessed; However, you're at risk!", 1);
 		Room* boundary = new Room("\nThis is a danger area! You cannot go here!", 1);
@@ -313,7 +315,7 @@ int main()
 				break;
 			}
 
-			getline(cin, input);
+			getline(cin, input); //Main input for the game
 
 			if (lightu == 1)
 			{
@@ -384,29 +386,19 @@ int main()
 			{
 				inputchar = 'v';
 			}
-
+			
 			//this is the heart of the text parser, which accepts the char and controls what happens next
-			switch (inputchar)
+			
+			if (StormHappening == 0)
 			{
-			case 'a': Help();
-				break;
-			case 'b': Output("Searching...\n"); //filler statement until inventory is added
-				if (current->Stock.getSize() > 0)
+				switch (inputchar)
 				{
-					if (current != radioTower)
+				case 'a': Help();
+					break;
+				case 'b': Output("Searching...\n"); //filler statement until inventory is added
+					if (current->Stock.getSize() > 0)
 					{
-						Output("You found the following items...\n");
-						for (int i = 0; i < (current->Stock.getSize()); i++)
-						{
-							if (current->Stock.getItem(i)->getPossess() == 1)
-							{
-								cout << current->Stock.getItem(i)->getName() << endl;
-							}
-						}
-					}
-					else
-					{
-						if (lightu)
+						if (current != radioTower)
 						{
 							Output("You found the following items...\n");
 							for (int i = 0; i < (current->Stock.getSize()); i++)
@@ -418,320 +410,502 @@ int main()
 							}
 						}
 						else
-							Output("It is too dark to see anything in here...");
-					}
-				}
-				else
-					Output("There is nothing of interest in this area.");
-				break;
-			case 'c': Output("Opening...");
-				break;
-			case 'd': Output("Closing...");
-				break;
-			case 'e':
-				if (current->Stock.getSize() > 0)
-				{
-					Output("What would you like to take?\n");
-					getline(cin, item);
-					Take(item, current);
-				}
-				else
-					Output("There is nothing of interest in this area.");
-				break;
-			case 'f': Output("Dropping...");
-				break;
-			case 'g':
-				if (playerInv->getItem(1)->getCount() > 0)
-				{
-					playerInv->getItem(1)->setCount(playerInv->getItem(1)->getCount() - 1);
-					hunger += 2;
-					outputDelay = 25;
-					Output("Eating..."); Sleep(500); Output("\nYummy!");
-				}
-				else
-					Output("You don't have any food left!");
-				break;
-			case 'h':
-				if (playerInv->getItem(0)->getCount() > 0)
-				{
-					playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() - 1);
-					thirst += 2;
-					outputDelay = 25;
-					Output("Drinking..."); Sleep(500); Output("\nThat was refeshing!");
-				}
-				else
-					Output("You are all out of water!");
-				break;
-			case 'i': InventoryCheck();
-				break;
-			case 'j':
-				InventoryCheck();
-				Output("What would you like to use?\n");
-				cin >> item;
-				item = LowerCase(item);
-				if (item == "food" || item == "water")
-					Output("Try the command *eat* for food, or *drink* for water!");
-				else if (item == "gloves")
-				{
-					if (glovest == 1)
-					{
-						Output("You put on the gloves. You are now safe from electical shock.");
-						glovesu = 1; glovest = 0;
+						{
+							if (lightu)
+							{
+								Output("You found the following items...\n");
+								for (int i = 0; i < (current->Stock.getSize()); i++)
+								{
+									if (current->Stock.getItem(i)->getPossess() == 1)
+									{
+										cout << current->Stock.getItem(i)->getName() << endl;
+									}
+								}
+							}
+							else
+								Output("It is too dark to see anything in here...");
+						}
 					}
 					else
-						ErrorInv();
-				}
-				else if (item == "tape")
-				{
-					if (tapet == 1)
+						Output("There is nothing of interest in this area.");
+					break;
+				case 'c': Output("Opening...");
+					break;
+				case 'd': Output("Closing...");
+					break;
+				case 'e':
+					if (current->Stock.getSize() > 0)
+					{
+						Output("What would you like to take?\n");
+						getline(cin, item);
+						Take(item, current);
+					}
+					else
+						Output("There is nothing of interest in this area.");
+					break;
+				case 'f': Output("Dropping...");
+					break;
+				case 'g':
+					if (playerInv->getItem(1)->getCount() > 0)
+					{
+						playerInv->getItem(1)->setCount(playerInv->getItem(1)->getCount() - 1);
+						hunger += 2;
+						outputDelay = 25;
+						Output("Eating..."); Sleep(500); Output("\nYummy!");
+					}
+					else
+						Output("You don't have any food left!");
+					break;
+				case 'h':
+					if (playerInv->getItem(0)->getCount() > 0)
+					{
+						playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() - 1);
+						thirst += 2;
+						outputDelay = 25;
+						Output("Drinking..."); Sleep(500); Output("\nThat was refeshing!");
+					}
+					else
+						Output("You are all out of water!");
+					break;
+				case 'i': InventoryCheck();
+					break;
+				case 'j':
+					InventoryCheck();
+					Output("What would you like to use?\n");
+					cin >> item;
+					item = LowerCase(item);
+					if (item == "food" || item == "water")
+						Output("Try the command *eat* for food, or *drink* for water!");
+					else if (item == "gloves")
+					{
+						if (glovest == 1)
+						{
+							Output("You put on the gloves. You are now safe from electical shock.");
+							glovesu = 1; glovest = 0;
+						}
+						else
+							ErrorInv();
+					}
+					else if (item == "tape")
+					{
+						if (tapet == 1)
+						{
+							if (radiot == 1)
+							{
+								if (glovesu == 1)
+								{
+									Output("The radio has been fixed!");
+									radfix = 1; tapet = 0;
+								}
+								else
+									Output("You shouldn't do this yet! You might get shocked!");
+							}
+							else
+								Output("You don't have any items that need fixing!");
+						}
+						else
+							ErrorInv();
+					}
+					else if (item == "radio")
 					{
 						if (radiot == 1)
 						{
-							if (glovesu == 1)
+							if (radfix == 1)
 							{
-								Output("The radio has been fixed!");
-								radfix = 1; tapet = 0;
+								if (current == radioTower)
+								{
+									string WhatSay = "\nPlease select what you would like to say:\n";
+									if (convover == 0)
+									{
+										Output("The radio crackles, then becomes silent. You say \"Hello\" into the radio, and await a response...\n");
+										Sleep(1500);
+										Output("Finally, the radio stirs, and you hear a woman's voice, calm and collected.\n");
+										Output("\"Hello. What is your name?\"\nName: ");
+										getline(cin, name); getline(cin, name);
+										Output("\"Greetings, "); Output(name); Output(". My name is Caroline. How can we help you?\"");
+									ConvoError:
+										Output(WhatSay);
+										Output("A: Where are you?\nB: How can I get out of here?\n");
+										getline(cin, selection);
+										if (LowerCase(selection) == "a")
+										{
+											Output("\n\"I am in a survivor community based in Brazil.\"");
+										ConvoError1:
+											Output(WhatSay);
+											Output("A: How many survivors are there?\nB: How can I get out of here?");
+											getline(cin, selection);
+											if (LowerCase(selection) == "a")
+											{
+												Output("\n\"We have several thousand survivors here, but we believe there are many more out there.\"");
+												Output("\n\"There is something that you need to know.\"");
+												Output("\n\"Our radar has detected a radioactive wave closing in on your current location.\nThere is a safehouse in your city that will be able to protect you.\nYou must get there as quickly as possible, do not stop, do not delay.\nAs soon as the wave passes, we will be at the airport waiting for you.\"\n");
+												Output("\nYou thank Caroline for her warning, and prepare to leave for the safehouse.\n");
+												convover = 1; 
+												StormHappening = 1;
+												
+												break;
+											}
+											else if (LowerCase(selection) == "b")
+											{
+												Output("\"We will send an airplane to pick you up at the airport.\"");
+												Output("\n\"There is something that you need to know.\"");
+												Output("\n\"Our radar has detected a radioactive wave closing in on your current location.\nThere is a safehouse in your city that will be able to protect you.\nYou must get there as quickly as possible, do not stop, do not delay.\nAs soon as the wave passes, we will be at the airport waiting for you.\"\n");
+												Output("\nYou thank Caroline for her warning, and prepare to leave for the safehouse.\n");
+												convover = 1;
+												StormHappening = 1;
+												break;
+											}
+											else { Output("That is not a valid selection.\n"); goto ConvoError1; }
+										}
+										else if (LowerCase(selection) == "b")
+										{
+											Output("\n\"We will send an airplane to pick you up.\"");
+										ConvoError2:
+											Output(WhatSay);
+											Output("A: When should I meet the plane?\nB: *Say nothing and leave for the airport.*");
+											getline(cin, selection);
+											if (LowerCase(selection) == "a")
+											{
+												Output("\n\"We will try to pick you up as soon as possible, but there is something you should know...\"\n");
+												Sleep(1000);
+												Output("\n\"Our radar has detected a radioactive wave closing in on your current location.\nThere is a safehouse in your city that will be able to protect you.\nYou must get there as quickly as possible, do not stop, do not delay.\nAs soon as the wave passes, we will be at the airport waiting for you.\"\n");
+												Output("You thank Caroline for her warning, and prepare to leave for the safehouse.\n");
+												convover = 1;
+												StormHappening = 1;
+												break;
+											}
+											else if (LowerCase(selection) == "b")
+											{
+												Output("\nYou switch off the radio and prepare to leave for the airport.\n");
+												convover = 1; StormHappening = 1; StormMovements = 3; break;
+											}
+											else { Output("That is not a valid selection.\n"); goto ConvoError2; }
+										}
+										else { Output("That is not a valid selection.\n"); goto ConvoError; }
+									}
+									else if (convover == 1)
+									{
+										Output("You try the radio, but there is no response...");
+									}
+									radiot = 0; radu = 1;
+									break;
+								}
+								else
+								{
+									Output("The radio doesn't have a strong enough signal here.");
+								}
 							}
 							else
-								Output("You shouldn't do this yet! You might get shocked!");
+								Output("This radio is clearly broken.");
 						}
 						else
-							Output("You don't have any items that need fixing!");
+							ErrorInv();
 					}
-					else
-						ErrorInv();
-				}
-				else if (item == "radio")
-				{
-					if (radiot == 1)
+					else if (item == "flashlight")
 					{
-						if (radfix == 1)
+						if (lightt == 1)
 						{
 							if (current == radioTower)
 							{
-								string WhatSay = "\nPlease select what you would like to say:\n";
-								if (convover == 0) 
-								{
-									Output("The radio crackles, then becomes silent. You say \"Hello\" into the radio, and await a response...\n");
-									Sleep(1500);
-									Output("Finally, the radio stirs, and you hear a woman's voice, calm and collected.\n");
-									Output("\"Hello. What is your name?\"\nName: ");
-									getline(cin, name); getline(cin, name);
-									Output("\"Greetings, "); Output(name); Output(". My name is Caroline. How can we help you?\"");
-									ConvoError:
-									Output(WhatSay);
-									Output("A: Where are you?\nB: How can I get out of here?\n");
-									getline(cin, selection);
-									if (LowerCase(selection) == "a")
-									{
-										Output("\n\"I am in a survivor community based in Brazil.\"");
-										ConvoError1:
-										Output(WhatSay);
-										Output("A: How many survivors are there?\nB: How can I get out of here?");
-										getline(cin, selection);
-										if (LowerCase(selection) == "a")
-										{
-											Output("\n\"We have several thousand survivors here, but we believe there are many more out there.\"");
-											Output("\n\"There is something that you need to know.\"");
-											Output("\n\"Our radar has detected a radioactive wave closing in on your current location. There is a safehouse in your city that will be able to protect you. You must get there as quickly as possible, do not stop, do not delay. As soon as the wave passes, we will be at the airport waiting for you.\"\n");
-											Output("\nYou thank Caroline for her warning, and prepare to leave for the safehouse.\n");
-											convover = 1;
-											//This is where the storm will begin!!!
-										}
-										else if (LowerCase(selection) == "b")
-										{
-											Output("\"We will send an airplane to pick you up at the airport.\"");
-											Output("\n\"There is something that you need to know.\"");
-											Output("\n\"Our radar has detected a radioactive wave closing in on your current location. There is a safehouse in your city that will be able to protect you. You must get there as quickly as possible, do not stop, do not delay. As soon as the wave passes, we will be at the airport waiting for you.\"\n");
-											Output("\nYou thank Caroline for her warning, and prepare to leave for the safehouse.\n");
-											convover = 1;
-											//This is where the storm will begin!!!
-										}
-										else { Output("That is not a valid selection.\n"); goto ConvoError1; }
-									}
-									else if (LowerCase(selection) == "b")
-									{
-										Output("\n\"We will send an airplane to pick you up.\"");
-										ConvoError2:
-										Output(WhatSay);
-										Output("A: When should I meet the plane?\nB: *Say nothing and leave for the airport.*");
-										getline(cin, selection);
-										if (LowerCase(selection) == "a")
-										{
-											Output("\n\"We will try to pick you up as soon as possible, but there is something you should know...\"\n");
-											Sleep(1000);
-											Output("\"Our radar has detected a radioactive wave closing in on your current location. There is a safehouse in your city that will be able to protect you. You must get there as quickly as possible, do not stop, do not delay. As soon as the wave passes, we will be at the airport waiting for you.\"\n");
-											Output("You thank Caroline for her warning, and prepare to leave for the safehouse.\n");
-											convover = 1;
-											//This is where the storm will begin!!!
-										}
-										else if (LowerCase(selection) == "b")
-										{
-											Output("\nYou switch off the radio and prepare to leave for the airport.");
-											convover = 1;
-											//The user should die from the storm (set to only two moves or something) because they didn't know about storm
-										}
-										else { Output("That is not a valid selection.\n"); goto ConvoError2; }
-									}
-									else { Output("That is not a valid selection.\n"); goto ConvoError; }
-								}
-								else if (convover == 1)
-								{
-									Output("You try the radio, but there is no response...");
-								}
-								radiot = 0; radu = 1;
+								Output("The flashlight flickers on and illuminates the room.");
+								lightu = 1;
 							}
 							else
+								Output("This item has no effect here.");
+						}
+						else
+							ErrorInv();
+					}
+					else if (item == "crowbar")
+					{
+						Output("You have no use for this item right now.");
+					}
+					else
+					{
+						ErrorInv();
+					}
+					getline(cin, input);
+					break;
+				case 'k': current->Describe();
+					break;
+				case 's': MoveHelp();
+					break;
+				case 't':
+				RestartLabel:
+					Output("Thanks for playing!\nWould you like to play again?(Y/N)\n");
+					getline(cin, yn);
+					if (yn == LowerCase("Y") || yn == LowerCase("Yes"))
+					{
+						restart = 1; break;
+					}
+					else
+					{
+						gameover = 1; break;
+					}
+				case 'u': Output("Game resumed.");
+					break;
+				case 'v': Error();
+					break;
+					//For cases w-z, function Movement() can be used to output prewritten errors/information
+					//A similar function Description() will output the description of the room the first time it is visited. 
+				case 'w': Output("Moving North... ");
+					testRoom = Movement(current, "north");
+					if (testRoom->getStatus() == 1)
+					{
+						Output("Sorry, you have died in the wasteland.\n");
+						goto RestartLabel;
+						break;
+					}
+					else
+					{
+						if (current != testRoom)
+						{
+							hunger--;
+							thirst--;
+						}
+						current = testRoom;
+						if (current == airport && radu == 1)
+						{
+							Output("\nCongratulations!\nYou have been rescued at the airport, and have successfully survived...\n\nApocalpyse.");
+							gameover = 1; goto RestartLabel;
+						}
+					}
+					current->Describe();
+					Next();
+					break;
+				case 'x': Output("Moving East... ");
+					testRoom = Movement(current, "east");
+					if (testRoom->getStatus() == 1)
+					{
+						Output("You should not have done that. You perished alone in the city.\n");
+						goto RestartLabel;
+						break;
+					}
+					else
+					{
+						if (current != testRoom)
+						{
+							hunger--;
+							thirst--;
+						}
+						current = testRoom;
+						if (current == airport && radu == 1)
+						{
+							Output("\nCongratulations!\nYou have been rescued at the airport, and have successfully survived...\n\nApocalpyse.");
+							gameover = 1; goto RestartLabel;
+						}
+					}
+					current->Describe();
+					Next();
+					break;
+				case 'y': Output("Moving South... ");
+					testRoom = Movement(current, "south");
+					if (testRoom->getStatus() == 1)
+					{
+						Output("That move was your last... You have died!\n");
+						goto RestartLabel;
+						break;
+					}
+					else
+					{
+						if (current != testRoom)
+						{
+							hunger--;
+							thirst--;
+						}
+						current = testRoom;
+					}
+					current->Describe();
+					Next();
+					break;
+				case 'z': Output("Moving West... ");
+					testRoom = Movement(current, "west");
+					if (testRoom->getStatus() == 1)
+					{
+						Output("The light at the end of the tunnel beckons... You have died.\n");
+						goto RestartLabel;
+						break;
+					}
+					else
+					{
+						if (current != testRoom)
+						{
+							hunger--;
+							thirst--;
+						}
+						current = testRoom;
+					}
+					current->Describe();
+					Next();
+					break;
+				default: Error();
+					break;
+				}
+			}
+			else if (StormHappening == 1 && inputchar == 'w' || 'x' || 'y' || 'z' || 'g' || 'h' || 'i' || 's' || 't' || 'u' || 'v')
+			{
+				if (StormMovements > 0)
+				{
+					switch (inputchar)
+					{
+					case 'g':
+						if (playerInv->getItem(1)->getCount() > 0)
+						{
+							playerInv->getItem(1)->setCount(playerInv->getItem(1)->getCount() - 1);
+							hunger += 2;
+							outputDelay = 25;
+							Output("Eating..."); Sleep(500); Output("\nYummy!");
+						}
+						else
+							Output("You don't have any food left!");
+						break;
+					case 'h':
+						if (playerInv->getItem(0)->getCount() > 0)
+						{
+							playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() - 1);
+							thirst += 2;
+							outputDelay = 25;
+							Output("Drinking..."); Sleep(500); Output("\nThat was refeshing!");
+						}
+						else
+							Output("You are all out of water!");
+						break;
+					case 'i': InventoryCheck();
+						break;
+					case 's': MoveHelp();
+						break;
+					case 't':
+						//There was a RestartLabel here, writing this incase it breaks something
+						Output("Thanks for playing!\nWould you like to play again?(Y/N)\n");
+						getline(cin, yn);
+						if (yn == LowerCase("Y") || yn == LowerCase("Yes"))
+						{
+							restart = 1; break;
+						}
+						else
+						{
+							gameover = 1; break;
+						}
+					case 'u': Output("Game resumed.");
+						break;
+					case 'v': Error();
+						break;
+						//For cases w-z, function Movement() can be used to output prewritten errors/information
+						//A similar function Description() will output the description of the room the first time it is visited. 
+					case 'w': Output("Moving North... ");
+						testRoom = Movement(current, "north");
+						if (testRoom->getStatus() == 1)
+						{
+							Output("Sorry, you have died in the wasteland.\n");
+							goto RestartLabel;
+							break;
+						}
+						else
+						{
+							if (current != testRoom)
 							{
-								Output("The radio doesn't have a strong enough signal here.");
+								hunger--;
+								thirst--;
+								StormMovements--;
+							}
+							current = testRoom;
+							if (current == airport && radu == 1)
+							{
+								Output("\nCongratulations!\nYou have been rescued at the airport, and have successfully survived...\n\nApocalpyse.");
+								gameover = 1; goto RestartLabel;
 							}
 						}
-						else
-							Output("This radio is clearly broken.");
-					}
-					else
-						ErrorInv();
-				}
-				else if (item == "flashlight")
-				{
-					if (lightt == 1)
-					{
-						if (current == radioTower)
+						current->Describe();
+						Next();
+						break;
+					case 'x': Output("Moving East... ");
+						testRoom = Movement(current, "east");
+						if (testRoom->getStatus() == 1)
 						{
-							Output("The flashlight flickers on and illuminates the room.");
-							lightu = 1;
+							Output("You should not have done that. You perished alone in the city.\n");
+							goto RestartLabel;
+							break;
 						}
 						else
-							Output("This item has no effect here.");
-					}
-					else
-						ErrorInv();
-				}
-				else if (item == "crowbar")
-				{
-					Output("You have no use for this item right now.");
-				}
-				else
-				{
-					ErrorInv();
-				}
-				getline(cin, input);
-				break;
-			case 'k': current->Describe();
-				break;
-			case 's': MoveHelp();
-				break;
-			case 't': 
-				RestartLabel:
-				Output("Thanks for playing!\nWould you like to play again?(Y/N)\n");
-				getline(cin, yn);
-				if (yn == LowerCase("Y") || yn == LowerCase("Yes"))
-				{
-					restart = 1; break;
-				}
-				else
-				{
-					gameover = 1; break;
-				}
-			case 'u': Output("Game resumed.");
-				break;
-			case 'v': Error();
-				break;
-				//For cases w-z, function Movement() can be used to output prewritten errors/information
-				//A similar function Description() will output the description of the room the first time it is visited. 
-			case 'w': Output("Moving North... ");
-				testRoom = Movement(current, "north");
-				if (testRoom->getStatus() == 1)
-				{
-					Output("Sorry, you have died in the wasteland.\n");
-					goto RestartLabel;
-					break;
-				}
-				else
-				{
-					if (current != testRoom)
-					{
-						hunger--;
-						thirst--;
-					}
-					current = testRoom;
-					if (current == airport && radu == 1)
-					{
-						Output("\nCongratulations!\nYou have been rescued at the airport, and have successfully survived...\n\nApocalpyse.");
-						gameover = 1; goto RestartLabel;
-					}
-				}
-				current->Describe();
-				Next();
-				break;
-			case 'x': Output("Moving East... ");
-				testRoom = Movement(current, "east");
-				if (testRoom->getStatus() == 1)
-				{
-					Output("You should not have done that. You perished alone in the city.\n");
-					goto RestartLabel;
-					break;
-				}
-				else
-				{
-					if (current != testRoom)
-					{
-						hunger--;
-						thirst--;
-					}
-					current = testRoom;
-					if (current == airport && radu == 1)
-					{
-						Output("\nCongratulations!\nYou have been rescued at the airport, and have successfully survived...\n\nApocalpyse.");
-						gameover = 1; goto RestartLabel;
+						{
+							if (current != testRoom)
+							{
+								hunger--;
+								thirst--;
+								StormMovements--;
+							}
+							current = testRoom;
+							if (current == airport && radu == 1)
+							{
+								Output("\nCongratulations!\nYou have been rescued at the airport, and have successfully survived...\n\nApocalpyse.");
+								gameover = 1; goto RestartLabel;
+							}
+						}
+						current->Describe();
+						Next();
+						break;
+					case 'y': Output("Moving South... ");
+						testRoom = Movement(current, "south");
+						if (testRoom->getStatus() == 1)
+						{
+							Output("That move was your last... You have died!\n");
+							goto RestartLabel;
+							break;
+						}
+						else
+						{
+							if (current != testRoom)
+							{
+								hunger--;
+								thirst--;
+								StormMovements--;
+							}
+							current = testRoom;
+							if (current == safeHouse && StormHappening == 1)
+							{
+								Output("You have successfully made it to the safe house.\nYou are tired from running and lay down for a nap while the storm passes...");
+								Sleep(2000);
+								StormHappening = 0;
+								Output("\nThe storm is over. Caroline said that an airplane would meet you at the airport.");
+							}
+						}
+						current->Describe();
+						Next();
+						break;
+					case 'z': Output("Moving West... ");
+						testRoom = Movement(current, "west");
+						if (testRoom->getStatus() == 1)
+						{
+							Output("The light at the end of the tunnel beckons... You have died.\n");
+							goto RestartLabel;
+							break;
+						}
+						else
+						{
+							if (current != testRoom)
+							{
+								hunger--;
+								thirst--;
+								StormMovements--;
+							}
+							current = testRoom;
+							if (current == safeHouse && StormHappening == 1)
+							{
+								Output("You have successfully made it to the safe house.\nYou are tired from running and lay down for a nap while the storm passes...");
+								Sleep(2000);
+								StormHappening = 0;
+								Output("\nThe storm is over. Caroline said that an airplane would meet you at the airport.");
+							}
+						}
+						current->Describe();
+						Next();
+						break;
+					default: Error();
+						break;
 					}
 				}
-				current->Describe();
-				Next();
-				break;
-			case 'y': Output("Moving South... ");
-				testRoom = Movement(current, "south");
-				if (testRoom->getStatus() == 1)
-				{
-					Output("That move was your last... You have died!\n");
-					goto RestartLabel;
-					break;
-				}
-				else
-				{
-					if (current != testRoom)
-					{
-						hunger--;
-						thirst--;
-					}
-					current = testRoom;
-				}
-				current->Describe();
-				Next();
-				break;
-			case 'z': Output("Moving West... ");
-				testRoom = Movement(current, "west");
-				if (testRoom->getStatus() == 1)
-				{
-					Output("The light at the end of the tunnel beckons... You have died.\n");
-					goto RestartLabel;
-					break;
-				}
-				else
-				{
-					if (current != testRoom)
-					{
-						hunger--;
-						thirst--;
-					}
-					current = testRoom;
-				}
-				current->Describe();
-				Next();
-				break;
-			default: Error();
-				break;
 			}
+			else { Output("You don't have time for that right now, you must move to the safehouse to avoid the storm!"); }
 			cout << endl;
 		}
 	}
@@ -800,6 +974,3 @@ void Take(string t, Room*r)
 	Output("Adding to inventory..."); Sleep(500);
 	Output("\nSuccessfully added to inventory.");
 }
-
-
-

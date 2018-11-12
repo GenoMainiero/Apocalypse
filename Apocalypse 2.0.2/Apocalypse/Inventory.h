@@ -46,7 +46,7 @@ public:
 			}
 		}
 		if (!itworked)
-			cout << stringContainer->itemNotInInventory;
+			cout << "This item could not be found in your inventory.";
 	}
 };
 #endif

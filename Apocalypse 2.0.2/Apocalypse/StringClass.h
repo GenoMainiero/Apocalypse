@@ -39,7 +39,7 @@ public:
 	string errorInvOutput = "You do not have this item.";
 
 	string chemFireDescription = "Chemical Fire! Ouch!!!";
-	string streetDescription = "\nThis desolate road that makes you realize what has happened.";
+	string streetDescription = "\nThis desolate road makes you very aware of how empty the city is.";
 	string eastStreetDescription = "\nYou are in the middle of a street. You see a safe house in the distance to the west.";
 	string safeHouseLongDescription = "\nYou arrive to the only building that withstood the apocalypse.\nThis building has been marked as the safe house for the town and people who survived take refuge in its high structure.\nThe building consists of 28 floors and its design reminds you of those 1980’s hotels.\nYou can see ruble of the other buildings creating a perfect path to the doors that are lined with a gold trim.\nThe building truly resembles a beacon of hope.";
 	string radioTowerDescription = "\nYou enter a radio tower, but it is too dark to see anything.";
@@ -51,7 +51,7 @@ public:
 	string hospitalLongDescription = "\nThe city hospital once a place for health and hope is now a wasteland.\nThis hospital had about 7 buildings all interconnected by bridges but now there is but just one building up and seems to be stable.\nThe place is deserted and gives a haunting vibe.\nInside there is medicine that was left from before the apocalypse which can help in restoring my health in bad times.";
 	string hazardDescription = "\nBe careful! This is a hazardous area that cannot be accessed!!";
 	string hazard1Description = "\nThis is a hazardous area that can be accessed; However, you're at risk!";
-	string boundryDescription = "\nThis is a danger area! You cannot go here!";
+	string boundryDescription = "\nThis is a dangerous area! You cannot go here!";
 
 	string north = "north", south = "south", west = "west", east = "east";
 

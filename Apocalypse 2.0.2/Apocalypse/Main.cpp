@@ -17,7 +17,7 @@ int hunger = 15;
 int thirst = 10;
 int convo = 0;
 bool StormHappening = 0;
-int StormMovements = 5;
+int StormMovements = 6;
 string name;
 string selection;
 StringContainer * stringContainer = new StringContainer();
@@ -316,9 +316,27 @@ int main()
 			default:
 				break;
 			}
+			if (StormHappening == 1 && StormMovements < 1 && current != safeHouse)
+			{
+				Output("You did not make it to safety, and you perish in the storm.");
+				goto RestartLabel;
+			}
+			else if (StormHappening == 1 && current != safeHouse)
+			{
+				switch (StormMovements)
+				{
+				case 1: Output("\nIf you do not make it to the safehouse on your next turn, you will surely perish.");
+					break;
+				case 2: Output("\nYou have a limited time to get back to the safehouse. Hurry!");
+					break;
+				case 3: Output("\nEvery move counts!");
+					break;
+				case 4: Output("\nRemember your way back to the safehouse, and do not stray from the path.");
+					break;
+				}
+			}
 
 			getline(cin, input); //Main input for the game
-
 			if (lightu == 1)
 			{
 				radioTower->setDescription(stringContainer->flashlightUserOutput);

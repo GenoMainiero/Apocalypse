@@ -1,4 +1,4 @@
 ﻿  Main.cpp
-c:\users\geno mainiero\desktop\scrumbuts\apocalypse 2.0.2\apocalypse\inventory.h(40): warning C4018: '<': signed/unsigned mismatch
-c:\users\geno mainiero\desktop\scrumbuts\apocalypse 2.0.2\apocalypse\locations.h(122): warning C4715: 'Blocked': not all control paths return a value
-  Apocalypse.vcxproj -> C:\Users\Geno Mainiero\Desktop\ScrumButs\Apocalypse 2.0.2\Debug\Apocalypse.exe
+d:\compsci\juni\scrumbuts\apocalypse 2.0.2\apocalypse\inventory.h(40): warning C4018: '<': signed/unsigned mismatch
+d:\compsci\juni\scrumbuts\apocalypse 2.0.2\apocalypse\locations.h(130): warning C4715: 'Blocked': not all control paths return a value
+  Apocalypse.vcxproj -> D:\CompSci\Juni\ScrumButs\Apocalypse 2.0.2\Debug\Apocalypse.exe

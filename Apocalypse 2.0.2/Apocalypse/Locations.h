@@ -23,6 +23,9 @@ class Room
 	string description;
 	//used to tell if a room is actually a blockage
 	bool isBlockage;
+	// the below two bools are used to keep track if food/water has already been taken from a room
+	bool firstf;
+	bool firstw;
 public:
 	Room* North;
 	Room* South;
@@ -34,6 +37,7 @@ public:
 	{
 		North = South = East = West = nullptr;
 		description = "STANDIN DESCRIPTION\n";
+		firstf = firstw = 0;
 	}
 	// Constructor to give new room a description when declared.
 	Room(string d)
@@ -47,6 +51,10 @@ public:
 		isBlockage = b;
 		description = d;
 	}
+	bool getfirstf() { return firstf; }
+	bool getfirstw() { return firstw; }
+	void setfirstf(bool f) { firstf = f; }
+	void setfirstw(bool w) { firstw = w; }
 	// Can be used to change the description of a room
 	void setDescription(string d)
 	{

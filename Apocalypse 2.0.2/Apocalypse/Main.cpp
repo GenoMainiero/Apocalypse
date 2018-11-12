@@ -8,7 +8,6 @@
 #include "StringClass.h"
 
 using namespace std;
-bool firsttf = 0, firsttw = 0;
 bool DebugMode = 1;
 bool tapet = 0, crowbart = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
@@ -27,7 +26,7 @@ Item * flashlight = new Item(stringContainer->flashlightCommand,0, 1);
 Item * radio = new Item(stringContainer->radioCommand, 0, 1);
 Item * gloves = new Item(stringContainer->glovesCommand, 0, 1);
 Item * tape = new Item(stringContainer->tapeCommand, 0, 1);
-Item * water = new Item(stringContainer->waterCommand, 1, 1);
+Item * water = new Item(stringContainer->waterCommand, 1, 2);
 Item * food = new Item(stringContainer->foodCommand, 1, 3);
 Item * crowbar = new Item(stringContainer->crowbarCommand, 0, 1);
 
@@ -941,22 +940,20 @@ void Take(string t, Room*r)
 		{
 			if (t == stringContainer->foodCommand)
 			{
-				if (firsttf == 0)
+				if (r->getfirstf() == 0)
 				{
 					playerInv->getItem(1)->setCount(playerInv->getItem(1)->getCount() + 1);
-					r->Stock.getItem(i)->setPossess(0);
 					r->Stock.removeItem(i);
-					firsttf = 1;
+					r->setfirstf(1);
 				}
 			}
 			else if (t == stringContainer->waterCommand)
 			{
-				if (firsttw == 0)
+				if (r->getfirstw() == 0)
 				{
 					playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() + 1);
-					r->Stock.getItem(i)->setPossess(0);
 					r->Stock.removeItem(i);
-					firsttw = 1;
+					r->setfirstw(1);
 				}
 			}
 			else

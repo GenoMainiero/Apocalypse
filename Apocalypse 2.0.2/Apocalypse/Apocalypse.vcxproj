@@ -114,6 +114,7 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="StringClass.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="ItemsArray.h" />
     <ClInclude Include="Locations.h" />

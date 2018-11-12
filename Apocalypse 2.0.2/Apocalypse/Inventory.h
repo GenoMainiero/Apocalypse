@@ -5,6 +5,7 @@
 #include <list>
 #include <vector>
 #include <iostream>
+#include "StringClass.h"
 using namespace std;
 
 class Inventory
@@ -45,7 +46,7 @@ public:
 			}
 		}
 		if (!itworked)
-			cout << "This item could not be found in your inventory.";
+			cout << stringContainer->itemNotInInventory;
 	}
 };
 #endif

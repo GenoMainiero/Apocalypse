@@ -163,9 +163,15 @@ int main()
 	while (!gameover)
 	{
 		tapet = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
-		firsttime = 0;
-		glovesu = 0, radfix = 0, lightu = 0;
-		restart = 0; convo = 0; StormHappening = 0; StormMovements = 5;
+		glovesu = 0, radfix = 0, lightu = 0; restart = 0;
+		convo = 0; StormHappening = 0; StormMovements = 5;
+
+		for (int i = 0; i < (playerInv->getSize()); i++)
+		{
+			playerInv->getItem(i)->setPossess(0);
+		}
+		
+
 		if (firsttime == 0)
 		{
 			playerInv->addItem(water);
@@ -225,6 +231,17 @@ int main()
 		Connect(street, stringContainer->north, hazard1);
 		Connect(hazard1, stringContainer->west, bank);
 		Connect(hazard1, stringContainer->east, clothingStore);
+		
+		for (int i = 0; i < 3; i++)
+		{
+			bank->Stock.removeItem(i);
+			safeHouse->Stock.removeItem(i);
+			clothingStore->Stock.removeItem(i);
+			hospital->Stock.removeItem(i);
+			radioShack->Stock.removeItem(i);
+			militaryBase->Stock.removeItem(i);
+			radioTower->Stock.removeItem(i);
+		}
 		
 		// this is how to add items to a room
 		bank->Stock.addItem(flashlight);
@@ -658,7 +675,7 @@ int main()
 				RestartLabel:
 					Output(stringContainer->playAgainPrompt);
 					getline(cin, yn);
-					if (yn == LowerCase("Y") || yn == LowerCase(stringContainer->yesCommand))
+					if (LowerCase(yn) == LowerCase("Y") || LowerCase(yn) == LowerCase(stringContainer->yesCommand))
 					{
 						restart = 1; break;
 					}
@@ -984,9 +1001,6 @@ void Take(string t, Room*r)
 					{
 						lightt = 1; AddInv();
 					}
-						
-					r->Stock.getItem(i)->setPossess(0);
-					r->Stock.getItem(i)->setCount(0);
 					r->Stock.removeItem(i);
 				}
 			}

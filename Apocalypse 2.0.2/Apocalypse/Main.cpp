@@ -1007,7 +1007,7 @@ void Take(string t, Room*r)
 		}
 		else
 		{
-			Output("That item could not be found...\n"); break;
+			Output(stringContainer->itemCouldNotBeFoundLast); break;
 		}
 	}
 }

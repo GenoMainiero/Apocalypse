@@ -8,6 +8,8 @@
 #include "StringClass.h"
 using namespace std;
 
+StringContainer * stringContainerInv = new StringContainer();
+
 class Inventory
 {
 private:
@@ -46,7 +48,7 @@ public:
 			}
 		}
 		if (!itworked)
-			cout << "This item could not be found in your inventory.";
+			cout << stringContainerInv->itemNotInInventory;
 	}
 };
 #endif

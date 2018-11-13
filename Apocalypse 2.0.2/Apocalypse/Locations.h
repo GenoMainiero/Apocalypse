@@ -18,6 +18,8 @@ void Outputt(string s)
 	}
 }
 
+StringContainer * stringContainerLoc = new StringContainer();
+
 class Room
 {
 	string description;
@@ -36,7 +38,7 @@ public:
 	Room()
 	{
 		North = South = East = West = nullptr;
-		description = "STANDIN DESCRIPTION\n";
+		description = stringContainerLoc->standInDescription;
 		firstf = firstw = 0;
 	}
 	// Constructor to give new room a description when declared.
@@ -79,33 +81,33 @@ public:
 
 void EdgeOfMap(int stoppage)
 {
-	Outputt("\nBlocked by ");
+	Outputt(stringContainerLoc->blockedByOutput);
 	switch (stoppage)
 	{
 	case 1:
-		Outputt("flood.\n");
+		Outputt(stringContainerLoc->floodOutput);
 		break;
 	case 2:
-		Outputt("Chemical Spill.\n");
+		Outputt(stringContainerLoc->chemicalSpillOutput);
 		break;
 	case 3:
-		Outputt("a large fire!\n");
+		Outputt(stringContainerLoc->largeFireOutput);
 		break;
 	case 4:
-		Outputt("rubble.\n");
+		Outputt(stringContainerLoc->rubbleOutput);
 		break;
 	default:
-		Outputt("something.\n");
+		Outputt(stringContainerLoc->somethingOutput);
 		break;
 	}
-	Outputt("Returning to previous location..."); Sleep(500);
+	Outputt(stringContainerLoc->previousLocationOutput); Sleep(500);
 }
 
 
 bool Blocked()
 {
 	string deathAnswer;
-	cout << "Are you sure you would like to go this way? This could prove to be fatal.\n(Y/N):\t";
+	cout << stringContainerLoc->locationWarning;
 	while (deathAnswer != "y" || "Y" || "n" || "N")
 	{
 		getline(cin, deathAnswer);
@@ -123,7 +125,7 @@ bool Blocked()
 		case 'N':
 			return 0;
 		default:
-			Outputt("Please answer the question...\n");
+			Outputt(stringContainerLoc->answerQuestion);
 			break;
 		}
 	}
@@ -134,7 +136,7 @@ bool Blocked()
 Room* Movement(Room* locale, string direction)
 {
 	bool status = 0;
-	if (direction == "north")
+	if (direction == stringContainerLoc->north)
 	{
 		if (locale->North == nullptr)
 		{
@@ -146,7 +148,7 @@ Room* Movement(Room* locale, string direction)
 			status = Blocked();
 			if (status == 0)
 			{
-				Outputt("Returning...");
+				Outputt(stringContainerLoc->returningOutput);
 				return locale;
 			}
 			else
@@ -161,7 +163,7 @@ Room* Movement(Room* locale, string direction)
 		}
 		return locale;
 	}
-	else if (direction == "east")
+	else if (direction == stringContainerLoc->east)
 	{
 		if (locale->East == nullptr)
 		{
@@ -174,7 +176,7 @@ Room* Movement(Room* locale, string direction)
 			status = Blocked();
 			if (status == 0)
 			{
-				Outputt("Returning...");
+				Outputt(stringContainerLoc->returningOutput);
 				return locale;
 			}
 			else
@@ -189,7 +191,7 @@ Room* Movement(Room* locale, string direction)
 		}
 		return locale;
 	}
-	else if (direction == "south")
+	else if (direction == stringContainerLoc->south)
 	{
 		if (locale->South == nullptr)
 		{
@@ -202,7 +204,7 @@ Room* Movement(Room* locale, string direction)
 			status = Blocked();
 			if (status == 0)
 			{
-				Outputt("Returning...");
+				Outputt(stringContainerLoc->returningOutput);
 				return locale;
 			}
 			else
@@ -217,7 +219,7 @@ Room* Movement(Room* locale, string direction)
 		}
 		return locale;
 	}
-	else if (direction == "west")
+	else if (direction == stringContainerLoc->west)
 	{
 		if (locale->West == nullptr)
 		{
@@ -230,7 +232,7 @@ Room* Movement(Room* locale, string direction)
 			status = Blocked();
 			if (status == 0)
 			{
-				Outputt("Returning...");
+				Outputt(stringContainerLoc->returningOutput);
 				return locale;
 			}
 			else
@@ -247,7 +249,7 @@ Room* Movement(Room* locale, string direction)
 	}
 	else
 	{
-		cout << "Command not recognized...\n";
+		cout << stringContainerLoc->commandNotRecognizedOutput;
 		return locale;
 	}
 }

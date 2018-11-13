@@ -157,4 +157,22 @@ public:
 	string addedToInvetoryOutput = "\nSuccessfully added to inventory.";
 
 	string itemNotInInventory = "This item could not be found in your inventory.";
+
+	string itemCouldNotBeFoundLast = "That item could not be found...\n";
+
+
+	//INVENTORY CLASS STRINGS
+
+	string standInDescription = "STANDIN DESCRIPTION\n";
+	string blockedByOutput = "\nBlocked by ";
+	string floodOutput = "flood.\n";
+	string chemicalSpillOutput = "Chemical Spill.\n";
+	string largeFireOutput = "a large fire!\n";
+	string rubbleOutput = "rubble.\n";
+	string somethingOutput = "something.\n";
+	string previousLocationOutput = "Returning to previous location...";
+	string locationWarning = "Are you sure you would like to go this way? This could prove to be fatal.\n(Y/N):\t";
+	string answerQuestion = "Please answer the question...\n";
+	string returningOutput = "Returning...";
+	string commandNotRecognizedOutput = "Command not recognized...\n";
 };

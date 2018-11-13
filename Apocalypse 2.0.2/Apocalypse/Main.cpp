@@ -86,6 +86,11 @@ string Use()
 	return item;
 }
 
+void AddInv()
+{
+	Output(stringContainer->addingToInventoryOutput); Sleep(500);
+	Output(stringContainer->addedToInvetoryOutput);
+}
 void InventoryCheck()
 {
 	Output(stringContainer->inventoryCheckStrings[0]);
@@ -944,7 +949,7 @@ void Take(string t, Room*r)
 				{
 					playerInv->getItem(1)->setCount(playerInv->getItem(1)->getCount() + 1);
 					r->Stock.removeItem(i);
-					r->setfirstf(1);
+					r->setfirstf(1); AddInv();
 				}
 			}
 			else if (t == stringContainer->waterCommand)
@@ -953,7 +958,7 @@ void Take(string t, Room*r)
 				{
 					playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() + 1);
 					r->Stock.removeItem(i);
-					r->setfirstw(1);
+					r->setfirstw(1); AddInv();
 				}
 			}
 			else
@@ -965,19 +970,19 @@ void Take(string t, Room*r)
 
 					if (r->Stock.getItem(i)->getName() == stringContainer->radioCommand)
 					{
-						radiot = 1;
+						radiot = 1; AddInv();
 					}
 					else if (r->Stock.getItem(i)->getName() == stringContainer->tapeCommand)
 					{
-						tapet = 1;
+						tapet = 1; AddInv();
 					}
 					else if (r->Stock.getItem(i)->getName() == stringContainer->glovesCommand)
 					{
-						glovest = 1;
+						glovest = 1; AddInv();
 					}
 					else if (r->Stock.getItem(i)->getName() == stringContainer->flashlightCommand)
 					{
-						lightt = 1;
+						lightt = 1; AddInv();
 					}
 						
 					r->Stock.getItem(i)->setPossess(0);
@@ -986,8 +991,9 @@ void Take(string t, Room*r)
 				}
 			}
 		}
+		else
+		{
+			Output("That item could not be found...\n"); break;
+		}
 	}
-
-	Output(stringContainer->addingToInventoryOutput); Sleep(500);
-	Output(stringContainer->addedToInvetoryOutput);
 }

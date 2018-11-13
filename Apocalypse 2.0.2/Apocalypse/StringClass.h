@@ -120,7 +120,7 @@ public:
 
 	string invalidSelectionOutput = "That is not a valid selection.\n";
 	string airplaneSentOutput = "\n\"We will send an airplane to pick you up.\"";
-	string planeMeetQuestionOutput = "A: When should I meet the plane?\nB: *Say nothing and leave for the airport.*";
+	string planeMeetQuestionOutput = "A: When should I meet the plane?\nB: *Say nothing and leave for the airport.*\n";
 	string radioactiveWaveConvo[3] = { "\n\"We will try to pick you up as soon as possible, but there is something you should know...\"\n",
 									   "\n\"Our radar has detected a radioactive wave closing in on your current location.\nThere is a safehouse in your city that will be able to protect you.\nYou must get there as quickly as possible, do not stop, do not delay.\nAs soon as the wave passes, we will be at the airport waiting for you.\"\n",
 									   "You thank Caroline for her warning, and prepare to leave for the safehouse.\n"};

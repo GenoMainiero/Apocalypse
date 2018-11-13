@@ -346,13 +346,13 @@ int main()
 			{
 				switch (StormMovements)
 				{
-				case 1: Output("\nIf you do not make it to the safehouse on your next turn, you will surely perish.");
+				case 1: Output("\nIf you do not make it to the safehouse on your next turn, you will surely perish.\n");
 					break;
-				case 2: Output("\nYou have a limited time to get back to the safehouse. Hurry!");
+				case 2: Output("\nYou have a limited time to get back to the safehouse. Hurry!\n");
 					break;
-				case 3: Output("\nEvery move counts!");
+				case 3: Output("\nEvery move counts!\n");
 					break;
-				case 4: Output("\nRemember your way back to the safehouse, and do not stray from the path.");
+				case 4: Output("\nRemember your way back to the safehouse, and do not stray from the path.\n");
 					break;
 				}
 			}
@@ -364,7 +364,7 @@ int main()
 			}
 			else
 			{
-				radioTower->setDescription(stringContainer->flashlightUserOutput);
+				radioTower->setDescription(stringContainer->radioTowerDescription);
 			}
 			//converts input to lowercase this if statement assigns a char for use in the switch statement
 			input = LowerCase(input);

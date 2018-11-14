@@ -11,7 +11,7 @@ using namespace std;
 bool DebugMode = 1;
 bool tapet = 0, crowbart = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
-bool boolyboi = 0;
+bool boolyboi = 0; bool Dog = 0;
 bool glovesu = 0, radfix = 0, lightu = 0, radu = 0, conversation = 0, convover = 0;
 int hunger = 15;
 int thirst = 10;
@@ -218,17 +218,19 @@ int main()
 		Connect(street, stringContainer->north, hazard1);
 		Connect(hazard1, stringContainer->west, bank);
 		Connect(hazard1, stringContainer->east, clothingStore);
-		
-		for (int i = 0; i < 3; i++)
-		{
-			bank->Stock.removeItem(i);
-			safeHouse->Stock.removeItem(i);
-			clothingStore->Stock.removeItem(i);
-			hospital->Stock.removeItem(i);
-			radioShack->Stock.removeItem(i);
-			militaryBase->Stock.removeItem(i);
-			radioTower->Stock.removeItem(i);
-		}
+	
+			for (int i = 0; i < 3; i++)
+			{
+				bank->Stock.removeItem(i);
+				safeHouse->Stock.removeItem(i);
+				clothingStore->Stock.removeItem(i);
+				hospital->Stock.removeItem(i);
+				radioShack->Stock.removeItem(i);
+				militaryBase->Stock.removeItem(i);
+				radioTower->Stock.removeItem(i);
+			}
+			playerInv->getItem(0)->setCount(2);
+			playerInv->getItem(1)->setCount(3);
 		
 		// this is how to add items to a room
 		bank->Stock.addItem(flashlight);
@@ -342,6 +344,48 @@ int main()
 				case 4: Output("\nRemember your way back to the safehouse, and do not stray from the path.\n");
 					break;
 				}
+			}
+			if (current == clothingStore && StormHappening == 1 && Dog == 0)
+			{
+
+				Output("You have found a dog, would you like to keep it? (Y/N): ");
+				getline(cin, yn);
+				if (yn == "Y" || yn == "y" || yn == "yes")
+				{
+
+					Output("The dog is now following you!");
+					Dog = 1;
+
+				}
+				else if (yn == "n" || yn == "N" || yn == "no")
+				{
+					Output("The dog has died and it's your fault! You should feel terrible!");
+				}
+
+			}
+			else if (current == bank && StormHappening == 1 && Dog == 0)
+			{
+
+				Output(" You have found a dog, would you like to keep it? (Y/N): ");
+				getline(cin, yn);
+				if (yn == "Y" || yn == "y" || yn == "yes")
+				{
+
+					Output("The dog is now following you!");
+					Dog = 1;
+				}
+				else if (yn == "n" || yn == "N" || yn == "no")
+				{
+					Output("The dog has died and it's your fault! You should feel terrible!");
+				}
+
+			}
+			if ((current == eastStreet || current == radioShack) && Dog == 1)
+			{
+				Output("The dog has found food and water for you! It has automatically been added to your inventory.");
+				playerInv->getItem(1)->setCount(playerInv->getItem(1)->getCount() + 1);
+				playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() + 1);
+
 			}
 
 			getline(cin, input); //Main input for the game

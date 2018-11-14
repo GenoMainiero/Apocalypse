@@ -85,13 +85,13 @@ public:
 	{
 		if (toShort == 0)
 		{
-			cout << description;
-			//Outputt(description);
+			//cout << description;
+			Outputt(description);
 		}
 		else
 		{
-			cout << shortDesc;
-			//Outputt(shortDesc);
+			//cout << shortDesc;
+			Outputt(shortDesc);
 		}
 		Outputt("\n");
 	}
@@ -134,7 +134,7 @@ bool Blocked()
 {
 	string deathAnswer;
 	char deathChar;
-	cout << stringContainerLoc->locationWarning;
+	Outputt(stringContainerLoc->locationWarning);
 	while (deathAnswer != "y" || "Y" || "n" || "N")
 	{
 		getline(cin, deathAnswer);

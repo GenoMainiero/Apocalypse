@@ -8,7 +8,7 @@
 #include "StringClass.h"
 
 using namespace std;
-bool DebugMode = 1;
+bool DebugMode = 0;
 bool tapet = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
 bool boolyboi = 0; bool Dog = 0; bool NoDog = 0;

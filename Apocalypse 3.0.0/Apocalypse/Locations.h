@@ -78,13 +78,13 @@ public:
 	{
 		if (toShort == 0)
 		{
-			cout << description;
-			//Outputt(description);
+			//cout << description;
+			Outputt(description);
 		}
 		else
 		{
-			cout << shortDesc;
-			//Outputt(shortDesc);
+			//cout << shortDesc;
+			Outputt(shortDesc);
 		}
 		Outputt("\n");
 	}

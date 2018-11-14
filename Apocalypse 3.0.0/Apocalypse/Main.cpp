@@ -8,7 +8,7 @@
 #include "StringClass.h"
 
 using namespace std;
-bool DebugMode = 0;
+bool DebugMode = 1;
 bool tapet = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
 bool boolyboi = 0; bool Dog = 0; bool NoDog = 0;
@@ -67,7 +67,6 @@ void Help()
 	cout << stringContainer->helpMenu[5];
 	cout << stringContainer->helpMenu[6];
 	cout << stringContainer->helpMenu[7];
-	cout << stringContainer->helpMenu[8];
 }
 
 void MoveHelp()
@@ -206,6 +205,7 @@ int main()
 		militaryBase->setShortDesc(stringContainer->ShortMilitart);
 		airport->setShortDesc(stringContainer->ShortAirport);
 		bank->setShortDesc(stringContainer->ShortBank);
+		radioTower->setShortDesc(stringContainer->flashlightUserOutput);
 
 		Connect(street, stringContainer->west, safeHouse);
 		Connect(street, stringContainer->east, eastStreet);
@@ -237,6 +237,8 @@ int main()
 			}
 			playerInv->getItem(0)->setCount(2);
 			playerInv->getItem(1)->setCount(3);
+			hunger = 15;
+			thirst = 10;
 		
 		// this is how to add items to a room
 		bank->Stock.addItem(flashlight);
@@ -395,16 +397,12 @@ int main()
 				playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() + 2);
 				radioTower->setfirstw(1);
 			}
-
-			getline(cin, input); //Main input for the game
 			if (lightu == 1)
 			{
 				radioTower->setDescription(stringContainer->flashlightUserOutput);
 			}
-			else
-			{
-				radioTower->setDescription(stringContainer->radioTowerDescription);
-			}
+			getline(cin, input); //Main input for the game
+			
 			//converts input to lowercase this if statement assigns a char for use in the switch statement
 			input = LowerCase(input);
 			if (input == stringContainer->helpCommand)
@@ -560,8 +558,15 @@ int main()
 					{
 						if (glovest == 1)
 						{
-							Output(stringContainer->puttingGlovesOnOutPut);
-							glovesu = 1; glovest = 0;
+							if (current == radioTower && lightu == 0)
+							{
+								Output("It is too dark in here to see what you are doing.");
+							}
+							else
+							{
+								Output(stringContainer->puttingGlovesOnOutPut);
+								glovesu = 1; glovest = 0;
+							}
 						}
 						else
 							ErrorInv();
@@ -570,18 +575,26 @@ int main()
 					{
 						if (tapet == 1)
 						{
-							if (radiot == 1)
+							if (current == radioTower && lightu == 0)
 							{
-								if (glovesu == 1)
-								{
-									Output(stringContainer->radioFixedOutput);
-									radfix = 1; tapet = 0;
-								}
-								else
-									Output(stringContainer->mightGetShocked);
+								Output("It is too dark in here to see what you are doing.");
 							}
 							else
-								Output(stringContainer->noItemsNeedFixing);
+							{
+								
+								if (radiot == 1)
+								{
+									if (glovesu == 1)
+									{
+										Output(stringContainer->radioFixedOutput);
+										radfix = 1; tapet = 0;
+									}
+									else
+										Output(stringContainer->mightGetShocked);
+								}
+								else
+									Output(stringContainer->noItemsNeedFixing);
+							}
 						}
 						else
 							ErrorInv();
@@ -594,7 +607,9 @@ int main()
 							{
 								if (current == radioTower)
 								{
-									radu = 1;
+									if (lightu == 1)
+									{
+										radu = 1;
 									string WhatSay = stringContainer->whatToSayOutput;
 									if (convover == 0)
 									{
@@ -621,9 +636,9 @@ int main()
 												Output(stringContainer->survivorsConvo[1]);
 												Output(stringContainer->survivorsConvo[2]);
 												Output(stringContainer->survivorsConvo[3]);
-												convover = 1; 
+												convover = 1;
 												StormHappening = 1;
-												
+
 												break;
 											}
 											else if (LowerCase(selection) == "b")
@@ -670,6 +685,11 @@ int main()
 									}
 									radiot = 0;
 									break;
+									}
+									else
+									{
+										Output("It is too dark in here to see what you are doing.");
+									}
 								}
 								else
 								{
@@ -690,6 +710,7 @@ int main()
 							{
 								Output(stringContainer->flashlightOnOutput);
 								lightu = 1;
+								radioTower->setDescription(stringContainer->flashlightUserOutput);
 							}
 							else
 								Output(stringContainer->itemNoEffectOutput);
@@ -711,7 +732,7 @@ int main()
 				RestartLabel:
 					Output(stringContainer->playAgainPrompt);
 					getline(cin, yn);
-					if (LowerCase(yn) == LowerCase("Y") || LowerCase(yn) == LowerCase(stringContainer->yesCommand))
+					if (LowerCase(yn) == "y" || "yes")
 					{
 						restart = 1; break;
 					}
@@ -745,7 +766,7 @@ int main()
 						{
 							Output("You arrive at the airport just as the airplane lands.\nA man exits the plane and sees you standing there.");
 							Output("\"You must be "); Output(name); Output(". Welcome aboard.\"\n\n"); Output(stringContainer->congradulationsOutput);
-							gameover = 1; goto RestartLabel;
+							restart = 1; goto RestartLabel;
 						}
 						
 					}
@@ -771,7 +792,8 @@ int main()
 						current = testRoom;
 						if (current == airport && radu == 1)
 						{
-							Output(stringContainer->congradulationsOutput);
+							Output("You arrive at the airport just as the airplane lands.\nA man exits the plane and sees you standing there.");
+							Output("\"You must be "); Output(name); Output(". Welcome aboard.\"\n\n"); Output(stringContainer->congradulationsOutput);
 							gameover = 1; goto RestartLabel;
 						}
 						
@@ -862,7 +884,7 @@ int main()
 						//There was a RestartLabel here, writing this incase it breaks something
 						Output(stringContainer->playAgainPrompt);
 						getline(cin, yn);
-						if (yn == LowerCase("Y") || yn == LowerCase(stringContainer->yesCommand))
+						if (LowerCase(yn) == "y" || LowerCase(yn) == "yes")
 						{
 							restart = 1; break;
 						}

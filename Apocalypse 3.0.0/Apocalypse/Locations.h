@@ -4,9 +4,16 @@
 #include <Windows.h>
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include "Inventory.h"
 #include "StringClass.h"
 using namespace std;
+
+string LowerCaser(string l)
+{
+	transform(l.begin(), l.end(), l.begin(), (int(*)(int))tolower);
+	return l;
+}
 
 void Outputt(string s)
 {
@@ -78,13 +85,13 @@ public:
 	{
 		if (toShort == 0)
 		{
-			//cout << description;
-			Outputt(description);
+			cout << description;
+			//Outputt(description);
 		}
 		else
 		{
-			//cout << shortDesc;
-			Outputt(shortDesc);
+			cout << shortDesc;
+			//Outputt(shortDesc);
 		}
 		Outputt("\n");
 	}
@@ -126,10 +133,25 @@ void EdgeOfMap(int stoppage)
 bool Blocked()
 {
 	string deathAnswer;
+	char deathChar;
 	cout << stringContainerLoc->locationWarning;
 	while (deathAnswer != "y" || "Y" || "n" || "N")
 	{
 		getline(cin, deathAnswer);
+		/*
+		if (LowerCaser(deathAnswer) == "yes" || "y")
+		{
+			deathChar = 'y';
+		}
+		else if (LowerCaser(deathAnswer) == "no" || "n")
+		{
+			deathChar = 'n';
+		}
+		else
+		{
+			deathChar = 'a';
+		}*/
+	
 		switch (deathAnswer[0])
 		{
 		case 'y':

@@ -5,17 +5,16 @@ using namespace std;
 class StringContainer {
 public:
 	//Help Method Strings
-	string helpMenu[9] = { "                                   Help Menu                      ",
+	string helpMenu[8] = { "                                   Help Menu                      ",
 						  "                                  -----------                     ",
-						  "\nTo move throughout the city, use the following commands : North, East, South, West",
+						  "\nTo move throughout the city, use the following commands: North, East, South, West",
 						  "\nTo interact with items, use the following commands: Search, Take, Eat, Drink, Use",
-						  "\nItems may have *asterisks* to denote the keyword you should use to interact with it.",
 						  "\nTo show your inventory, type inventory or inv.",
 						  "\nTo show your current location, type location.",
 						  "\nYou may only enter one command per line.",
 						  "\nTo exit the game at any time, type exit or quit." };
 
-	string moveHelpMenu[2] = { "To move throughout the city, use the following commands: North, East, South, West",
+	string moveHelpMenu[2] = { "\nTo move throughout the city, use the following commands: North, East, South, West",
 							   "\nFor more help at any time, type help." };
 
 	string useItemQuestion = "Which item would you like to use?\n";
@@ -48,7 +47,7 @@ public:
 	string airportLongDescription = "\nYou finally arrive to the airport where the airplanes have all departed before the apocalypse hit.\nThe sight of the airport being deserted gives you a sense of depression and makes you feel alone.\nHowever there is hope that with all the materials you have you are able to create a means of contacted for a ride to salvation.";
 	string clothingStoreDescription = "\nYou are now inside the clothing store H&M, oh you fancy huh?";
 	string bankLongDescription = "\nYou see a colossal building that has greek lettering on it.\nThis is the central bank of the city.\nIt has the designs of Ancient Greek buildings with its huge pillars supporting its triangular roof the seems to have caved in a bit.\nOne of the pillars is actually broken in half and part of the ruling is missing.\nYet it still has a way to appear magnificent in a time of despair.\nThe entrance is a humungous bi-folding door that has gold trim around to show that it is full of wealth.\nThe steps has rouble around it and there is a lonely tree stump that is seen next to it.\nMaybe there is something useful in the security boxes.";
-	string hospitalLongDescription = "\nThe city hospital once a place for health and hope is now a wasteland.\nThis hospital had about 7 buildings all interconnected by bridges but now there is but just one building up and seems to be stable.\nThe place is deserted and gives a haunting vibe.\nInside there is medicine that was left from before the apocalypse which can help in restoring my health in bad times.";
+	string hospitalLongDescription = "\nThe city hospital once a place for health and hope is now a wasteland.\nThis hospital had about 7 buildings all interconnected by bridges but now there is but just one building up and seems to be stable.\nThe place is deserted and gives a haunting vibe.\nInside there is food and water that was left from before the apocalypse which can help in restoring my health in bad times.";
 	string hazardDescription = "\nBe careful! This is a hazardous area that cannot be accessed!!";
 	string hazard1Description = "\nThis is a hazardous area that can be accessed; However, you're at risk!";
 	string boundryDescription = "\nThis is a dangerous area! You cannot go here!";
@@ -63,7 +62,7 @@ public:
 
 	string welcomeMenuOutputs[2] = { "Welcome to Apocalypse!", 
 								  "\n\nYou are the only living person in a large city following a series of natural disasters.\nThere is reason to believe that others have survived in neighboring cities.\nA nearby radio tower can be used to communicate with these survivors.\nYour mission is to find this radio tower and get rescued.\n\nThe following is a list of commands to help you navigate through the game:\n" };
-	string firstMoveQuestion = "\n\nWhat is your first move ? \n";
+	string firstMoveQuestion = "\n\nWhat is your first move? \n";
 
 	string hungerOuputs[4] = { "You are fairly hungry.\n",
 							   "You are dangerously hungry. Eat soon.\n",
@@ -140,14 +139,14 @@ public:
 	string flashlightOnOutput = "The flashlight flickers on and illuminates the room.";
 	string itemNoEffectOutput = "This item has no effect here.", itemNoUseOutput = "You have no use for this item right now.";
 
-	string playAgainPrompt = "Thanks for playing!\nWould you like to play again?(Y/N)\n";
+	string playAgainPrompt = "Thanks for playing!\nWould you like to play again? (Y/N): ";
 	string gameResumed = "Game resumed.";
 
 	string movingNorthOutput = "Moving North... ", movingEastOutput = "Moving East...",
 		movingWestOutput = "Moving West...", movingSouthOutput = "Moving South...";
 
 	string diedInWasteLandOutput = "Sorry, you have died in the wasteland.\n";
-	string congradulationsOutput = "\nCongratulations!\nYou have been rescued at the airport, and have successfully survived...\n\nApocalpyse.";
+	string congradulationsOutput = "\nCongratulations!\nYou have been rescued at the airport, and have successfully survived...\n\nApocalpyse.\n";
 
 	string badMoveOutput = "You should not have done that. You perished alone in the city.\n";
 
@@ -177,7 +176,7 @@ public:
 	string rubbleOutput = "rubble.\n";
 	string somethingOutput = "something.\n";
 	string previousLocationOutput = "Returning to previous location...";
-	string locationWarning = "Are you sure you would like to go this way? This could prove to be fatal.\n(Y/N):\t";
+	string locationWarning = "Are you sure you would like to go this way? This could prove to be fatal.\n(Y/N): ";
 	string answerQuestion = "Please answer the question...\n";
 	string returningOutput = "Returning...";
 	string commandNotRecognizedOutput = "Command not recognized...\n";

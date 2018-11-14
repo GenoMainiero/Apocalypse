@@ -11,6 +11,7 @@ using namespace std;
 bool DebugMode = 1;
 bool tapet = 0, crowbart = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
+bool boolyboi = 0;
 bool glovesu = 0, radfix = 0, lightu = 0, radu = 0, conversation = 0, convover = 0;
 int hunger = 15;
 int thirst = 10;
@@ -128,22 +129,8 @@ void Next()
 	Output(NextA);
 }
 
-void Description(int b)
-{
-	string Description[1] = { stringContainer->descriptionPlaceHolder };
-	Output(Description[b]);
-}
-
-void Movement(int a)
-{
-	//string Movement[4] = { "A chemical spill blocks your path. There is no way around it.", "Ahead is a flood that may be electrified. You'd better not risk it.",
-		//"It's too dark to see anything...", "There are several burning buildings in this direction, but one looks mostly undamaged." };
-	Output(stringContainer->movementStrings[a]);
-}
-
 void Error()
 {
-	
 	int randNum2 = rand() % (4);
 	int x = 0;
 	string ErrorA = stringContainer->errorStrings[randNum2];
@@ -245,8 +232,8 @@ int main()
 		
 		// this is how to add items to a room
 		bank->Stock.addItem(flashlight);
-		safeHouse->Stock.addItem(tape);
 		safeHouse->Stock.addItem(food);
+		safeHouse->Stock.addItem(tape);
 		clothingStore->Stock.addItem(gloves);
 		hospital->Stock.addItem(food);
 		hospital->Stock.addItem(water);
@@ -953,9 +940,9 @@ int main()
 	system("pause");
 	return 0;
 }
-
 void Take(string t, Room*r)
 {
+	boolyboi = 0;
 	for (int i = 0; i < (r->Stock.getSize()); i++)
 	{
 		if (t == r->Stock.getItem(i)->getName())
@@ -966,7 +953,7 @@ void Take(string t, Room*r)
 				{
 					playerInv->getItem(1)->setCount(playerInv->getItem(1)->getCount() + 1);
 					r->Stock.removeItem(i);
-					r->setfirstf(1); AddInv();
+					r->setfirstf(1); AddInv(); boolyboi = 1;
 				}
 			}
 			else if (t == stringContainer->waterCommand)
@@ -975,7 +962,7 @@ void Take(string t, Room*r)
 				{
 					playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() + 1);
 					r->Stock.removeItem(i);
-					r->setfirstw(1); AddInv();
+					r->setfirstw(1); AddInv(); boolyboi = 1;
 				}
 			}
 			else
@@ -987,27 +974,27 @@ void Take(string t, Room*r)
 
 					if (r->Stock.getItem(i)->getName() == stringContainer->radioCommand)
 					{
-						radiot = 1; AddInv();
+						radiot = 1; AddInv(); boolyboi = 1;
 					}
 					else if (r->Stock.getItem(i)->getName() == stringContainer->tapeCommand)
 					{
-						tapet = 1; AddInv();
+						tapet = 1; AddInv(); boolyboi = 1;
 					}
 					else if (r->Stock.getItem(i)->getName() == stringContainer->glovesCommand)
 					{
-						glovest = 1; AddInv();
+						glovest = 1; AddInv(); boolyboi = 1;
 					}
 					else if (r->Stock.getItem(i)->getName() == stringContainer->flashlightCommand)
 					{
-						lightt = 1; AddInv();
+						lightt = 1; AddInv(); boolyboi = 1;
 					}
 					r->Stock.removeItem(i);
 				}
 			}
 		}
-		else
-		{
-			Output(stringContainer->itemCouldNotBeFoundLast); break;
-		}
+	}
+	if (boolyboi == 0)
+	{
+		Output(stringContainer->itemCouldNotBeFoundLast);
 	}
 }

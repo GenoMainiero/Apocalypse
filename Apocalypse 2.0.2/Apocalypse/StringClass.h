@@ -41,7 +41,7 @@ public:
 	string chemFireDescription = "Chemical Fire! Ouch!!!";
 	string streetDescription = "\nThis desolate road makes you very aware of how empty the city is.";
 	string eastStreetDescription = "\nYou are in the middle of a street. You see a safe house in the distance to the west.";
-	string safeHouseLongDescription = "\nYou arrive to the only building that withstood the apocalypse.\nThis building has been marked as the safe house for the town and people who survived take refuge in its high structure.\nThe building consists of 28 floors and its design reminds you of those 1980’s hotels.\nYou can see ruble of the other buildings creating a perfect path to the doors that are lined with a gold trim.\nThe building truly resembles a beacon of hope.";
+	string safeHouseLongDescription = "\nYou arrive to the only building that withstood the apocalypse.\nThis building has been marked as the safe house for the town and people who survived take refuge in its high structure.\nThe building consists of 28 floors and its design reminds you of those 1980's hotels.\nYou can see ruble of the other buildings creating a perfect path to the doors that are lined with a gold trim.\nThe building truly resembles a beacon of hope.";
 	string radioTowerDescription = "\nYou enter a radio tower, but it is too dark to see anything.";
 	string radioShackDescription = "\nYou are now in the Radio Shack store, essential communication supplies can be found here.";
 	string militartBaseLongDescription = "\nThis is where it all started. Such a big explosion and everything has changed.\nMany soldiers used to run around here and now this military base is nothing.";
@@ -158,7 +158,7 @@ public:
 
 	string itemNotInInventory = "This item could not be found in your inventory.";
 
-	string itemCouldNotBeFoundLast = "That item could not be found...\n";
+	string itemCouldNotBeFoundLast = "That item could not be found...";
 
 
 	//INVENTORY CLASS STRINGS

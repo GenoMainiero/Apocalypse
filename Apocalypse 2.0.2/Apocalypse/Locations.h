@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include "Inventory.h"
+#include "StringClass.h"
 using namespace std;
 
 void Outputt(string s)
@@ -23,8 +24,10 @@ StringContainer * stringContainerLoc = new StringContainer();
 class Room
 {
 	string description;
+	string shortDesc;
 	//used to tell if a room is actually a blockage
 	bool isBlockage;
+	bool toShort;
 	// the below two bools are used to keep track if food/water has already been taken from a room
 	bool firstf;
 	bool firstw;
@@ -38,35 +41,51 @@ public:
 	Room()
 	{
 		North = South = East = West = nullptr;
-		description = stringContainerLoc->standInDescription;
-		firstf = firstw = 0;
+		description = shortDesc = stringContainerLoc->standInDescription;
+		firstf = firstw = toShort = 0;
 	}
 	// Constructor to give new room a description when declared.
 	Room(string d)
 	{
 		North = South = East = West = nullptr;
-		description = d;
+		shortDesc = description = d;
 	}
 	Room(string d, bool b)
 	{
 		North = South = East = West = nullptr;
 		isBlockage = b;
-		description = d;
+		shortDesc = description = d;
 	}
 	bool getfirstf() { return firstf; }
 	bool getfirstw() { return firstw; }
 	void setfirstf(bool f) { firstf = f; }
 	void setfirstw(bool w) { firstw = w; }
+
+	bool getShort() { return toShort; }
+	void setShort(bool s) { toShort = s; }
+
 	// Can be used to change the description of a room
 	void setDescription(string d)
 	{
 		description = d;
 	}
+	void setShortDesc(string banana)
+	{
+		shortDesc = banana;
+	}
 	// reads description of a room.
 	void Describe()
 	{
-		cout << description;
-		//Outputt(description);
+		if (toShort == 0)
+		{
+			cout << description;
+			//Outputt(description);
+		}
+		else
+		{
+			cout << shortDesc;
+			//Outputt(shortDesc);
+		}
 		Outputt("\n");
 	}
 	void setStatus(bool b)

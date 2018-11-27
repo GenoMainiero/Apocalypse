@@ -47,8 +47,8 @@ public:
 				itworked = 1;
 			}
 		}
-		if (!itworked)
-			cout << stringContainerInv->itemNotInInventory;
+		/*if (!itworked)
+			cout << stringContainerInv->itemNotInInventory;*/
 	}
 };
 #endif

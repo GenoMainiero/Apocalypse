@@ -9,9 +9,9 @@
 
 using namespace std;
 bool DebugMode = 1;
-bool tapet = 0, crowbart = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
+bool tapet = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
-bool boolyboi = 0;
+bool boolyboi = 0; bool Dog = 0; bool NoDog = 0;
 bool glovesu = 0, radfix = 0, lightu = 0, radu = 0, conversation = 0, convover = 0;
 int hunger = 15;
 int thirst = 10;
@@ -29,7 +29,6 @@ Item * gloves = new Item(stringContainer->glovesCommand, 0, 1);
 Item * tape = new Item(stringContainer->tapeCommand, 0, 1);
 Item * water = new Item(stringContainer->waterCommand, 1, 2);
 Item * food = new Item(stringContainer->foodCommand, 1, 3);
-Item * crowbar = new Item(stringContainer->crowbarCommand, 0, 1);
 
 int outputDelay = 5;
 
@@ -201,6 +200,13 @@ int main()
 		Room* hazard1 = new Room(stringContainer->hazard1Description, 1);
 		Room* boundary = new Room(stringContainer->boundryDescription, 1);
 
+		hospital->setShortDesc(stringContainer->ShortHospital);
+		radioShack->setShortDesc(stringContainer->ShortRadioShack);
+		safeHouse->setShortDesc(stringContainer->ShortSafehouse);
+		militaryBase->setShortDesc(stringContainer->ShortMilitart);
+		airport->setShortDesc(stringContainer->ShortAirport);
+		bank->setShortDesc(stringContainer->ShortBank);
+
 		Connect(street, stringContainer->west, safeHouse);
 		Connect(street, stringContainer->east, eastStreet);
 		Connect(eastStreet, stringContainer->east, hazard);
@@ -218,17 +224,19 @@ int main()
 		Connect(street, stringContainer->north, hazard1);
 		Connect(hazard1, stringContainer->west, bank);
 		Connect(hazard1, stringContainer->east, clothingStore);
-		
-		for (int i = 0; i < 3; i++)
-		{
-			bank->Stock.removeItem(i);
-			safeHouse->Stock.removeItem(i);
-			clothingStore->Stock.removeItem(i);
-			hospital->Stock.removeItem(i);
-			radioShack->Stock.removeItem(i);
-			militaryBase->Stock.removeItem(i);
-			radioTower->Stock.removeItem(i);
-		}
+	
+			for (int i = 0; i < 3; i++)
+			{
+				bank->Stock.removeItem(i);
+				safeHouse->Stock.removeItem(i);
+				clothingStore->Stock.removeItem(i);
+				hospital->Stock.removeItem(i);
+				radioShack->Stock.removeItem(i);
+				militaryBase->Stock.removeItem(i);
+				radioTower->Stock.removeItem(i);
+			}
+			playerInv->getItem(0)->setCount(2);
+			playerInv->getItem(1)->setCount(3);
 		
 		// this is how to add items to a room
 		bank->Stock.addItem(flashlight);
@@ -239,7 +247,6 @@ int main()
 		hospital->Stock.addItem(water);
 		radioShack->Stock.addItem(radio);
 		militaryBase->Stock.addItem(water);
-		radioTower->Stock.addItem(crowbar);
 
 		Room* current = street;
 		//Game Introduction + Storyline
@@ -326,22 +333,67 @@ int main()
 			}
 			if (StormHappening == 1 && StormMovements < 1 && current != safeHouse)
 			{
-				Output("You did not make it to safety, and you perish in the storm.");
+				Output("You did not make it to safety, and you perish in the storm.\n");
 				goto RestartLabel;
 			}
 			else if (StormHappening == 1 && current != safeHouse)
 			{
 				switch (StormMovements)
 				{
-				case 1: Output("\nIf you do not make it to the safehouse on your next turn, you will surely perish.\n");
-					break;
-				case 2: Output("\nYou have a limited time to get back to the safehouse. Hurry!\n");
-					break;
-				case 3: Output("\nEvery move counts!\n");
-					break;
 				case 4: Output("\nRemember your way back to the safehouse, and do not stray from the path.\n");
 					break;
 				}
+			}
+			if (current == clothingStore && StormHappening == 1 && Dog == 0 && NoDog == 0)
+			{
+
+				Output("You have found a dog, would you like to keep it? (Y/N): ");
+				getline(cin, yn);
+				if (yn == "Y" || yn == "y" || yn == "yes")
+				{
+
+					Output("The dog is now following you!\n");
+					Dog = 1; Next(); cout << endl;
+
+				}
+				else if (yn == "n" || yn == "N" || yn == "no")
+				{
+					Output("The dog has died and it's your fault! You should feel terrible!\n");
+					Next(); cout << endl; NoDog = 1;
+				}
+
+			}
+			else if (current == bank && StormHappening == 1 && Dog == 0 && NoDog == 0)
+			{
+
+				Output("You have found a dog, would you like to keep it? (Y/N): ");
+				getline(cin, yn);
+				if (yn == "Y" || yn == "y" || yn == "yes")
+				{
+
+					Output("The dog is now following you!\n");
+					Dog = 1; Next(); cout << endl;
+				}
+				else if (yn == "n" || yn == "N" || yn == "no")
+				{
+					Output("The dog has died and it's your fault! You should feel terrible!\n");
+					Next(); cout << endl; NoDog = 1;
+				}
+
+			}
+			if (current == eastStreet && Dog == 1 && eastStreet->getfirstw() == 0)
+			{
+				Output("The dog has found food and water for you! It has automatically been added to your inventory.\n");
+				playerInv->getItem(1)->setCount(playerInv->getItem(1)->getCount() + 2);
+				playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() + 2);
+				eastStreet->setfirstw(1);
+			}
+			if (current == radioTower && Dog == 1 && radioTower->getfirstw() == 0)
+			{
+				Output("The dog has found food and water for you! It has automatically been added to your inventory.\n");
+				playerInv->getItem(1)->setCount(playerInv->getItem(1)->getCount() + 2);
+				playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() + 2);
+				radioTower->setfirstw(1);
 			}
 
 			getline(cin, input); //Main input for the game
@@ -488,7 +540,7 @@ int main()
 					if (playerInv->getItem(0)->getCount() > 0)
 					{
 						playerInv->getItem(0)->setCount(playerInv->getItem(0)->getCount() - 1);
-						thirst += 2;
+						thirst += 3;
 						outputDelay = 25;
 						Output(stringContainer->drinkingOutput); Sleep(500); Output(stringContainer->refreshingOutput);
 					}
@@ -542,6 +594,7 @@ int main()
 							{
 								if (current == radioTower)
 								{
+									radu = 1;
 									string WhatSay = stringContainer->whatToSayOutput;
 									if (convover == 0)
 									{
@@ -615,7 +668,7 @@ int main()
 									{
 										Output(stringContainer->radioNoResponseOutput);
 									}
-									radiot = 0; radu = 1;
+									radiot = 0;
 									break;
 								}
 								else
@@ -643,10 +696,6 @@ int main()
 						}
 						else
 							ErrorInv();
-					}
-					else if (item == stringContainer->crowbarCommand)
-					{
-						Output(stringContainer->itemNoUseOutput);
 					}
 					else
 					{
@@ -694,11 +743,14 @@ int main()
 						current = testRoom;
 						if (current == airport && radu == 1)
 						{
-							Output(stringContainer->congradulationsOutput);
+							Output("You arrive at the airport just as the airplane lands.\nA man exits the plane and sees you standing there.");
+							Output("\"You must be "); Output(name); Output(". Welcome aboard.\"\n\n"); Output(stringContainer->congradulationsOutput);
 							gameover = 1; goto RestartLabel;
 						}
+						
 					}
 					current->Describe();
+					current->setShort(1);
 					Next();
 					break;
 				case 'x': Output(stringContainer->movingEastOutput);
@@ -722,8 +774,10 @@ int main()
 							Output(stringContainer->congradulationsOutput);
 							gameover = 1; goto RestartLabel;
 						}
+						
 					}
 					current->Describe();
+					current->setShort(1);
 					Next();
 					break;
 				case 'y': Output(stringContainer->movingSouthOutput);
@@ -744,6 +798,7 @@ int main()
 						current = testRoom;
 					}
 					current->Describe();
+					current->setShort(1);
 					Next();
 					break;
 				case 'z': Output(stringContainer->movingWestOutput);
@@ -764,6 +819,7 @@ int main()
 						current = testRoom;
 					}
 					current->Describe();
+					current->setShort(1);
 					Next();
 					break;
 				default: Error();
@@ -842,8 +898,10 @@ int main()
 								Output(stringContainer->congradulationsOutput);
 								gameover = 1; goto RestartLabel;
 							}
+							
 						}
 						current->Describe();
+						current->setShort(1);
 						Next();
 						break;
 					case 'x': Output(stringContainer->movingEastOutput);
@@ -868,8 +926,10 @@ int main()
 								Output(stringContainer->congradulationsOutput);
 								gameover = 1; goto RestartLabel;
 							}
+							
 						}
 						current->Describe();
+						current->setShort(1);
 						Next();
 						break;
 					case 'y': Output(stringContainer->movingSouthOutput);
@@ -898,6 +958,7 @@ int main()
 							}
 						}
 						current->Describe();
+						current->setShort(1);
 						Next();
 						break;
 					case 'z': Output(stringContainer->movingWestOutput);
@@ -926,6 +987,7 @@ int main()
 							}
 						}
 						current->Describe();
+						current->setShort(1);
 						Next();
 						break;
 					default: Error();

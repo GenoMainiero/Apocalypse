@@ -114,10 +114,10 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="StringClass.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="ItemsArray.h" />
     <ClInclude Include="Locations.h" />
+    <ClInclude Include="StringClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

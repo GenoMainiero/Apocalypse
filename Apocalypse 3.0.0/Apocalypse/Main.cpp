@@ -8,7 +8,7 @@
 #include "StringClass.h"
 
 using namespace std;
-bool DebugMode = 0;
+bool DebugMode = 1;
 bool tapet = 0, radiot = 0, glovest = 0, lightt = 0, breadt = 0, watert = 0;
 bool firsttime = 0;
 bool boolyboi = 0; bool Dog = 0; bool NoDog = 0;
@@ -205,7 +205,7 @@ int main()
 		militaryBase->setShortDesc(stringContainer->ShortMilitart);
 		airport->setShortDesc(stringContainer->ShortAirport);
 		bank->setShortDesc(stringContainer->ShortBank);
-		radioTower->setShortDesc(stringContainer->flashlightUserOutput);
+		radioTower->setShortDesc(stringContainer->radioTowerDescription);
 
 		Connect(street, stringContainer->west, safeHouse);
 		Connect(street, stringContainer->east, eastStreet);
@@ -400,7 +400,9 @@ int main()
 			if (lightu == 1)
 			{
 				radioTower->setDescription(stringContainer->flashlightUserOutput);
+				radioTower->setShortDesc(stringContainer->flashlightUserOutput);
 			}
+			cout << "     ";
 			getline(cin, input); //Main input for the game
 			
 			//converts input to lowercase this if statement assigns a char for use in the switch statement
@@ -732,7 +734,7 @@ int main()
 				RestartLabel:
 					Output(stringContainer->playAgainPrompt);
 					getline(cin, yn);
-					if (LowerCase(yn) == "y" || "yes")
+					if (LowerCase(yn) == "y" || LowerCase(yn) == "yes")
 					{
 						restart = 1; break;
 					}
@@ -766,7 +768,7 @@ int main()
 						{
 							Output("You arrive at the airport just as the airplane lands.\nA man exits the plane and sees you standing there.");
 							Output("\"You must be "); Output(name); Output(". Welcome aboard.\"\n\n"); Output(stringContainer->congradulationsOutput);
-							restart = 1; goto RestartLabel;
+							goto RestartLabel;
 						}
 						
 					}
@@ -794,7 +796,7 @@ int main()
 						{
 							Output("You arrive at the airport just as the airplane lands.\nA man exits the plane and sees you standing there.");
 							Output("\"You must be "); Output(name); Output(". Welcome aboard.\"\n\n"); Output(stringContainer->congradulationsOutput);
-							gameover = 1; goto RestartLabel;
+							goto RestartLabel;
 						}
 						
 					}

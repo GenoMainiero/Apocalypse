@@ -21,7 +21,7 @@ void Outputt(string s)
 	while (s[x] != '\0')
 	{
 		cout << s[x];
-		Sleep(25 + rand() % 25);
+		//Sleep(25 + rand() % 25);
 		x++;
 	}
 }
@@ -135,6 +135,7 @@ bool Blocked()
 	string deathAnswer;
 	char deathChar;
 	Outputt(stringContainerLoc->locationWarning);
+	Outputt("\nYou must enter either Y or N for this question.");
 	while (deathAnswer != "y" || "Y" || "n" || "N")
 	{
 		getline(cin, deathAnswer);

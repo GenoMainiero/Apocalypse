@@ -1,5 +1,5 @@
 ﻿  Main.cpp
-c:\users\geno mainiero\desktop\scrumbuts\apocalypse 3.0.0\apocalypse\inventory.h(42): warning C4018: '<': signed/unsigned mismatch
-c:\users\geno mainiero\desktop\scrumbuts\apocalypse 3.0.0\apocalypse\locations.h(136): warning C4101: 'deathChar': unreferenced local variable
-c:\users\geno mainiero\desktop\scrumbuts\apocalypse 3.0.0\apocalypse\locations.h(173): warning C4715: 'Blocked': not all control paths return a value
-  Apocalypse.vcxproj -> C:\Users\Geno Mainiero\Desktop\ScrumButs\Apocalypse 3.0.0\Debug\Apocalypse.exe
+c:\scrumbuts\apocalypse 3.0.0\apocalypse\inventory.h(42): warning C4018: '<': signed/unsigned mismatch
+c:\scrumbuts\apocalypse 3.0.0\apocalypse\locations.h(136): warning C4101: 'deathChar': unreferenced local variable
+c:\scrumbuts\apocalypse 3.0.0\apocalypse\locations.h(174): warning C4715: 'Blocked': not all control paths return a value
+  Apocalypse.vcxproj -> C:\ScrumButs\Apocalypse 3.0.0\Debug\Apocalypse.exe
